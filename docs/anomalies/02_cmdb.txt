@@ -1,0 +1,607 @@
+АНАЛИЗ КАЧЕСТВА ДАННЫХ — РАЗДЕЛ 2: CMDB (оборудование)
+
+Разобрано перемещений: 1179; оборудования из 1С: 2614
+Заголовок перемещений: inv_no; from_location; to_location; moved_on; performed_by_tab
+
+====================================================================================================
+### ПРОВЕРКА СКРЫТЫХ СИМВОЛОВ (подсказка README: через encode())
+
+--- Инвентарные номера в ПЕРЕМЕЩЕНИЯХ ---
+  'И'  U+0418  встречается 635 раз  
+  'Н'  U+041D  встречается 635 раз  
+  '-'  U+002D  встречается 635 раз  HYPHEN-MINUS (обычный дефис)
+  примеры repr():
+    'ИН-006011'   ->  b'\\u0418\\u041d-006011'
+    'ИН-002908'   ->  b'\\u0418\\u041d-002908'
+    'ИН-005190'   ->  b'\\u0418\\u041d-005190'
+    'ИН-001095'   ->  b'\\u0418\\u041d-001095'
+    'ИН-000420'   ->  b'\\u0418\\u041d-000420'
+
+--- Инвентарные номера в 1С (оборудование) ---
+  'И'  U+0418  встречается 1837 раз  
+  '-'  U+002D  встречается 1646 раз  HYPHEN-MINUS (обычный дефис)
+  'Н'  U+041D  встречается 1624 раз  
+  'и'  U+0438  встречается 272 раз  
+  'н'  U+043D  встречается 270 раз  
+  'о'  U+043E  встречается 5 раз  
+  'с'  U+0441  встречается 2 раз  
+  'е'  U+0435  встречается 2 раз  
+  'г'  U+0433  встречается 2 раз  
+  'п'  U+043F  встречается 2 раз  
+  'ц'  U+0446  встречается 2 раз  
+  'т'  U+0442  встречается 2 раз  
+  'В'  U+0412  встречается 1 раз  
+  'з'  U+0437  встречается 1 раз  
+  'й'  U+0439  встречается 1 раз  
+  'р'  U+0440  встречается 1 раз  
+  'а'  U+0430  встречается 1 раз  
+  примеры repr():
+    'ИН-005190'   ->  b'\\u0418\\u041d-005190'
+    'ИH-003597'   ->  b'\\u0418H-003597'
+    'ИН-001088'   ->  b'\\u0418\\u041d-001088'
+    '003791'   ->  b'003791'
+    '003114'   ->  b'003114'
+
+
+====================================================================================================
+### M1. Перемещения: количество строк
+
+SQL:
+SELECT count(*) AS rows FROM stage.cmdb_movements_parsed
+
+rows
+----------------------------------------------------------------------------------------------------
+1179
+(строк в результате: 1)
+
+====================================================================================================
+### M2. Инвентарные номера в перемещениях: примеры и длина
+
+SQL:
+SELECT DISTINCT inv_no, length(inv_no) AS len
+FROM stage.cmdb_movements_parsed
+ORDER BY inv_no
+LIMIT 15
+
+inv_no | len
+----------------------------------------------------------------------------------------------------
+ИН-000002 | 9
+ИН-000003 | 9
+ИН-000035 | 9
+ИН-000048 | 9
+ИН-000053 | 9
+ИН-000060 | 9
+ИН-000089 | 9
+ИН-000103 | 9
+ИН-000108 | 9
+ИН-000110 | 9
+ИН-000136 | 9
+ИН-000143 | 9
+ИН-000158 | 9
+ИН-000164 | 9
+ИН-000175 | 9
+(строк в результате: 15)
+
+====================================================================================================
+### M3. Инвентарные номера: не только латиница/цифры/дефис (скрытые символы)
+
+SQL:
+SELECT inv_no,
+       inv_no ~ '^[A-Za-z0-9\-]+$' AS ascii_only
+FROM (SELECT DISTINCT inv_no FROM stage.cmdb_movements_parsed) t
+WHERE inv_no !~ '^[A-Za-z0-9\-]+$'
+ORDER BY inv_no
+LIMIT 20
+
+inv_no | ascii_only
+----------------------------------------------------------------------------------------------------
+ИН-000002 | False
+ИН-000003 | False
+ИН-000035 | False
+ИН-000048 | False
+ИН-000053 | False
+ИН-000060 | False
+ИН-000089 | False
+ИН-000103 | False
+ИН-000108 | False
+ИН-000110 | False
+ИН-000136 | False
+ИН-000143 | False
+ИН-000158 | False
+ИН-000164 | False
+ИН-000175 | False
+ИН-000178 | False
+ИН-000186 | False
+ИН-000193 | False
+ИН-000204 | False
+ИН-000214 | False
+(строк в результате: 20)
+
+====================================================================================================
+### M4. Перемещения: формат даты moved_on
+
+SQL:
+SELECT
+    CASE
+        WHEN moved_on ~ '^\d{4}-\d{2}-\d{2}$' THEN 'YYYY-MM-DD'
+        WHEN moved_on = '' THEN '(пусто)'
+        ELSE 'другое'
+    END AS fmt, count(*) AS cnt, min(moved_on) AS example
+FROM stage.cmdb_movements_parsed
+GROUP BY 1 ORDER BY 2 DESC
+
+fmt | cnt | example
+----------------------------------------------------------------------------------------------------
+YYYY-MM-DD | 1179 | 2014-01-24
+(строк в результате: 1)
+
+====================================================================================================
+### M5. Перемещения: дата в будущем
+
+SQL:
+SELECT inv_no, moved_on FROM stage.cmdb_movements_parsed
+WHERE moved_on ~ '^\d{4}-\d{2}-\d{2}$' AND moved_on::date > CURRENT_DATE
+ORDER BY moved_on LIMIT 20
+
+inv_no | moved_on
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### M6. Перемещения: 'откуда' = 'куда' (бессмысленное перемещение)
+
+SQL:
+SELECT count(*) AS cnt FROM stage.cmdb_movements_parsed
+WHERE from_location = to_location
+
+cnt
+----------------------------------------------------------------------------------------------------
+13
+(строк в результате: 1)
+
+====================================================================================================
+### M7. Перемещения: пустые значения
+
+SQL:
+SELECT
+    count(*) FILTER (WHERE inv_no = '')           AS inv_no,
+    count(*) FILTER (WHERE from_location = '')    AS from_location,
+    count(*) FILTER (WHERE to_location = '')      AS to_location,
+    count(*) FILTER (WHERE moved_on = '')         AS moved_on,
+    count(*) FILTER (WHERE performed_by_tab = '') AS performed_by
+FROM stage.cmdb_movements_parsed
+
+inv_no | from_location | to_location | moved_on | performed_by
+----------------------------------------------------------------------------------------------------
+0 | 0 | 0 | 0 | 0
+(строк в результате: 1)
+
+====================================================================================================
+### M8. Перемещения: филиалы/локации (примеры)
+
+SQL:
+SELECT from_location, count(*) FROM stage.cmdb_movements_parsed
+GROUP BY from_location ORDER BY 2 DESC LIMIT 15
+
+from_location | count
+----------------------------------------------------------------------------------------------------
+Кроссовая Б-002 | 35
+Корпус А, каб. 128 | 34
+Корпус А, каб. 109 | 31
+Корпус Б, каб. 207 | 28
+Корпус Б, каб. 202 | 27
+Корпус Б, каб. 220 | 27
+Корпус Б, каб. 211 | 26
+Корпус А, каб. 102 | 26
+Корпус А, каб. 113 | 25
+Корпус А, каб. 130 | 24
+Корпус А, каб. 107 | 24
+Корпус А, каб. 126 | 24
+Корпус А, каб. 104 | 23
+Цех №1 | 22
+Корпус Б, каб. 209 | 22
+(строк в результате: 15)
+
+====================================================================================================
+### A1. Оборудование (1С): количество строк данных
+
+SQL:
+SELECT count(*) AS rows FROM stage.cmdb_assets_parsed
+
+rows
+----------------------------------------------------------------------------------------------------
+2614
+(строк в результате: 1)
+
+====================================================================================================
+### A2. Оборудование: формат инвентарного номера
+
+SQL:
+SELECT
+    inv_no,
+    length(inv_no) AS len,
+    inv_no ~ '^\d+$'        AS all_digits,
+    inv_no ~ '^\+'          AS has_plus,
+    substring(inv_no from '^(0+)') AS leading_zeros
+FROM stage.cmdb_assets_parsed
+ORDER BY src_line
+LIMIT 10
+
+inv_no | len | all_digits | has_plus | leading_zeros
+----------------------------------------------------------------------------------------------------
+005459 | 6 | True | False | 00
+000655 | 6 | True | False | 000
+006501 | 6 | True | False | 00
+ИН-005218 | 9 | False | False | 
+ИН-004903 | 9 | False | False | 
+000279 | 6 | True | False | 000
+ИН-004775 | 9 | False | False | 
+ИН005114 | 8 | False | False | 
+ИН-005578 | 9 | False | False | 
+ИН003281 | 8 | False | False | 
+(строк в результате: 10)
+
+====================================================================================================
+### A3. Оборудование: инвентарные номера — распределение по префиксу/виду
+
+SQL:
+SELECT
+    CASE
+        WHEN inv_no ~ '^\d+$'                              THEN 'только цифры'
+        WHEN inv_no ~ '^(ИН|ин)-?\d+$'                     THEN 'с префиксом ИН-'
+        ELSE 'другое: ' || inv_no
+    END AS kind,
+    count(*) AS cnt
+FROM stage.cmdb_assets_parsed
+GROUP BY 1 ORDER BY 2 DESC
+LIMIT 15
+
+kind | cnt
+----------------------------------------------------------------------------------------------------
+с префиксом ИН- | 1624
+только цифры | 501
+другое: Итого по странице | 6
+другое: ин 53 | 1
+другое: ин 4579 | 1
+другое: ИH-000201 | 1
+другое: ин 2346 | 1
+другое: ин 2968 | 1
+другое: ИH-004001 | 1
+другое: ИH-006323 | 1
+другое: ин 3503 | 1
+другое: ин 1258 | 1
+другое: ин 5586 | 1
+другое: ИH-003925 | 1
+другое: ИH-000828 | 1
+(строк в результате: 15)
+
+====================================================================================================
+### A4. Оборудование: стоимость — форматы
+
+SQL:
+SELECT
+    CASE
+        WHEN cost = '' THEN '(пусто)'
+        WHEN cost ~ '^\d{1,3}( \d{3})*,\d{2} руб\.$' THEN '12 345,67 руб.'
+        WHEN cost ~ '^\d{1,3}( \d{3})*,\d{2}$'       THEN '12 345,67'
+        WHEN cost ~ '^\d+,\d{2}$'                    THEN '12345,67'
+        WHEN cost ~ '^\d{1,3}( \d{3})*\.\d{2}$'      THEN '12 345.67 (точка)'
+        WHEN cost ~ '^\d+\.\d{2}$'                   THEN '12345.67 (точка)'
+        ELSE 'другое'
+    END AS fmt, count(*) AS cnt, min(cost) AS example
+FROM stage.cmdb_assets_parsed
+GROUP BY 1 ORDER BY 2 DESC
+
+fmt | cnt | example
+----------------------------------------------------------------------------------------------------
+12345.67 (точка) | 1200 | 10009.87
+12 345,67 | 1016 | 1 208 717,09
+12 345,67 руб. | 259 | 10 082,30 руб.
+другое | 131 | 10266.2
+(пусто) | 8 | 
+(строк в результате: 5)
+
+====================================================================================================
+### A4а. Оборудование: примеры нестандартной стоимости
+
+SQL:
+SELECT inv_no, cost FROM stage.cmdb_assets_parsed
+WHERE cost <> '' AND cost !~ '^\d{1,3}( \d{3})*,\d{2} руб\.$'
+ORDER BY src_line LIMIT 20
+
+inv_no | cost
+----------------------------------------------------------------------------------------------------
+000655 | 15 183,47
+006501 | 4479.18
+ИН-005218 | 61418.78
+ИН-004903 | 19481.08
+000279 | 86941.46
+ИН-004775 | 40597.65
+ИН005114 | 12 054,34
+ИН-005578 | 52287.51
+ИН003281 | 350847.34
+ИН003409 | 21570.86
+ин 5969 | 66866.99
+ИН-002527 | 26 198,54
+ИН-003242 | 5939.18
+ИН000303 | 11462.14
+ИН-003366 | 81959.43
+ИН-005385 | 12888.77
+ИН-003005 | 65 367,97
+ИН-005633 | 4376.6
+ИН000721 | 60 399,32
+ИH-001831 | 66 652,39
+(строк в результате: 20)
+
+====================================================================================================
+### A5. Оборудование: формат даты принятия к учёту
+
+SQL:
+SELECT
+    CASE
+        WHEN accept_date = '' THEN '(пусто)'
+        WHEN accept_date ~ '^\d{2}\.\d{2}\.\d{4}$'          THEN 'DD.MM.YYYY'
+        WHEN accept_date ~ '^\d{4}-\d{2}-\d{2} 00:00:00$'   THEN 'YYYY-MM-DD 00:00:00'
+        WHEN accept_date ~ '^\d{4}-\d{2}-\d{2}$'            THEN 'YYYY-MM-DD'
+        WHEN accept_date ~ '^\d{2}\.\d{2}\.\d{4} .*$'       THEN 'DD.MM.YYYY + время'
+        ELSE 'другое'
+    END AS fmt, count(*) AS cnt, min(accept_date) AS example
+FROM stage.cmdb_assets_parsed
+GROUP BY 1 ORDER BY 2 DESC
+
+fmt | cnt | example
+----------------------------------------------------------------------------------------------------
+YYYY-MM-DD 00:00:00 | 1839 | 2014-01-01 00:00:00
+DD.MM.YYYY | 767 | 01.01.2015
+(пусто) | 8 | 
+(строк в результате: 3)
+
+====================================================================================================
+### A6. Оборудование: значения состояния
+
+SQL:
+SELECT state, count(*) AS cnt FROM stage.cmdb_assets_parsed
+GROUP BY state ORDER BY 2 DESC
+
+state | cnt
+----------------------------------------------------------------------------------------------------
+В эксплуатации | 2031
+На складе | 293
+Списано | 198
+В ремонте | 84
+ | 8
+(строк в результате: 5)
+
+====================================================================================================
+### A7. Оборудование: пустые значения по столбцам
+
+SQL:
+SELECT
+    count(*) FILTER (WHERE inv_no = '')      AS inv_no,
+    count(*) FILTER (WHERE name = '')        AS name,
+    count(*) FILTER (WHERE model = '')       AS model,
+    count(*) FILTER (WHERE serial = '')      AS serial,
+    count(*) FILTER (WHERE accept_date = '') AS accept_date,
+    count(*) FILTER (WHERE cost = '')        AS cost,
+    count(*) FILTER (WHERE mol_tab = '')     AS mol_tab,
+    count(*) FILTER (WHERE location = '')    AS location,
+    count(*) FILTER (WHERE state = '')       AS state
+FROM stage.cmdb_assets_parsed
+
+inv_no | name | model | serial | accept_date | cost | mol_tab | location | state
+----------------------------------------------------------------------------------------------------
+1 | 7 | 8 | 8 | 8 | 8 | 8 | 8 | 8
+(строк в результате: 1)
+
+====================================================================================================
+### A8. Оборудование: дубли серийных номеров
+
+SQL:
+SELECT serial, count(*) AS cnt, string_agg(inv_no, ', ') AS inv_nos
+FROM stage.cmdb_assets_parsed
+WHERE serial <> ''
+GROUP BY serial HAVING count(*) > 1
+ORDER BY cnt DESC, serial LIMIT 30
+
+serial | cnt | inv_nos
+----------------------------------------------------------------------------------------------------
+JZUDWP1MC358 | 2 | 003990, ИН-006538
+PXWKC81X4JM4 | 2 | ИН-001304, ин 6533
+(строк в результате: 2)
+
+====================================================================================================
+### A9. Оборудование: дубли инвентарных номеров
+
+SQL:
+SELECT inv_no, count(*) FROM stage.cmdb_assets_parsed
+GROUP BY inv_no HAVING count(*) > 1
+
+inv_no | count
+----------------------------------------------------------------------------------------------------
+Итого по странице | 6
+(строк в результате: 1)
+
+====================================================================================================
+### X1. Инвентарные номера 1С: скрытые символы, строчные буквы, пробелы, мусор
+
+SQL:
+SELECT DISTINCT inv_no,
+       inv_no ~ 'H'      AS lat_H,
+       inv_no ~ ' '      AS has_space,
+       inv_no ~ '[а-яё]' AS lower_cyr,
+       inv_no = ''       AS empty
+FROM stage.cmdb_assets_parsed
+WHERE inv_no = ''
+   OR inv_no = 'Итого по странице'
+   OR inv_no ~ 'H'
+   OR inv_no ~ ' '
+   OR inv_no ~ '[а-яё]'
+ORDER BY inv_no
+LIMIT 50
+
+inv_no | lat_h | has_space | lower_cyr | empty
+----------------------------------------------------------------------------------------------------
+ | False | False | False | True
+Всего позиций: | False | True | True | False
+ИH-000030 | True | False | False | False
+ИH-000059 | True | False | False | False
+ИH-000069 | True | False | False | False
+ИH-000090 | True | False | False | False
+ИH-000150 | True | False | False | False
+ИH-000183 | True | False | False | False
+ИH-000201 | True | False | False | False
+ИH-000211 | True | False | False | False
+ИH-000221 | True | False | False | False
+ИH-000280 | True | False | False | False
+ИH-000344 | True | False | False | False
+ИH-000386 | True | False | False | False
+ИH-000392 | True | False | False | False
+ИH-000401 | True | False | False | False
+ИH-000420 | True | False | False | False
+ИH-000501 | True | False | False | False
+ИH-000526 | True | False | False | False
+ИH-000549 | True | False | False | False
+ИH-000623 | True | False | False | False
+ИH-000626 | True | False | False | False
+ИH-000646 | True | False | False | False
+ИH-000648 | True | False | False | False
+ИH-000668 | True | False | False | False
+ИH-000704 | True | False | False | False
+ИH-000711 | True | False | False | False
+ИH-000717 | True | False | False | False
+ИH-000740 | True | False | False | False
+ИH-000742 | True | False | False | False
+ИH-000751 | True | False | False | False
+ИH-000762 | True | False | False | False
+ИH-000828 | True | False | False | False
+ИH-000895 | True | False | False | False
+ИH-000902 | True | False | False | False
+ИH-000927 | True | False | False | False
+ИH-000935 | True | False | False | False
+ИH-000939 | True | False | False | False
+ИH-001001 | True | False | False | False
+ИH-001042 | True | False | False | False
+ИH-001052 | True | False | False | False
+ИH-001053 | True | False | False | False
+ИH-001087 | True | False | False | False
+ИH-001157 | True | False | False | False
+ИH-001202 | True | False | False | False
+ИH-001208 | True | False | False | False
+ИH-001211 | True | False | False | False
+ИH-001295 | True | False | False | False
+ИH-001320 | True | False | False | False
+ИH-001356 | True | False | False | False
+(строк в результате: 50)
+
+====================================================================================================
+### X2. Инвентарные номера 1С: мусорные строки-итоги
+
+SQL:
+SELECT count(*) AS junk_rows
+FROM stage.cmdb_assets_parsed
+WHERE inv_no = 'Итого по странице' OR inv_no = ''
+
+junk_rows
+----------------------------------------------------------------------------------------------------
+7
+(строк в результате: 1)
+
+====================================================================================================
+### X2b. Прямая сверка (без нормализации): совпадение номеров перемещений и 1С
+
+SQL:
+SELECT
+    count(DISTINCT m.inv_no) AS mov_total,
+    count(DISTINCT m.inv_no) FILTER (WHERE EXISTS (
+        SELECT 1 FROM stage.cmdb_assets_parsed a WHERE a.inv_no = m.inv_no
+    )) AS matched_exact,
+    count(DISTINCT m.inv_no) FILTER (WHERE NOT EXISTS (
+        SELECT 1 FROM stage.cmdb_assets_parsed a WHERE a.inv_no = m.inv_no
+    )) AS unmatched_exact
+FROM stage.cmdb_movements_parsed m
+
+mov_total | matched_exact | unmatched_exact
+----------------------------------------------------------------------------------------------------
+635 | 358 | 277
+(строк в результате: 1)
+
+====================================================================================================
+### X3. Нормализация и перекрёстная сверка по цифровой части номера
+
+SQL:
+WITH m AS (
+    SELECT DISTINCT ltrim(regexp_replace(inv_no, '\D', '', 'g'), '0') AS k
+    FROM stage.cmdb_movements_parsed
+),
+a AS (
+    SELECT DISTINCT ltrim(regexp_replace(inv_no, '\D', '', 'g'), '0') AS k
+    FROM stage.cmdb_assets_parsed
+    WHERE inv_no <> '' AND inv_no <> 'Итого по странице'
+)
+SELECT
+    (SELECT count(*) FROM m) AS mov_keys,
+    (SELECT count(*) FROM a) AS asset_keys,
+    (SELECT count(*) FROM m WHERE k <> '' AND k NOT IN (SELECT k FROM a)) AS mov_without_asset,
+    (SELECT count(*) FROM a WHERE k <> '' AND k NOT IN (SELECT k FROM m)) AS asset_without_move
+
+mov_keys | asset_keys | mov_without_asset | asset_without_move
+----------------------------------------------------------------------------------------------------
+635 | 2607 | 0 | 1971
+(строк в результате: 1)
+
+====================================================================================================
+### X4. Перемещения, ссылающиеся на оборудование, которого нет в 1С (примеры)
+
+SQL:
+WITH a AS (
+    SELECT DISTINCT ltrim(regexp_replace(inv_no, '\D', '', 'g'), '0') AS k
+    FROM stage.cmdb_assets_parsed
+    WHERE inv_no <> '' AND inv_no <> 'Итого по странице'
+)
+SELECT DISTINCT m.inv_no
+FROM stage.cmdb_movements_parsed m
+WHERE ltrim(regexp_replace(m.inv_no, '\D', '', 'g'), '0') NOT IN (SELECT k FROM a)
+ORDER BY m.inv_no
+LIMIT 30
+
+inv_no
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### X5. Дубли серийных номеров: одно устройство в двух форматах номера
+
+SQL:
+SELECT serial, count(*) AS cnt, string_agg(inv_no, '  |  ') AS inv_nos
+FROM stage.cmdb_assets_parsed
+WHERE serial <> ''
+GROUP BY serial HAVING count(*) > 1
+ORDER BY cnt DESC, serial
+
+serial | cnt | inv_nos
+----------------------------------------------------------------------------------------------------
+JZUDWP1MC358 | 2 | 003990  |  ИН-006538
+PXWKC81X4JM4 | 2 | ИН-001304  |  ин 6533
+(строк в результате: 2)
+
+====================================================================================================
+### X6. Сводка аномалий инвентарных номеров 1С
+
+SQL:
+SELECT
+    count(*)                                                        AS total_rows,
+    count(*) FILTER (WHERE inv_no ~ 'H')                            AS latin_H,
+    count(*) FILTER (WHERE inv_no ~ ' ')                            AS with_space,
+    count(*) FILTER (WHERE inv_no ~ '[а-яё]')                       AS lowercase_cyr,
+    count(*) FILTER (WHERE inv_no = '')                             AS empty_no,
+    count(*) FILTER (WHERE inv_no LIKE '%Итого%'
+                        OR inv_no LIKE '%Всего%')                   AS junk_totals,
+    count(*) FILTER (WHERE inv_no ~ '^\d+$')                        AS plain_digits,
+    count(*) FILTER (WHERE inv_no ~ '^ИН-\d+$')                     AS normal_IN_prefix
+FROM stage.cmdb_assets_parsed
+
+total_rows | latin_h | with_space | lowercase_cyr | empty_no | junk_totals | plain_digits | normal_in_prefix
+----------------------------------------------------------------------------------------------------
+2614 | 212 | 276 | 276 | 1 | 7 | 501 | 1434
+(строк в результате: 1)
+
