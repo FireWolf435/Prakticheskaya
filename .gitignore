@@ -56,3 +56,4 @@ import/
 
 # Documentation drafts
 ~$*
+docs/_*.txt
