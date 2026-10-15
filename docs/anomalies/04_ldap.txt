@@ -1,0 +1,318 @@
+АНАЛИЗ КАЧЕСТВА ДАННЫХ — РАЗДЕЛ 4: LDAP (ldap/directory.ldif)
+
+Всего записей в LDIF: 249; пользователей: 234
+
+====================================================================================================
+### L1. Количество пользователей LDAP
+
+SQL:
+SELECT count(*) AS users FROM stage.ldap_users_parsed
+
+users
+----------------------------------------------------------------------------------------------------
+234
+(строк в результате: 1)
+
+====================================================================================================
+### L2. Организация и структура (из корневых записей)
+
+SQL:
+SELECT line_data FROM stage.ldap_directory
+WHERE line_data LIKE 'dn:%' AND line_data NOT LIKE '%uid=%'
+ORDER BY src_line
+
+line_data
+----------------------------------------------------------------------------------------------------
+dn: dc=corp,dc=local
+dn: ou=people,dc=corp,dc=local
+dn: ou=groups,dc=corp,dc=local
+dn: ou=service,dc=corp,dc=local
+dn: cn=it-support-l1,ou=groups,dc=corp,dc=local
+dn: cn=it-support-l2,ou=groups,dc=corp,dc=local
+dn: cn=it-field,ou=groups,dc=corp,dc=local
+dn: cn=it-infra,ou=groups,dc=corp,dc=local
+dn: cn=it-security,ou=groups,dc=corp,dc=local
+dn: cn=dispatchers,ou=groups,dc=corp,dc=local
+dn: cn=dept-heads,ou=groups,dc=corp,dc=local
+dn: cn=auditors,ou=groups,dc=corp,dc=local
+(строк в результате: 12)
+
+====================================================================================================
+### L3. Организация o (значение)
+
+SQL:
+SELECT line_data FROM stage.ldap_directory WHERE line_data LIKE 'o:%'
+
+line_data
+----------------------------------------------------------------------------------------------------
+o: Vektor-Prom
+(строк в результате: 1)
+
+====================================================================================================
+### L4. Почтовый домен пользователей
+
+SQL:
+SELECT substring(mail from '@(.*)$') AS domain, count(*) AS cnt
+FROM stage.ldap_users_parsed WHERE mail <> ''
+GROUP BY 1 ORDER BY 2 DESC
+
+domain | cnt
+----------------------------------------------------------------------------------------------------
+corp.local | 234
+(строк в результате: 1)
+
+====================================================================================================
+### L5. Дубли uid
+
+SQL:
+SELECT uid, count(*) FROM stage.ldap_users_parsed WHERE uid <> ''
+GROUP BY uid HAVING count(*) > 1
+
+uid | count
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### L6. Дубли email
+
+SQL:
+SELECT mail, count(*) FROM stage.ldap_users_parsed WHERE mail <> ''
+GROUP BY mail HAVING count(*) > 1
+
+mail | count
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### L7. Пустые обязательные поля
+
+SQL:
+SELECT
+    count(*) FILTER (WHERE uid = '')              AS uid,
+    count(*) FILTER (WHERE cn = '')               AS cn,
+    count(*) FILTER (WHERE mail = '')             AS mail,
+    count(*) FILTER (WHERE employeenumber = '')   AS employee_number,
+    count(*) FILTER (WHERE departmentnumber = '') AS department_number
+FROM stage.ldap_users_parsed
+
+uid | cn | mail | employee_number | department_number
+----------------------------------------------------------------------------------------------------
+0 | 0 | 0 | 5 | 5
+(строк в результате: 1)
+
+====================================================================================================
+### L8. Пользователи LDAP с паролем
+
+SQL:
+SELECT count(*) FILTER (WHERE has_passwd) AS with_passwd,
+       count(*) FILTER (WHERE NOT has_passwd) AS without_passwd
+FROM stage.ldap_users_parsed
+
+with_passwd | without_passwd
+----------------------------------------------------------------------------------------------------
+234 | 0
+(строк в результате: 1)
+
+====================================================================================================
+### L9. Пользователи LDAP, которых нет в кадрах (по табельному номеру)
+
+SQL:
+SELECT l.uid, l.employeenumber, l.cn
+FROM stage.ldap_users_parsed l
+WHERE l.employeenumber <> ''
+  AND NOT EXISTS (SELECT 1 FROM stage.v_hr_employees e WHERE e.tab_no = l.employeenumber)
+ORDER BY l.employeenumber
+
+uid | employeenumber | cn
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### L10. Сотрудники кадров, отсутствующие в LDAP
+
+SQL:
+SELECT e.tab_no, e.fio, e.dept_code
+FROM stage.v_hr_employees e
+WHERE NOT EXISTS (
+    SELECT 1 FROM stage.ldap_users_parsed l WHERE l.employeenumber = e.tab_no
+)
+ORDER BY e.tab_no LIMIT 40
+
+tab_no | fio | dept_code
+----------------------------------------------------------------------------------------------------
+1010 | Сидорова Ксения Георгиевна | D011
+1022 | Кириллов Дмитрий Денисович | D011
+1055 | Соболев Антон Максимович | D021
+1074 | Платонова Вера Алексеевна | D0311
+1098 | Крюков Иван Александрович | D0312
+1105 | Ильин Григорий Денисович | D0313
+1112 | Скворцова Мария Кирилловна | D0313
+1145 | Колесников Иван Алексеевич | D0411
+1184 | Николаева Валерия Степановна | D0412
+1194 | Орлов Борис Антонович | D0412
+1215 | Марков Олег Олегович | D0412
+1217 | Князев Артём Николаевич | D0412
+1226 | Кириллова Анна Павловна | D0412
+1257 | Игнатьев Вадим Игоревич | D051
+1262 | ПРОКОФЬЕВА СВЕТЛАНА АЛЕКСЕЕВНА | D051
+1264 | Гришин Станислав Викторович | D051
+1303 | Козлова Тамара Вадимовна | D051
+1308 | Журавлёв Владимир Григорьевич | D051
+1321 | Фролова Дарья Викторовна | D051
+1328 | Горбунов Юрий Алексеевич | D051
+1354 | Чернышёва Валерия Кирилловна | D052
+1356 | СОФРОНОВА ВАЛЕРИЯ ОЛЕГОВНА | D052
+1371 | Бородин Денис Семёнович | D052
+1382 | Щербакова Валентина Игоревна | D052
+1423 | Гаврилов Павел Григорьевич | D052
+1430 | Горбунов Андрей Юрьевич | D053
+1447 | Тихонова Вера Георгиевна | D053
+1475 | Мухина Елизавета Семёновна | D054
+1481 | Макаров Евгений Романович | D054
+1482 | Соколов Андрей Дмитриевич | D054
+1487 | АРХИПОВА МАРИЯ КИРИЛЛОВНА | D06
+1489 | Егоров Никита Антонович | D06
+1527 | Маркова Юлия Андреевна | D09
+(строк в результате: 33)
+
+====================================================================================================
+### L11. Сверка подразделений LDAP и кадров (расхождения)
+
+SQL:
+SELECT l.employeenumber, l.uid, l.departmentnumber AS ldap_dept, e.dept_code AS hr_dept
+FROM stage.ldap_users_parsed l
+JOIN stage.v_hr_employees e ON e.tab_no = l.employeenumber
+WHERE l.departmentnumber <> e.dept_code
+ORDER BY l.employeenumber LIMIT 40
+
+employeenumber | uid | ldap_dept | hr_dept
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### L12. Сверка ФИО: displayName (LDAP) и ФИО (кадры)
+
+SQL:
+SELECT l.employeenumber, l.displayname AS ldap_name, e.fio AS hr_name
+FROM stage.ldap_users_parsed l
+JOIN stage.v_hr_employees e ON e.tab_no = l.employeenumber
+WHERE lower(l.displayname) <> lower(e.fio)
+ORDER BY l.employeenumber LIMIT 40
+
+employeenumber | ldap_name | hr_name
+----------------------------------------------------------------------------------------------------
+1134 | Шевченко Вера Фёдоровна | Шевченко  Вера Фёдоровна
+1136 | Кондратьева Ирина Романовна | Чернышёва Ирина Романовна
+1160 | Белякова Любовь Евгеньевна | Белякова  Любовь Евгеньевна
+1162 | Прокофьев Юрий Максимович | Прокофьев  Юрий Максимович
+1213 | Соболев Павел Дмитриевич | Соболев  Павел Дмитриевич
+1292 | Прокофьев Фёдор Николаевич | Прокофьев Федор Николаевич
+1365 | Ушаков Тимур Константинович | Ушаков  Тимур Константинович
+1402 | Калинина Яна Павловна | Беляева  Яна Павловна
+1417 | Голубев Фёдор Степанович | Голубев Федор Степанович
+1485 | Дементьева Екатерина Антоновна | Никитина Екатерина Антоновна
+1488 | Гришин Виталий Борисович | Гришин  Виталий Борисович
+1539 | Бондаренко Семён Викторович | Бондаренко Семен Викторович
+(строк в результате: 12)
+
+====================================================================================================
+### L13. Сверка email LDAP и кадров
+
+SQL:
+SELECT l.employeenumber, l.mail AS ldap_mail, e.email_raw AS hr_mail
+FROM stage.ldap_users_parsed l
+JOIN stage.v_hr_employees e ON e.tab_no = l.employeenumber
+WHERE lower(l.mail) <> lower(e.email_raw)
+ORDER BY l.employeenumber LIMIT 40
+
+employeenumber | ldap_mail | hr_mail
+----------------------------------------------------------------------------------------------------
+1108 | l.ovchinnikova@corp.local | 
+1131 | y.nikitin@corp.local | 
+1136 | i.kondrateva@corp.local | 
+1159 | t.markova@corp.local | 
+1243 | s.karpov@corp.local | 
+1361 | s.khokhlov@corp.local | 
+1409 | a.nekrasova@corp.local | 
+(строк в результате: 7)
+
+====================================================================================================
+### L14. Формат uid (примеры)
+
+SQL:
+SELECT uid, count(*) FROM (
+    SELECT CASE
+        WHEN uid ~ '^[a-z]\.[a-z]+$' THEN 'и.фамилия (норма)'
+        ELSE 'другое: ' || uid
+    END AS uid FROM stage.ldap_users_parsed
+) t GROUP BY uid ORDER BY 2 DESC LIMIT 15
+
+uid | count
+----------------------------------------------------------------------------------------------------
+и.фамилия (норма) | 220
+другое: v.grigoreva2 | 1
+другое: e.vinogradova2 | 1
+другое: s.bondarenko2 | 1
+другое: test | 1
+другое: b.orlov2 | 1
+другое: a.sokolov2 | 1
+другое: k.sidorova2 | 1
+другое: temp.buh | 1
+другое: admin2 | 1
+другое: scanner | 1
+другое: v.lebedev2 | 1
+другое: contractor.petrov | 1
+другое: s.prokofeva2 | 1
+другое: i.danilov2 | 1
+(строк в результате: 15)
+
+====================================================================================================
+### L15. Сервисные и дублирующие учётные записи (uid с цифрой / без табельного)
+
+SQL:
+SELECT uid, cn, employeenumber FROM stage.ldap_users_parsed
+WHERE uid ~ '\d$' OR employeenumber = ''
+ORDER BY uid
+
+uid | cn | employeenumber
+----------------------------------------------------------------------------------------------------
+a.sokolov2 | Андрей Соколов | 1541
+admin2 | admin2 | 
+b.orlov2 | Борис Орлов | 1545
+contractor.petrov | contractor.petrov | 
+e.vinogradova2 | Елизавета Виноградова | 1536
+i.danilov2 | Игорь Данилов | 1296
+k.sidorova2 | Ксения Сидорова | 1546
+s.bondarenko2 | Семён Бондаренко | 1539
+s.prokofeva2 | Светлана Прокофьева | 1542
+scanner | scanner | 
+temp.buh | temp.buh | 
+test | test | 
+v.grigoreva2 | Вера Григорьева | 1364
+v.lebedev2 | Виталий Лебедев | 1534
+(строк в результате: 14)
+
+====================================================================================================
+### L16. Учётные записи с суффиксом '2' (повторные) и их связь с кадрами
+
+SQL:
+SELECT l.uid, l.employeenumber, e.fio
+FROM stage.ldap_users_parsed l
+LEFT JOIN stage.v_hr_employees e ON e.tab_no = l.employeenumber
+WHERE l.uid ~ '\d$'
+ORDER BY l.uid
+
+uid | employeenumber | fio
+----------------------------------------------------------------------------------------------------
+a.sokolov2 | 1541 | Соколов Андрей Дмитриевич
+admin2 |  | 
+b.orlov2 | 1545 | Орлов Борис Антонович
+e.vinogradova2 | 1536 | Виноградова Елизавета Георгиевна
+i.danilov2 | 1296 | Данилов Игорь Алексеевич
+k.sidorova2 | 1546 | СИДОРОВА КСЕНИЯ ГЕОРГИЕВНА
+s.bondarenko2 | 1539 | Бондаренко Семен Викторович
+s.prokofeva2 | 1542 | Прокофьева Светлана Алексеевна
+v.grigoreva2 | 1364 | Григорьева Вера Юрьевна
+v.lebedev2 | 1534 | Лебедев Виталий Викторович
+(строк в результате: 10)
+
