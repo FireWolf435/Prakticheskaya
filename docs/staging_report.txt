@@ -1,0 +1,20 @@
+ОТЧЁТ О ЗАГРУЗКЕ В stage
+Папка с данными: C:\Users\user\Downloads\AyuGram Desktop\servicedesk_data_unpacked\servicedesk_data
+
+Файл                                    Таблица stage                              Строк
+----------------------------------------------------------------------------------------
+ref/categories.csv                      stage.ref_categories                          11
+ref/priorities_sla.csv                  stage.ref_priorities_sla                       5
+ref/production_calendar.csv             stage.ref_production_calendar                823
+ref/engineer_skills.csv                 stage.ref_engineer_skills                     78
+ref/duty_schedule.csv                   stage.ref_duty_schedule                      292
+hr/departments.csv                      stage.hr_departments                          33
+hr/employees.csv                        stage.hr_employees                           263
+cmdb/asset_movements.csv                stage.cmdb_asset_movements                  1180
+legacy/tickets.csv                      stage.legacy_tickets                       23282
+legacy/ticket_status_history.csv        stage.legacy_ticket_status_history        116911
+ldap/directory.ldif                     stage.ldap_directory                        4541
+cmdb/assets_1c_export.xlsx              stage.cmdb_assets_1c                        2618
+mail/*.eml                              stage.mail_messages                          679
+----------------------------------------------------------------------------------------
+ИТОГО                                                                             150716
