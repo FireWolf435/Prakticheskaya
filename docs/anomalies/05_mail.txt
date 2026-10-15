@@ -1,0 +1,239 @@
+АНАЛИЗ КАЧЕСТВА ДАННЫХ — РАЗДЕЛ 5: ПОЧТА (mail/*.eml)
+
+Разобрано писем: 35
+
+====================================================================================================
+### M1. Количество писем
+
+SQL:
+SELECT count(*) AS letters FROM stage.mail_parsed
+
+letters
+----------------------------------------------------------------------------------------------------
+35
+(строк в результате: 1)
+
+====================================================================================================
+### M2. Список писем (отправитель, тема, вложения)
+
+SQL:
+SELECT src_file, from_email, subject, n_attachments, attach_names
+FROM stage.mail_parsed ORDER BY src_file
+
+src_file | from_email | subject | n_attachments | attach_names
+----------------------------------------------------------------------------------------------------
+mail/001.eml | m.soboleva@corp.local | Не работает телефон | 0 | 
+mail/002.eml | a.moiseev@corp.local | Не видит флешку | 0 | 
+mail/003.eml | v.ershova@corp.local | Недоступен файловый сервер | 1 | скриншот ошибки.png
+mail/004.eml | g.mikhaylov@corp.local | Не включается компьютер | 0 | 
+mail/005.eml | p.antonova@corp.local | Дубль | 0 | 
+mail/006.eml | mailer-daemon@corp.local | Undelivered Mail Returned to Sender | 0 | 
+mail/007.eml | info@supplier-ooo.ru | Не могу зайти в личный кабинет | 0 | 
+mail/008.eml | m.mukhin@corp.local | Не открывается сетевая папка | 0 | 
+mail/009.eml | t.rumyantsev@corp.local | RE: [#120991] Не приходят письма | 0 | 
+mail/010.eml | mailer-daemon@corp.local | Undelivered Mail Returned to Sender | 0 | 
+mail/011.eml | l.egorova@corp.local | Outlook просит пароль | 0 | 
+mail/012.eml | s.karpenko@corp.local | Восстановить удалённый файл | 0 | 
+mail/013.eml | a.dmitriev@corp.local | Автоматический ответ: Re: [#120990] Ваша заявка принята | 0 | 
+mail/014.eml | l.gorshkova@corp.local | Срочно: смена реквизитов | 0 | 
+mail/015.eml | p.antonova@corp.local | Дубль | 0 | 
+mail/016.eml | o.markov@corp.local | Верните доступ к почте | 0 | 
+mail/017.eml | f.golubev@corp.local | Подозрительное письмо | 1 | скриншот ошибки.png
+mail/018.eml | v.ershova@corp.local | Ответ: [#121018] Не открываются сайты | 0 | 
+mail/019.eml | l.knyazeva@corp.local | Автоматический ответ: Re: [#121020] Ваша заявка принята | 0 | 
+mail/020.eml | z.biryukova@corp.local | Не работает телефон | 0 | 
+mail/021.eml | l.drozdova@corp.local | Автоматический ответ: Re: [#120996] Ваша заявка принята | 0 | 
+mail/022.eml | v.nikolaeva@corp.local | Ответ: [#120954] Заблокирована учётная запись | 0 | 
+mail/023.eml | n.shevchenko@corp.local | Ошибка при проведении документа | 0 | 
+mail/024.eml | e.bogdanov@corp.local | Принтер не печатает — очень срочно!!! | 0 | 
+mail/025.eml | o.kuzina@corp.local | Отправляю лог | 1 | setup_fix.exe
+mail/026.eml | e.fomina@corp.local | Заблокирован USB | 0 | 
+mail/027.eml | v.ershova@corp.local | Fwd: Re: [#121002] Зажёвывает бумагу | 0 | 
+mail/028.eml | m.krasnov@corp.local | Настроить переадресацию | 1 | скриншот ошибки.png
+mail/029.eml | ivan.petrov@gmail.com | Не могу зайти в личный кабинет | 0 | 
+mail/030.eml | z.efremova@corp.local | Ошибка при проведении документа | 0 | 
+mail/031.eml | t.konovalova@corp.local | Не отправляются письма | 0 | 
+mail/032.eml | v.lukyanova@corp.local | Fwd: Re: [#120995] Замените картридж | 0 | 
+mail/033.eml | e.nekrasova@corp.local |  | 0 | 
+mail/034.eml | t.bobrov@corp.local | RE: [#120992] Предоставить доступ к папке | 0 | 
+mail/035.eml | s.ignatov@corp.local | 1С не запускается | 1 | скриншот ошибки.png
+(строк в результате: 35)
+
+====================================================================================================
+### M3. Письма с вложениями
+
+SQL:
+SELECT src_file, from_email, attach_names, attach_magic
+FROM stage.mail_parsed WHERE n_attachments > 0 ORDER BY src_file
+
+src_file | from_email | attach_names | attach_magic
+----------------------------------------------------------------------------------------------------
+mail/003.eml | v.ershova@corp.local | скриншот ошибки.png | binary:89504e47
+mail/017.eml | f.golubev@corp.local | скриншот ошибки.png | binary:89504e47
+mail/025.eml | o.kuzina@corp.local | setup_fix.exe | Windows PE (MZ)
+mail/028.eml | m.krasnov@corp.local | скриншот ошибки.png | binary:89504e47
+mail/035.eml | s.ignatov@corp.local | скриншот ошибки.png | binary:89504e47
+(строк в результате: 5)
+
+====================================================================================================
+### M4. 🔥 Опасные вложения (исполняемые файлы)
+
+SQL:
+SELECT src_file, from_email, attach_names, attach_magic
+FROM stage.mail_parsed
+WHERE attach_magic ILIKE '%PE%' OR attach_names ~* '\.(exe|scr|bat|cmd|js|vbs|ps1)$'
+ORDER BY src_file
+
+src_file | from_email | attach_names | attach_magic
+----------------------------------------------------------------------------------------------------
+mail/025.eml | o.kuzina@corp.local | setup_fix.exe | Windows PE (MZ)
+(строк в результате: 1)
+
+====================================================================================================
+### M5. Отправители не из домена corp.local
+
+SQL:
+SELECT src_file, from_email, from_name
+FROM stage.mail_parsed
+WHERE from_email <> '' AND from_email !~* '@corp\.local$'
+ORDER BY src_file
+
+src_file | from_email | from_name
+----------------------------------------------------------------------------------------------------
+mail/007.eml | info@supplier-ooo.ru | 
+mail/029.eml | ivan.petrov@gmail.com | 
+(строк в результате: 2)
+
+====================================================================================================
+### M6. Email отправителя в ВЕРХНЕМ регистре (по сырому заголовку)
+
+SQL:
+SELECT src_file, from_raw, from_email
+FROM stage.mail_parsed
+WHERE from_raw ~ '[A-Z][A-Z0-9._%+-]*@[A-Za-z0-9.-]+'
+ORDER BY src_file
+
+src_file | from_raw | from_email
+----------------------------------------------------------------------------------------------------
+mail/001.eml | <M.SOBOLEVA@CORP.LOCAL> | m.soboleva@corp.local
+mail/006.eml | MAILER-DAEMON@corp.local | mailer-daemon@corp.local
+mail/010.eml | MAILER-DAEMON@corp.local | mailer-daemon@corp.local
+(строк в результате: 3)
+
+====================================================================================================
+### M7. Поле Reply-To (не совпадает с From)
+
+SQL:
+SELECT src_file, from_email, reply_to
+FROM stage.mail_parsed WHERE reply_to <> '' ORDER BY src_file
+
+src_file | from_email | reply_to
+----------------------------------------------------------------------------------------------------
+(строк в результате: 0)
+
+====================================================================================================
+### M8. Отправители, которых нет среди сотрудников
+
+SQL:
+SELECT DISTINCT m.from_email
+FROM stage.mail_parsed m
+WHERE m.from_email <> '' AND m.from_email !~* '@corp\.local$'
+
+from_email
+----------------------------------------------------------------------------------------------------
+ivan.petrov@gmail.com
+info@supplier-ooo.ru
+(строк в результате: 2)
+
+====================================================================================================
+### M9. Скрытые секреты (пароли/логины) в письмах
+
+SQL:
+SELECT src_file, subject, left(body_preview, 160) AS body
+FROM stage.mail_parsed
+WHERE body_preview ~* '(парол|password|pwd|Pa\$\$)' OR subject ~* '(парол|password)'
+ORDER BY src_file
+
+src_file | subject | body
+----------------------------------------------------------------------------------------------------
+mail/011.eml | Outlook просит пароль | Добрый день!  Outlook просит пароль. Кабинет 111.  -- С уважением, Лариса Егорова
+(строк в результате: 1)
+
+====================================================================================================
+### M10. Тема письма пустая или подозрительная
+
+SQL:
+SELECT src_file, subject FROM stage.mail_parsed
+WHERE subject = '' OR length(subject) > 100
+ORDER BY src_file
+
+src_file | subject
+----------------------------------------------------------------------------------------------------
+mail/033.eml | 
+(строк в результате: 1)
+
+====================================================================================================
+### M11. 🔥 SPF fail / подделка Return-Path (спуфинг отправителя)
+
+SQL:
+SELECT src_file, from_email, return_path, received_spf
+FROM stage.mail_parsed
+WHERE received_spf ~* 'fail'
+   OR (return_path <> '' AND return_path !~* '@corp\.local$')
+ORDER BY src_file
+
+src_file | from_email | return_path | received_spf
+----------------------------------------------------------------------------------------------------
+mail/014.eml | l.gorshkova@corp.local | bad@evil-mail.example | fail
+(строк в результате: 1)
+
+====================================================================================================
+### M12. Признаки фишинга/BEC в теме или тексте
+
+SQL:
+SELECT src_file, from_email, subject, left(body_preview, 140) AS body
+FROM stage.mail_parsed
+WHERE (subject || ' ' || body_preview) ~* '(срочно|реквизит|перевед|подтверд|доступ администратор|парол|оплат|счет)'
+ORDER BY src_file
+
+src_file | from_email | subject | body
+----------------------------------------------------------------------------------------------------
+mail/011.eml | l.egorova@corp.local | Outlook просит пароль | Добрый день!  Outlook просит пароль. Кабинет 111.  -- С уважением, Лариса Егорова
+mail/014.eml | l.gorshkova@corp.local | Срочно: смена реквизитов | Прошу выдать доступ администратора к 1С, срочно!
+mail/024.eml | e.bogdanov@corp.local | Принтер не печатает — очень срочно!!! | Горит отчёт
+(строк в результате: 3)
+
+====================================================================================================
+### M13. Письма-дубликаты (тот же отправитель и тема)
+
+SQL:
+SELECT from_email, subject, count(*) AS cnt, string_agg(src_file, ', ' ORDER BY src_file) AS files
+FROM stage.mail_parsed
+GROUP BY from_email, subject
+HAVING count(*) > 1
+ORDER BY cnt DESC, from_email
+
+from_email | subject | cnt | files
+----------------------------------------------------------------------------------------------------
+mailer-daemon@corp.local | Undelivered Mail Returned to Sender | 2 | mail/006.eml, mail/010.eml
+p.antonova@corp.local | Дубль | 2 | mail/005.eml, mail/015.eml
+(строк в результате: 2)
+
+====================================================================================================
+### M14. Системные письма (mailer-daemon / автоответы)
+
+SQL:
+SELECT src_file, from_email, subject FROM stage.mail_parsed
+WHERE from_email ~ 'mailer-daemon|no-reply|noreply'
+   OR subject ~* '(автоматический ответ|undelivered|returned to sender)'
+ORDER BY src_file
+
+src_file | from_email | subject
+----------------------------------------------------------------------------------------------------
+mail/006.eml | mailer-daemon@corp.local | Undelivered Mail Returned to Sender
+mail/010.eml | mailer-daemon@corp.local | Undelivered Mail Returned to Sender
+mail/013.eml | a.dmitriev@corp.local | Автоматический ответ: Re: [#120990] Ваша заявка принята
+mail/019.eml | l.knyazeva@corp.local | Автоматический ответ: Re: [#121020] Ваша заявка принята
+mail/021.eml | l.drozdova@corp.local | Автоматический ответ: Re: [#120996] Ваша заявка принята
+(строк в результате: 5)
+
