@@ -1,0 +1,5 @@
+# Зависимости Python для модулей импорта данных (ПМ.11, раздел 3 ТЗ)
+# Установка: python -m pip install -r requirements.txt
+
+psycopg[binary]>=3.1
+openpyxl>=3.1
