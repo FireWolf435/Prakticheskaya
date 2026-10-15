@@ -1,0 +1,58 @@
+# Git ignore for Service Desk PM.11 project
+
+# Secrets and environment
+.env
+.env.local
+*.secret
+*.key
+*.pem
+*.crt
+secrets/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build artifacts
+target/
+build/
+dist/
+
+# Database dumps
+*.dump
+*.backup
+backups/
+
+# Data (large files)
+data/
+import/
+*.csv
+*.xlsx
+*.eml
+*.ldif
+
+# Documentation drafts
+~$*

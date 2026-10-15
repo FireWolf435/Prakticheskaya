@@ -1,0 +1,110 @@
+
+
+services:
+  # ===========================================================================
+  # PostgreSQL 16 — ядро системы Service Desk
+  # ===========================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: sd-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: ${TZ}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - servers
+      - admin
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ===========================================================================
+  # OpenLDAP — централизованный каталог пользователей
+  # ===========================================================================
+  ldap:
+    image: osixia/openldap:1.5.0
+    container_name: sd-ldap
+    restart: unless-stopped
+    environment:
+      LDAP_ORGANISATION: ${LDAP_ORGANIZATION}
+      LDAP_DOMAIN: ${LDAP_DOMAIN}
+      LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+    ports:
+      - "389:389"
+      - "636:636"
+    networks:
+      - servers
+      - admin
+    healthcheck:
+      # Проверяем базу под администратором (анонимное чтение в каталоге запрещено)
+      test: ["CMD-SHELL", "ldapsearch -x -H ldap://localhost -D 'cn=admin,dc=corp,dc=local' -w \"$$LDAP_ADMIN_PASSWORD\" -b 'dc=corp,dc=local' -s base > /dev/null 2>&1 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ===========================================================================
+  # docker-mailserver — почтовый сервер (Postfix + Dovecot + LDAP auth)
+  # ===========================================================================
+  mail:
+    image: docker.io/mailserver/docker-mailserver:latest
+    container_name: sd-mail
+    restart: unless-stopped
+    hostname: mail.corp.local
+    domainname: corp.local
+    environment:
+      ENABLE_SPAMASSASSIN: "0"
+      ENABLE_CLAMAV: "0"
+      ENABLE_FAIL2BAN: "0"
+      ENABLE_POSTGREY: "0"
+      ENABLE_MANAGESIEVE: "0"
+      ENABLE_FETCHMAIL: "0"
+      SPOOF_PROTECTION: "1"
+      ENABLE_LDAP: "1"
+      LDAP_SERVER_HOST: ldap
+      LDAP_SERVER_PORT: 389
+      LDAP_BIND_DN: cn=admin,dc=corp,dc=local
+      LDAP_BIND_PASSWORD: ${LDAP_ADMIN_PASSWORD}
+      LDAP_SEARCH_BASE: ou=people,dc=corp,dc=local
+      LDAP_ATTRIBUTE_MAP: "mail=mail"
+    ports:
+      - "25:25"
+      - "143:143"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - ./mail:/tmp/docker-mailserver:ro
+      - maildata:/var/mail
+      - mailstate:/tmp/docker-mailserver-data
+    networks:
+      - servers
+      - admin
+    depends_on:
+      ldap:
+        condition: service_healthy
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=0
+
+networks:
+  users:
+    driver: bridge
+  servers:
+    driver: bridge
+  admin:
+    driver: bridge
+
+volumes:
+  pgdata:
+  maildata:
+  mailstate:
