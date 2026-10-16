@@ -18,6 +18,11 @@
 Этап 3.3-Б: оборудование (CMDB).
   ref/locations, cmdb/assets_1c_export.xlsx, cmdb/asset_movements.csv.
 
+Этап 3.3-В: легаси-заявки и история статусов.
+  legacy/tickets.csv, legacy/ticket_status_history.csv.
+  Категории/статусы/приоритеты приводятся к справочникам, тексты заявок
+  очищаются от паролей и логинов (маскирование, требование ИБ).
+
 Запуск:
     python importer/transform.py
 """
@@ -44,6 +49,9 @@ TARGET_TABLES = [
     "core.employees",
     "core.assets",
     "core.asset_movements",
+    "core.tickets",
+    "core.ticket_status_history",
+    "core.ticket_assets",
 ]
 
 
@@ -229,6 +237,80 @@ def location_kind(name):
 
 
 # ===========================================================================
+# Специфика легаси-заявок (этап 3.3-В)
+# ===========================================================================
+# Синонимы статусов -> канонические значения домена ref.ticket_status.
+STATUS_MAP = {
+    "новая": "Новая", "new": "Новая",
+    "назначена": "Назначена",
+    "в работе": "В работе", "in_progress": "В работе",
+    "ожидание пользователя": "Ожидание пользователя",
+    "ожидание": "Ожидание пользователя",
+    "ждем пользователя": "Ожидание пользователя",
+    "решена": "Решена", "выполнена": "Решена",
+    "закрыта": "Закрыта", "closed": "Закрыта",
+    "переоткрыта": "Переоткрыта",
+    "отклонена": "Отклонена", "отказ": "Отклонена",
+}
+
+# Словесные приоритеты -> числовой (1 — высший).
+PRIORITY_MAP = {
+    "критический": 1, "высокий": 2, "средний": 3, "низкий": 4,
+}
+
+# Пароль: ключевое слово + значение, содержащее цифру (типовой пул паролей).
+RE_PASSWORD = re.compile(r"(?i)(парол[а-яё]*\s+)(\S*[0-9]\S*)")
+# Логин: ключевое слово + значение вида имя.фамилия.
+RE_LOGIN = re.compile(r"(?i)(логин[а-яё]*\s+)([a-zа-я]+\.[a-zа-я0-9_]+)")
+
+
+def norm_status(raw):
+    """Синоним статуса -> канонический статус домена (или None)."""
+    s = re.sub(r"\s+", " ", (raw or "").strip().lower()).replace("ё", "е")
+    return STATUS_MAP.get(s)
+
+
+def norm_priority(raw):
+    """Слово/число -> числовой приоритет 1..5 (или None)."""
+    s = (raw or "").strip()
+    if not s:
+        return None
+    if s.isdigit():
+        n = int(s)
+        return n if 1 <= n <= 5 else None
+    return PRIORITY_MAP.get(s.lower())
+
+
+def parse_ts(raw):
+    """Дата/время источника (ISO с T и зоной либо через пробел) -> aware datetime|None."""
+    s = (raw or "").strip()
+    if not s:
+        return None
+    try:
+        value = dt.datetime.fromisoformat(s)
+    except ValueError:
+        return None
+    if value.tzinfo is None:
+        # В источнике время согласовано с UTC (часть значений с +00:00).
+        value = value.replace(tzinfo=dt.timezone.utc)
+    return value
+
+
+def mask_secrets(text):
+    """Маскирует пароли и логины знаком ***.
+
+    Возвращает (обработанный_текст, найдено_паролей, найдено_логинов, список_логинов).
+    Список логинов нужен только для отчёта службе ИБ и в БД не попадает.
+    """
+    if not text:
+        return text, 0, 0, []
+    logins = [m.group(2) for m in RE_LOGIN.finditer(text)]
+    text, n_pw = RE_PASSWORD.subn(lambda m: m.group(1) + "***", text)
+    text, n_lg = RE_LOGIN.subn(lambda m: m.group(1) + "***", text)
+    return text, n_pw, n_lg, logins
+
+
+# ===========================================================================
 # Загрузка источников
 # ===========================================================================
 class Loader:
@@ -237,6 +319,8 @@ class Loader:
         self.logbuf = []          # (source_file, source_table, src_line, status, reason)
         self.stats = {}           # src_file -> dict(total, loaded, corrected, rejected)
         self.corrections = {}     # reason -> count
+        self.rec_stats = {}       # src_file -> dict(records, loaded, corrected, rejected, extra_lines)
+        self.security = []        # заявки с секретами (для отчёта службе ИБ)
 
     def _stat(self, src_file):
         return self.stats.setdefault(
@@ -693,10 +777,244 @@ class Loader:
             self.mark(src, table, ln, status, reason)
         self.flush_log()
 
+    # --- легаси-заявки (этап 3.3-В) ----------------------------------------
+    def parse_multiline_stage(self, table, delimiter=";"):
+        """Разбор CSV из stage с учётом многострочных полей в кавычках.
+
+        В stage каждая физическая строка хранится отдельно, а запись, у которой
+        поле содержит перевод строки, занимает несколько строк. Возвращаем список
+        вида (список src_line, список полей); границы записей берём из
+        csv.reader.line_num.
+        """
+        rows = stage_rows(self.cur, table)
+        if not rows:
+            return []
+        text = "\n".join(r[1] for r in rows)
+        reader = csv.reader(io.StringIO(text), delimiter=delimiter)
+        records = []
+        consumed = 0
+        for fields in reader:
+            end = reader.line_num
+            records.append(([r[0] for r in rows[consumed:end]], fields))
+            consumed = end
+        return records
+
+    def category_maps(self):
+        """Возвращает (alias_lower -> category_id, category_id -> каноническое имя)."""
+        self.cur.execute(
+            "SELECT category_id, code, name, legacy_name FROM ref.categories")
+        by_alias, name_of = {}, {}
+        for cid, code, name, legacy in self.cur.fetchall():
+            name_of[cid] = name
+            for a in [code, name] + (legacy.split(";") if legacy else []):
+                key = a.strip().lower()
+                if key:
+                    by_alias.setdefault(key, cid)
+        return by_alias, name_of
+
+    def load_tickets(self, emp_by_tab, asset_by_key):
+        """core.tickets + core.ticket_assets из легаси-заявок."""
+        src, table = "legacy/tickets.csv", "legacy_tickets"
+        cat_by_alias, cat_name = self.category_maps()
+        self.cur.execute("SELECT employee_id, department_id FROM core.employees")
+        emp_dept = dict(self.cur.fetchall())
+
+        records = self.parse_multiline_stage(table, ";")
+        rs = self.rec_stats.setdefault(src, {
+            "records": 0, "loaded": 0, "corrected": 0, "rejected": 0, "extra_lines": 0})
+
+        def reject(lines, reason):
+            for ln in lines:
+                self.mark(src, table, ln, "rejected", reason)
+            rs["rejected"] += 1
+
+        ticket_id_by_number = {}
+        for idx, (lines, fields) in enumerate(records):
+            rs["records"] += 1
+            rs["extra_lines"] += max(0, len(lines) - 1)
+            if idx == 0:
+                for ln in lines:
+                    self.mark(src, table, ln, "rejected", "строка заголовка")
+                rs["rejected"] += 1
+                continue
+
+            f = [x.strip() for x in (list(fields) + [""] * 11)[:11]]
+            (number, created_raw, author_tab, category_raw, priority_raw,
+             subject_raw, description_raw, assignee_tab, status_raw,
+             closed_raw, inv_raw) = f
+
+            if not any(f):
+                reject(lines, "пустая строка")
+                continue
+            if not number:
+                reject(lines, "не указан номер заявки")
+                continue
+            author_id = emp_by_tab.get(author_tab)
+            if author_id is None:
+                reject(lines, f"автор {author_tab!r} не найден в кадрах")
+                continue
+            cat_id = cat_by_alias.get(category_raw.lower())
+            if cat_id is None:
+                reject(lines, f"категория {category_raw!r} не найдена в справочнике")
+                continue
+            status = norm_status(status_raw)
+            if status is None:
+                reject(lines, f"неизвестный статус {status_raw!r}")
+                continue
+            priority = norm_priority(priority_raw)
+            if priority is None:
+                reject(lines, f"некорректный приоритет {priority_raw!r}")
+                continue
+            created = parse_ts(created_raw)
+            if created is None:
+                reject(lines, f"не разобрана дата создания {created_raw!r}")
+                continue
+            if not subject_raw:
+                reject(lines, "пустая тема заявки")
+                continue
+            closed = parse_ts(closed_raw) if closed_raw else None
+
+            reasons = []
+            if status != status_raw:
+                reasons.append("статус приведён к каноническому значению")
+            if str(priority) != priority_raw:
+                reasons.append(f"приоритет {priority_raw!r} приведён к числовому")
+            if category_raw != cat_name.get(cat_id):
+                reasons.append("категория сопоставлена со справочником категорий")
+
+            subject = subject_raw
+            if len(subject) > 500:
+                subject = subject[:497] + "..."
+                reasons.append("тема обрезана до 500 символов")
+
+            subject, spw, slg, slog = mask_secrets(subject)
+            description, dpw, dlg, dlog = mask_secrets(description_raw)
+            if spw + slg + dpw + dlg:
+                reasons.append("замаскированы пароли/логины (требование ИБ)")
+                self.security.append({
+                    "number": number,
+                    "created": created.isoformat(),
+                    "password": bool(spw + dpw),
+                    "login": bool(slg + dlg),
+                    "logins": sorted(set(slog + dlog)),
+                })
+
+            executor_id = emp_by_tab.get(assignee_tab) if assignee_tab else None
+            if assignee_tab and executor_id is None:
+                reasons.append("исполнитель не найден в кадрах — поле обнулено")
+            department_id = emp_dept.get(author_id)
+
+            status_j = "corrected" if reasons else "loaded"
+            reason = "; ".join(dict.fromkeys(reasons)) if reasons else None
+            ok, err, row = sp_execute(
+                self.cur,
+                "INSERT INTO core.tickets "
+                "(ticket_number, author_id, category_id, priority, status, subject, "
+                " description, executor_id, department_id, created_at, updated_at, "
+                " closed_at) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) "
+                "RETURNING ticket_id",
+                (number, author_id, cat_id, priority, status, subject,
+                 description or None, executor_id, department_id,
+                 created, closed or created, closed))
+            if not ok:
+                reject(lines, f"ошибка СУБД: {err}")
+                continue
+            ticket_id = row[0]
+            ticket_id_by_number[number] = ticket_id
+
+            # Связь заявки с оборудованием (инвентарный номер есть в 12% заявок).
+            if inv_raw:
+                asset_id = asset_by_key.get(canon_inv_no(inv_raw))
+                if asset_id:
+                    self.cur.execute(
+                        "INSERT INTO core.ticket_assets(ticket_id, asset_id) "
+                        "VALUES (%s, %s) ON CONFLICT DO NOTHING",
+                        (ticket_id, asset_id))
+
+            first = True
+            for ln in lines:
+                # Строки-продолжения наследуют статус записи, но не
+                # удваивают причину в счётчике исправлений.
+                self.mark(src, table, ln, status_j, reason if first else None)
+                first = False
+            rs[status_j] += 1
+        self.flush_log()
+        return ticket_id_by_number
+
+    def load_ticket_history(self, ticket_id_by_number, emp_by_tab):
+        """core.ticket_status_history из журнала статусов легаси-системы."""
+        src, table = "legacy/ticket_status_history.csv", "legacy_ticket_status_history"
+        records = self.parse_multiline_stage(table, ";")
+        rs = self.rec_stats.setdefault(src, {
+            "records": 0, "loaded": 0, "corrected": 0, "rejected": 0, "extra_lines": 0})
+
+        def reject(lines, reason):
+            for ln in lines:
+                self.mark(src, table, ln, "rejected", reason)
+            rs["rejected"] += 1
+
+        for idx, (lines, fields) in enumerate(records):
+            rs["records"] += 1
+            rs["extra_lines"] += max(0, len(lines) - 1)
+            if idx == 0:
+                for ln in lines:
+                    self.mark(src, table, ln, "rejected", "строка заголовка")
+                rs["rejected"] += 1
+                continue
+
+            f = [x.strip() for x in (list(fields) + [""] * 5)[:5]]
+            ticket_no, moment_raw, old_raw, new_raw, who_tab = f
+            if not any(f):
+                reject(lines, "пустая строка")
+                continue
+
+            ticket_id = ticket_id_by_number.get(ticket_no)
+            if ticket_id is None:
+                reject(lines, f"заявка {ticket_no!r} отсутствует среди загруженных")
+                continue
+            to_status = norm_status(new_raw)
+            if to_status is None:
+                reject(lines, f"неизвестный статус {new_raw!r}")
+                continue
+            from_status = norm_status(old_raw) if old_raw else None
+            if old_raw and from_status is None:
+                reject(lines, f"неизвестный предыдущий статус {old_raw!r}")
+                continue
+            changed_at = parse_ts(moment_raw)
+            if changed_at is None:
+                reject(lines, f"не разобран момент перехода {moment_raw!r}")
+                continue
+            changed_by = emp_by_tab.get(who_tab) if who_tab else None
+
+            reasons = []
+            if to_status != new_raw:
+                reasons.append("новый статус приведён к каноническому значению")
+            if from_status and from_status != old_raw:
+                reasons.append("предыдущий статус приведён к каноническому значению")
+
+            status_j = "corrected" if reasons else "loaded"
+            reason = "; ".join(dict.fromkeys(reasons)) if reasons else None
+            ok, err, _ = sp_execute(
+                self.cur,
+                "INSERT INTO core.ticket_status_history "
+                "(ticket_id, from_status, to_status, changed_at, changed_by) "
+                "VALUES (%s,%s,%s,%s,%s)",
+                (ticket_id, from_status, to_status, changed_at, changed_by))
+            if not ok:
+                reject(lines, f"ошибка СУБД: {err}")
+                continue
+
+            first = True
+            for ln in lines:
+                self.mark(src, table, ln, status_j, reason if first else None)
+                first = False
+            rs[status_j] += 1
+        self.flush_log()
+
 
 def main():
     log("=" * 78)
-    log("ТРАНСФОРМАЦИЯ ДАННЫХ В ЦЕЛЕВЫЕ СХЕМЫ (пункт 3.3 ТЗ, этапы 3.3-А / 3.3-Б)")
+    log("ТРАНСФОРМАЦИЯ ДАННЫХ В ЦЕЛЕВЫЕ СХЕМЫ (пункт 3.3 ТЗ, этапы 3.3-А / 3.3-Б / 3.3-В)")
     log("=" * 78)
 
     env = load_env(os.path.join(ROOT, ".env"))
@@ -705,7 +1023,13 @@ def main():
     with psycopg.connect(dsn) as conn:
         with conn.cursor() as cur:
             cur.execute("TRUNCATE " + ", ".join(TARGET_TABLES) + " RESTART IDENTITY CASCADE")
-            cur.execute("DELETE FROM stage.import_log WHERE src_line > 0")
+            # Удаляем записи, созданные трансформацией (строки источников и её
+            # производные пометки), но сохраняем сводки загрузчика stage
+            # (src_line = 0, reason «Загружено … строк») — тогда журнал
+            # идемпотентен: повторный запуск не накапливает служебные строки.
+            cur.execute(
+                "DELETE FROM stage.import_log "
+                "WHERE NOT (src_line = 0 AND reason LIKE 'Загружено %')")
 
             ld = Loader(cur)
             # --- 3.3-А: справочники и кадры ---
@@ -721,16 +1045,28 @@ def main():
             loc_id = ld.load_locations(ld.collect_location_names())
             asset_by_key = ld.load_assets(emp_by_tab, loc_id)
             ld.load_asset_movements(asset_by_key, loc_id, emp_by_tab)
+            # --- 3.3-В: легаси-заявки и история статусов ---
+            ticket_id_by_number = ld.load_tickets(emp_by_tab, asset_by_key)
+            ld.load_ticket_history(ticket_id_by_number, emp_by_tab)
+            # updated_at поднимаем до последнего зафиксированного события.
+            cur.execute(
+                "UPDATE core.tickets t SET updated_at = GREATEST(t.updated_at, h.mx) "
+                "FROM (SELECT ticket_id, max(changed_at) AS mx "
+                "      FROM core.ticket_status_history GROUP BY ticket_id) h "
+                "WHERE h.ticket_id = t.ticket_id")
 
             stats = ld.stats
             corrections = ld.corrections
+            rec_stats = ld.rec_stats
+            security = ld.security
 
     # --- отчёт -------------------------------------------------------------
     order = ["ref/categories.csv", "ref/priorities_sla.csv", "ref/production_calendar.csv",
              "ref/engineer_skills.csv", "ref/duty_schedule.csv",
              "hr/departments.csv", "hr/employees.csv",
-             "cmdb/assets_1c_export.xlsx", "cmdb/asset_movements.csv"]
-    out = ["ОТЧЁТ О ТРАНСФОРМАЦИИ ДАННЫХ (пункт 3.3, этапы 3.3-А / 3.3-Б)", ""]
+             "cmdb/assets_1c_export.xlsx", "cmdb/asset_movements.csv",
+             "legacy/tickets.csv", "legacy/ticket_status_history.csv"]
+    out = ["ОТЧЁТ О ТРАНСФОРМАЦИИ ДАННЫХ (пункт 3.3, этапы 3.3-А / 3.3-Б / 3.3-В)", ""]
     head = f"{'Источник':<32}{'Всего':>8}{'loaded':>9}{'corrected':>11}{'rejected':>10}"
     out.append(head)
     out.append("-" * len(head))
@@ -750,6 +1086,30 @@ def main():
     for reason, cnt in sorted(corrections.items(), key=lambda x: -x[1]):
         out.append(f"  {cnt:>5}  {reason}")
     out.append("")
+    out.append("Счёт по ЗАПИСЯМ (для многострочных CSV):")
+    for src in order:
+        r = rec_stats.get(src)
+        if r:
+            out.append(
+                f"  {src}: записей {r['records']} = {r['loaded']} + {r['corrected']} "
+                f"+ {r['rejected']} (строк-продолжений: {r['extra_lines']})")
+
+    out.append("")
+    out.append("Соотношение строк и записей для legacy/tickets.csv:")
+    out.append("  23282 физические строки = 1 заголовок + 1720 строк внутри кавычек")
+    out.append("  (многострочные описания) + 21561 первая строка записи.")
+    out.append("  1 запись = 1 заголовок + 21561 заявка; каждая физическая строка даёт")
+    out.append("  запись в журнале, поэтому итоги по строкам совпадают со stage.")
+
+    n_pw = sum(1 for s in security if s["password"])
+    n_lg = sum(1 for s in security if s["login"])
+    out.append("")
+    out.append("Маскирование учётных данных (требование ИБ):")
+    out.append(f"  заявок с секретами: {len(security)} (пароли: {n_pw}, логины: {n_lg});")
+    out.append("  значения заменены на *** при вставке в core.tickets.")
+    out.append("  Подробный отчёт для службы ИБ: docs/security_findings.txt")
+
+    out.append("")
     out.append("Справочник физических мест (ref.locations) строится как производная")
     out.append("сущность из выгрузки 1С и журнала перемещений (в сверке по файлам")
     out.append("не участвует, чтобы не считать одни и те же исходные строки дважды).")
@@ -759,11 +1119,42 @@ def main():
     with open(path, "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
 
+    # Отчёт службе ИБ: перечень заявок, в которых нашлись учётные данные.
+    sec = [
+        "ОТЧЁТ ДЛЯ СЛУЖБЫ ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ",
+        "",
+        "Источник: legacy/tickets.csv (этап трансформации 3.3-В)",
+        "",
+        "В текстах легаси-заявок обнаружены учётные данные (пароли и логины).",
+        "При загрузке в core.tickets значения заменены на ***.",
+        "Сами пароли в этот отчёт не включаются и не хранятся в репозитории",
+        "(п. 2 ТЗ: секреты не хранятся в репозитории).",
+        "",
+        f"Заявок с секретами: {len(security)}",
+        f"  с паролями: {n_pw}",
+        f"  с логинами: {n_lg}",
+        "",
+        "Рекомендация: принудительно сменить пароли владельцам учётных записей",
+        "из перечня ниже.",
+        "",
+        f"{'Заявка':<10} {'Создана':<20} {'Пароль':<8} {'Логин':<7} Учётные записи",
+        "-" * 78,
+    ]
+    for s in sorted(security, key=lambda x: x["number"]):
+        sec.append(
+            f"{s['number']:<10} {s['created'][:19]:<20} "
+            f"{('ДА' if s['password'] else '-'):<8} "
+            f"{('ДА' if s['login'] else '-'):<7} {', '.join(s['logins']) or '-'}")
+    sec_path = os.path.join(ROOT, "docs", "security_findings.txt")
+    with open(sec_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(sec) + "\n")
+
     log("")
     for line in out:
         log(line)
     log("")
     log("Отчёт сохранён: " + path)
+    log("Отчёт для ИБ сохранён: " + sec_path)
     log("Готово.")
 
 

@@ -1,0 +1,28 @@
+ОТЧЁТ О СВЕРКЕ ДАННЫХ (пункт 3.4 ТЗ)
+Равенство: строк в файле = строк в staging = загружено + отклонено
+
+Источник                              В файле  В staging  Загружено+откл.   Вердикт
+-----------------------------------------------------------------------------------
+ref/categories.csv                         11         11               11        OK
+ref/priorities_sla.csv                      5          5                5        OK
+ref/production_calendar.csv               823        823              823        OK
+ref/engineer_skills.csv                    78         78               78        OK
+ref/duty_schedule.csv                     292        292              292        OK
+hr/departments.csv                         33         33               33        OK
+hr/employees.csv                          263        263              263        OK
+cmdb/asset_movements.csv                 1180       1180             1180        OK
+legacy/tickets.csv                      23282      23282            23282        OK
+legacy/ticket_status_history.csv       116911     116911           116911        OK
+ldap/directory.ldif                      4541       4541                —   staging
+cmdb/assets_1c_export.xlsx               2618       2618             2618        OK
+mail/*.eml                                679        679                —   staging
+
+ИТОГО                                  150716     150716           145496
+
+Примечания:
+  * «staging» — файл загружен в staging, перенос в цель выполняется
+    отдельным шагом (mail — п. 3.6, ldap — п. 3.7).
+  * «загружено + отклонено» = loaded + corrected + rejected;
+    строка заголовка каждого файла имеет статус rejected и входит в сумму.
+  * для legacy/tickets.csv число строк и число записей отличается из-за
+    многострочных полей (см. docs/transform_report.txt).

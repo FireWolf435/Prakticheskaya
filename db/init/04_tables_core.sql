@@ -68,8 +68,9 @@ CREATE TABLE core.tickets (
     department_id   SMALLINT REFERENCES ref.departments(department_id) ON DELETE SET NULL,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    closed_at       TIMESTAMPTZ,                  -- дата фактического закрытия заявки (из легаси-системы)
     version         INTEGER NOT NULL DEFAULT 1,   -- оптимистичная блокировка
-    sla_deadline    TIMESTAMPTZ,                  -- 계산ная дата истечения SLA
+    sla_deadline    TIMESTAMPTZ,                  -- расчётная дата истечения SLA
     sla_spent_min   INTEGER NOT NULL DEFAULT 0,   -- затрачено рабочих минут (без пауз)
     sla_paused_at   TIMESTAMPTZ,                  -- момент постановки на паузу (Ожидание пользователя)
     sla_paused_total INTEGER NOT NULL DEFAULT 0,   -- суммарное время паузы в минутах
@@ -79,6 +80,7 @@ CREATE TABLE core.tickets (
 
 COMMENT ON TABLE core.tickets IS 'Заявки службы поддержки (Service Desk)';
 COMMENT ON COLUMN core.tickets.description_tsv IS 'Полнотекстовый индекс для поиска по заявкам (русский язык)';
+COMMENT ON COLUMN core.tickets.closed_at IS 'Момент перехода заявки в терминальный статус (из легаси-выгрузки)';
 COMMENT ON COLUMN core.tickets.sla_deadline IS 'Срок решения с учётом производственного календаря';
 COMMENT ON COLUMN core.tickets.sla_paused_at IS 'Момент остановки таймера SLA (статус Ожидание пользователя)';
 
