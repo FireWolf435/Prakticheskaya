@@ -8,7 +8,7 @@
 CREATE TABLE core.employees (
     employee_id     SERIAL PRIMARY KEY,
     tab_number      VARCHAR(20) NOT NULL UNIQUE,  -- табельный номер (сопоставление с кадрами)
-    snils           ref.snils UNIQUE,             -- зашифровано через pgcrypto в приложении
+    snils           ref.snils,                     -- СНИЛС (уникален среди действующих, см. индекс ниже)
     email           ref.email UNIQUE,
     phone           ref.phone,
     birth_date      ref.birth_date,
@@ -40,6 +40,16 @@ COMMENT ON COLUMN core.employees.ldap_dn IS 'Идентифицирующее и
 ALTER TABLE ref.departments
 ADD CONSTRAINT fk_department_head
 FOREIGN KEY (head_employee_id) REFERENCES core.employees(employee_id) ON DELETE SET NULL;
+
+-- Частичный уникальный индекс (ТЗ, п. 4.1.6): один СНИЛС — не более одного
+-- ДЕЙСТВУЮЩЕГО трудового периода. Уволенные сотрудники с тем же СНИЛС
+-- (повторный приём на работу) не конфликтуют, т.к. dismissal_date заполнена.
+CREATE UNIQUE INDEX uq_employees_snils_active
+    ON core.employees (snils)
+    WHERE dismissal_date IS NULL;
+
+COMMENT ON INDEX core.uq_employees_snils_active IS
+'Один СНИЛС — не более одного действующего трудового периода (partial unique)';
 
 -- --------------------------------------------------------
 -- Заявки (Ticket)
@@ -143,16 +153,21 @@ CREATE TABLE core.assets (
     asset_type      VARCHAR(100) NOT NULL,
     model           VARCHAR(255),
     manufacturer    VARCHAR(255),
+    state           ref.asset_state NOT NULL DEFAULT 'В эксплуатации',  -- состояние из выгрузки 1С
+    cost            NUMERIC(12,2) CHECK (cost >= 0),                   -- балансовая стоимость
     purchase_date   DATE,
     warranty_until  DATE,
     responsible_id  INTEGER REFERENCES core.employees(employee_id) ON DELETE SET NULL,
-    location_id     SMALLINT REFERENCES ref.departments(department_id) ON DELETE SET NULL,
+    location_id     SMALLINT REFERENCES ref.locations(location_id) ON DELETE SET NULL,
     is_active       BOOLEAN NOT NULL DEFAULT TRUE,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 COMMENT ON TABLE core.assets IS 'Оборудование (CMDB) — инвентарный и серийный номер, ответственный, местонахождение';
+COMMENT ON COLUMN core.assets.state IS 'Состояние единицы оборудования из выгрузки 1С';
+COMMENT ON COLUMN core.assets.cost IS 'Балансовая стоимость единицы оборудования';
+COMMENT ON COLUMN core.assets.location_id IS 'Текущее физическое местонахождение';
 
 -- --------------------------------------------------------
 -- История перемещений оборудования
@@ -160,8 +175,8 @@ COMMENT ON TABLE core.assets IS 'Оборудование (CMDB) — инвен�
 CREATE TABLE core.asset_movements (
     movement_id     BIGSERIAL PRIMARY KEY,
     asset_id        INTEGER NOT NULL REFERENCES core.assets(asset_id) ON DELETE CASCADE,
-    from_location   SMALLINT REFERENCES ref.departments(department_id) ON DELETE SET NULL,
-    to_location     SMALLINT REFERENCES ref.departments(department_id) ON DELETE SET NULL,
+    from_location   SMALLINT REFERENCES ref.locations(location_id) ON DELETE SET NULL,
+    to_location     SMALLINT REFERENCES ref.locations(location_id) ON DELETE SET NULL,
     moved_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     moved_by        INTEGER REFERENCES core.employees(employee_id) ON DELETE SET NULL,
     reason          VARCHAR(500),
