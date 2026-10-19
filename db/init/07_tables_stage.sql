@@ -136,3 +136,28 @@ CREATE TABLE stage.import_log (
 
 COMMENT ON TABLE stage.import_log IS 'Журнал импорта: каждая строка — загружена, отклонена или исправлена с причиной';
 CREATE INDEX idx_import_log_file_status ON stage.import_log (source_file, status);
+
+-- ============================================================================
+-- Журнал обработки входящей почты (модуль mailintake, пункт 3.6 ТЗ)
+-- Одно письмо mail/*.eml = одна строка: результат обработки и причина.
+-- ============================================================================
+CREATE TABLE stage.mail_intake_log (
+    intake_id     BIGSERIAL PRIMARY KEY,
+    src_file      VARCHAR(255) NOT NULL,   -- письмо (mail/001.eml)
+    message_id    VARCHAR(512),            -- заголовок Message-ID
+    from_email    VARCHAR(320),            -- отправитель
+    subject       TEXT,                    -- тема письма (после декодирования)
+    letter_date   TIMESTAMPTZ,             -- дата письма
+    action        VARCHAR(20) NOT NULL CHECK (action IN
+                  ('ticket_created', 'comment_added', 'skipped', 'rejected')),
+    ticket_number VARCHAR(20),             -- заявка, к которой относится результат
+    ticket_id     BIGINT,                  -- ссылка на core.tickets (если есть)
+    reason        TEXT,                    -- причина (для skipped/rejected и пр.)
+    processed_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+COMMENT ON TABLE stage.mail_intake_log IS
+'Журнал mailintake: результат и причина обработки каждого письма из mail/*.eml';
+COMMENT ON COLUMN stage.mail_intake_log.action IS
+'Действие: ticket_created (создана заявка) / comment_added (добавлен комментарий) / skipped (пропущено) / rejected (отклонено)';
+CREATE INDEX idx_mail_intake_action ON stage.mail_intake_log (action);

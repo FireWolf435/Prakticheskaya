@@ -57,3 +57,7 @@ import/
 # Documentation drafts
 ~$*
 docs/_*.txt
+
+# Mail intake runtime artifacts (derived from source .eml, not committed)
+mailintake/attachments/
+mailintake/quarantine/
