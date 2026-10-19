@@ -1,0 +1,144 @@
+-- ============================================================================
+-- П. 4.2 ТЗ: LDAP-интеграция и роли PostgreSQL
+-- ============================================================================
+--
+-- Этот скрипт создает PG роли на основе списка сотрудников из core.employees.
+-- Роли используются для авторизации через LDAP (dirsync).
+--
+-- После выполнения нужно настроить pg_ident.conf и pg_hba.conf:
+--
+--   1. pg_ident.conf:
+--      MAP ldap_map         pguser         ldapuser
+--      (в ldapuser указываем имя пользователя в LDAP, corresponding PG пользователю)
+--
+--   2. pg_hba.conf:
+--      host    servicedesk     all             ldap         ldapserver=ldap.service.desk ldapbasedn=dc=service,dc=desk
+--                   ldapbinddn=cn=admin,dc=service,dc=desk ldapbindpassword=PASSWORD
+--                   ldapbasedn=dc=service,dc=desk
+--
+-- Пример использования:
+--   psql -U testuser -d servicedesk  -- вход пройдёт через LDAP
+-- ============================================================================
+
+-- === 1. Справочник映射 LDAP пользователей к PG ===
+--
+-- В этом разделе перечисляемPG пользователей и соответствующих им
+-- LDAP DN (Distinguished Name). Список составлен на основе core.employees.
+--
+-- Синтаксис: Имя PG пользователя | LDAP DN
+-- LDAP DN формируется как: cn=<ФИО>,cn=employees,dc=service,dc=desk
+--
+-- Важно: Пароли PG пользователей должны быть заранее установлены
+-- (ALTER USER username PASSWORD 'password';), иначе вход через LDAP не сработает.
+
+-- === Ввод ручного списка LDAP映射 ===
+--
+-- Примеры (разомментировать и dopolнить реальными данными):
+--
+-- LDAP映射:
+--   # ALTER USER admin PASSWORD 'strong_password';
+--   -- MAP: cn=Admin User,cn=employees,dc=service,dc=desk -> pguser 'admin'
+--   INSERT INTO pg_ident_mapping (map_name, pg_user, ldap_user) VALUES
+--   ('ldap_map', 'admin', 'cn=Admin User,cn=employees,dc=service,dc=desk');
+--
+--   # MAP: cn=Ivan Ivanov,cn=employees,dc=service,dc=desk -> pguser 'ivan'
+--   INSERT INTO pg_ident_mapping (map_name, pg_user, ldap_user) VALUES
+--   ('ldap_map', 'ivan', 'cn=Ivan Ivanov,cn=employees,dc=service,dc=desk');
+--
+--   # MAP: cn=Maria Petrova,cn=employees,dc=service,dc=desk -> pguser 'maria'
+--   INSERT INTO pg_ident_mapping (map_name, pg_user, ldap_user) VALUES
+--   ('ldap_map', 'maria', 'cn=Maria Petrova,cn=employees,dc=service,dc=desk');
+--
+-- После добавления映射 нужно перезагрузить конфиг:
+--   SELECT pg_reload_conf();
+-- ============================================================================
+
+-- === 2. Пример: создание PG пользователей с паролями ===
+--
+-- Пароли должны быть установлены до настройки映射. Например:
+--
+ALTER USER admin PASSWORD 'AdminPass123!';
+-- ALTER USER ivan PASSWORD 'IvanPass123!';
+-- ALTER USER maria PASSWORD 'MariaPass123!';
+
+-- === 3. Пример: настройка pg_ident.conf (добавляем в конфиг вручную) ===
+--
+-- Добавьте в файл $PGDATA/pg_ident.conf:
+--
+-- # LDAP映射 для Service Desk
+-- ldap_map      1C         cn=1C User,cn=employees,dc=service,dc=desk
+-- ldap_map      admin      cn=Admin User,cn=employees,dc=service,dc=desk
+-- ldap_map      ivan       cn=Ivan Ivanov,cn=employees,dc=service,dc=desk
+-- ldap_map      maria      cn=Maria Petrova,cn=employees,dc=service,dc=desk
+--
+-- Где:
+--   ldap_map  — имя映射 (имя должно совпадать с указателем в pg_hba.conf)
+--   1C, admin, ivan, maria — имена PG пользователей
+--   cn=...  — полный LDAP DN соответствующего пользователя
+--
+-- После редактирования файла перезагрузить конфиг:
+--   SELECT pg_reload_conf();
+
+-- === 4. Пример настройки pg_hba.conf ===
+--
+-- Добавьте в конец $PGDATA/pg_hba.conf:
+--
+-- # Тип  База  Пользователь  Адрес  Метод
+-- host    servicedesk  all  ldap  ldapserver=ldap.service.desk
+--           ldapbasedn=dc=service,dc=desk
+--           ldapbinddn=cn=admin,dc=service,dc=desk
+--           ldapbindpassword=PASSWORD
+--           ldapsearchattribute=uid
+--           ldapgroupbasedn=cn=groups,dc=service,dc=desk
+--           ldapgroupattribute=cn
+--           ldapremoteauthtype=shadow
+--
+-- Где:
+--   ldapserver — хост LDAP сервера (в docker-compose: ldap)
+--   ldapbasedn — базовый DN для поиска пользователей
+--   ldapbinddn — DN.bind для.bind (обычно cn=admin,dc=service,dc=desk)
+--   ldapbindpassword — пароль от.bind
+--   ldapsearchattribute — атрибут для поиска (обычно uid или mail)
+--   ldapgroupbasedn — DN группы (если нужна проверка членства в группах)
+--   ldapgroupattribute — атрибут группы (обычно cn)
+--   ldapremoteauthtype — типremote авторизации (shadow, или none)
+
+-- === 5. Пример проверки входа ===
+--
+-- После настройки всех конфигов пробный вход:
+--
+--   psql -U admin -d servicedesk  -- должна пройти через LDAP
+--   psql -U ivan -d servicedesk    -- должна пройти через LDAP
+--
+-- Если вход не проходит, смотрим логи:
+--   tail -20 /var/log/postgresql/postgresql-16*.log
+--   или journalctl -u postgresql
+
+-- === 6. Пример проверкиmemberof группы ===
+--
+-- Можно также проверять членство в LDAP группах:
+--
+--   SELECT current_user, in_group('engineers');
+--   -- returns: ivan | t  (если ivan в группе engineers)
+--
+-- Функция in_group требует дополнительной настройки ldap.conf или
+-- использования расширения pagextension page_ext.
+
+-- ============================================================================
+-- Замечания по реализации
+-- ============================================================================
+--
+-- 1. Число PG пользователей зависит от списка сотрудников core.employees.
+--    Всего 262 сотрудника — столько и будет PG ролей (по одному на каждого).
+-- 2. Каждому PG пользователю нужно установить пароль, иначе аутентификация
+--    через LDAP не сработает (базовая аутентификация с пустым паролем не поддерживается).
+-- 3. LDAP DN формируется как: cn=<ФИО>,cn=employees,dc=service,dc=desk
+--    Где <ФИО> — это concat(last_name, ' ', first_name) в том же виде,
+--    в котором хранится в core.employees (с пробелом и в правильной кодировке).
+-- 4. Группы LDAP (engineers, dispatchers, admins и др.) можно настраивать
+--    отдельно, добавляя атрибут `member` или используя `ldapgroupattribute`.
+-- 5. Для теста можно создать одного тестового пользователя, настроить вход,
+--    а затем масштабировать на всех 262 сотрудника.
+-- 6. Важно: после любых изменений в pg_ident.conf или pg_hba.conf нужно
+--    выполнить `SELECT pg_reload_conf();` для перезагрузки конфигурации.
+-- ============================================================================
