@@ -15,6 +15,10 @@ services:
       TZ: ${TZ}
     ports:
       - "${POSTGRES_PORT}:5432"
+    # /dev/shm по умолчанию 64 МБ: при больших таблицах PostgreSQL не может
+    # выделить разделяемую память под параллельные запросы и VACUUM
+    # («could not resize shared memory segment … No space left on device»).
+    shm_size: 256mb
     volumes:
       - ./db/init:/docker-entrypoint-initdb.d:ro
       - pgdata:/var/lib/postgresql/data
