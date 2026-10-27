@@ -1,0 +1,4534 @@
+dn: ou=people,dc=corp,dc=local
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=corp,dc=local
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=service,dc=corp,dc=local
+objectClass: organizationalUnit
+ou: service
+
+dn: uid=n.skvortsova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.skvortsova
+cn: Надежда Скворцова
+sn: Скворцова
+givenName: Надежда
+displayName: Скворцова Надежда Георгиевна
+mail: n.skvortsova@corp.local
+employeeNumber: 1386
+departmentNumber: D052
+title: Техник
+uidNumber: 10001
+gidNumber: 10000
+homeDirectory: /home/n.skvortsova
+loginShell: /bin/bash
+userPassword: {SSHA}Yw7ZXhuTpQkj/FfIKLIEppM2Bgipoaxy
+
+dn: uid=m.gorbunov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.gorbunov
+cn: Максим Горбунов
+sn: Горбунов
+givenName: Максим
+displayName: Горбунов Максим Юрьевич
+mail: m.gorbunov@corp.local
+employeeNumber: 1059
+departmentNumber: D022
+title: Руководитель: Отдел обучения
+uidNumber: 10002
+gidNumber: 10000
+homeDirectory: /home/m.gorbunov
+loginShell: /bin/bash
+userPassword: {SSHA}Xl99vTKDjOIttOk5FdmYb4qnPcMRLfOb
+
+dn: uid=v.ershova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.ershova
+cn: Валентина Ершова
+sn: Ершова
+givenName: Валентина
+displayName: Ершова Валентина Евгеньевна
+mail: v.ershova@corp.local
+employeeNumber: 1197
+departmentNumber: D0412
+title: Бухгалтер
+uidNumber: 10003
+gidNumber: 10000
+homeDirectory: /home/v.ershova
+loginShell: /bin/bash
+userPassword: {SSHA}2mOoCRGHjWLqkDgXt4dsiYvUcsYcOs7w
+
+dn: uid=f.savin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.savin
+cn: Фёдор Савин
+sn: Савин
+givenName: Фёдор
+displayName: Савин Фёдор Романович
+mail: f.savin@corp.local
+employeeNumber: 1298
+departmentNumber: D051
+title: Мастер участка
+uidNumber: 10004
+gidNumber: 10000
+homeDirectory: /home/f.savin
+loginShell: /bin/bash
+userPassword: {SSHA}o6G0XTsH4UmBpLW+NX7JXusoOnL7TlgV
+
+dn: uid=t.konovalova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.konovalova
+cn: Тамара Коновалова
+sn: Коновалова
+givenName: Тамара
+displayName: Коновалова Тамара Фёдоровна
+mail: t.konovalova@corp.local
+employeeNumber: 1006
+departmentNumber: D011
+title: Юрисконсульт
+uidNumber: 10005
+gidNumber: 10000
+homeDirectory: /home/t.konovalova
+loginShell: /bin/bash
+userPassword: {SSHA}aP4CxQu0s31aw8Nbb56N8RU//c4m+E/Q
+
+dn: uid=v.grishina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.grishina
+cn: Виктория Гришина
+sn: Гришина
+givenName: Виктория
+displayName: Гришина Виктория Сергеевна
+mail: v.grishina@corp.local
+employeeNumber: 1036
+departmentNumber: D012
+title: Специалист
+uidNumber: 10006
+gidNumber: 10000
+homeDirectory: /home/v.grishina
+loginShell: /bin/bash
+userPassword: {SSHA}5OF5R5ePz2hfjUmQR+PWjri4wVSDHhq0
+
+dn: uid=f.platonov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.platonov
+cn: Фёдор Платонов
+sn: Платонов
+givenName: Фёдор
+displayName: Платонов Фёдор Георгиевич
+mail: f.platonov@corp.local
+employeeNumber: 1277
+departmentNumber: D051
+title: Оператор
+uidNumber: 10007
+gidNumber: 10000
+homeDirectory: /home/f.platonov
+loginShell: /bin/bash
+userPassword: {SSHA}hJvMvrBp9oO/TzVZ93niqQSnTOEK8Ztr
+
+dn: uid=i.polyakov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.polyakov
+cn: Игорь Поляков
+sn: Поляков
+givenName: Игорь
+displayName: Поляков Игорь Сергеевич
+mail: i.polyakov@corp.local
+employeeNumber: 1094
+departmentNumber: D0312
+title: Ведущий инженер
+uidNumber: 10008
+gidNumber: 10000
+homeDirectory: /home/i.polyakov
+loginShell: /bin/bash
+userPassword: {SSHA}GjOp5iY0QY064R9vMd3vpcF8sEhgz6tQ
+
+dn: uid=s.efimov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.efimov
+cn: Степан Ефимов
+sn: Ефимов
+givenName: Степан
+displayName: Ефимов Степан Егорович
+mail: s.efimov@corp.local
+employeeNumber: 1521
+departmentNumber: D081
+title: Мастер участка
+uidNumber: 10009
+gidNumber: 10000
+homeDirectory: /home/s.efimov
+loginShell: /bin/bash
+userPassword: {SSHA}bR/GNZG5uE25xlFAaee482X4f3XH7+Ei
+
+dn: uid=v.lebedev2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.lebedev2
+cn: Виталий Лебедев
+sn: Лебедев
+givenName: Виталий
+displayName: Лебедев Виталий Викторович
+mail: v.lebedev2@corp.local
+employeeNumber: 1534
+departmentNumber: D052
+title: Экономист
+uidNumber: 10010
+gidNumber: 10000
+homeDirectory: /home/v.lebedev2
+loginShell: /bin/bash
+userPassword: {SSHA}qv/10v5Yn2eZKU7xvbEcnRup812j3dbl
+
+dn: uid=e.sokolova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.sokolova
+cn: Елена Соколова
+sn: Соколова
+givenName: Елена
+displayName: Соколова Елена Евгеньевна
+mail: e.sokolova@corp.local
+employeeNumber: 1389
+departmentNumber: D052
+title: Менеджер
+uidNumber: 10011
+gidNumber: 10000
+homeDirectory: /home/e.sokolova
+loginShell: /bin/bash
+userPassword: {SSHA}nSYuafUKQmp/ma0fqE2mhHtqkkxpvHmW
+
+dn: uid=e.karpova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.karpova
+cn: Елена Карпова
+sn: Карпова
+givenName: Елена
+displayName: Карпова Елена Семёновна
+mail: e.karpova@corp.local
+employeeNumber: 1347
+departmentNumber: D052
+title: Менеджер
+uidNumber: 10012
+gidNumber: 10000
+homeDirectory: /home/e.karpova
+loginShell: /bin/bash
+userPassword: {SSHA}rZLB8fjEVeD77GS7Ym305Lg9zk+5qnMQ
+
+dn: uid=i.makarova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.makarova
+cn: Ирина Макарова
+sn: Макарова
+givenName: Ирина
+displayName: Макарова Ирина Константиновна
+mail: i.makarova@corp.local
+employeeNumber: 1228
+departmentNumber: D0412
+title: Ведущий специалист
+uidNumber: 10013
+gidNumber: 10000
+homeDirectory: /home/i.makarova
+loginShell: /bin/bash
+userPassword: {SSHA}0RuGZisfFj4uq/nqDeEEH5LKU94KQnS8
+
+dn: uid=m.leonteva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.leonteva
+cn: Мария Леонтьева
+sn: Леонтьева
+givenName: Мария
+displayName: Леонтьева Мария Викторовна
+mail: m.leonteva@corp.local
+employeeNumber: 1140
+departmentNumber: D0411
+title: Руководитель: Сектор корпоративных клиентов
+uidNumber: 10014
+gidNumber: 10000
+homeDirectory: /home/m.leonteva
+loginShell: /bin/bash
+userPassword: {SSHA}Mivs+6oBYMmD6VZBVtlrZ0CbPixRDEaT
+
+dn: uid=a.moiseev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.moiseev
+cn: Андрей Моисеев
+sn: Моисеев
+givenName: Андрей
+displayName: Моисеев Андрей Олегович
+mail: a.moiseev@corp.local
+employeeNumber: 1422
+departmentNumber: D052
+title: Экономист
+uidNumber: 10015
+gidNumber: 10000
+homeDirectory: /home/a.moiseev
+loginShell: /bin/bash
+userPassword: {SSHA}U3Eme9c2PLthHo/7VlYSsRxyccd4tm3K
+
+dn: uid=g.bogdanov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.bogdanov
+cn: Георгий Богданов
+sn: Богданов
+givenName: Георгий
+displayName: Богданов Георгий Егорович
+mail: g.bogdanov@corp.local
+employeeNumber: 1411
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10016
+gidNumber: 10000
+homeDirectory: /home/g.bogdanov
+loginShell: /bin/bash
+userPassword: {SSHA}VwTW3v6ZOmJEsmewD2IjU7vrFfFSRDit
+
+dn: uid=e.nekrasova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.nekrasova
+cn: Елена Некрасова
+sn: Некрасова
+givenName: Елена
+displayName: Некрасова Елена Борисовна
+mail: e.nekrasova@corp.local
+employeeNumber: 1349
+departmentNumber: D052
+title: Техник
+uidNumber: 10017
+gidNumber: 10000
+homeDirectory: /home/e.nekrasova
+loginShell: /bin/bash
+userPassword: {SSHA}MRCRwT+hAAO1Hk3IV/yWmq9gyufzwteN
+
+dn: uid=m.moiseev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.moiseev
+cn: Максим Моисеев
+sn: Моисеев
+givenName: Максим
+displayName: Моисеев Максим Алексеевич
+mail: m.moiseev@corp.local
+employeeNumber: 1247
+departmentNumber: D042
+title: Кладовщик
+uidNumber: 10018
+gidNumber: 10000
+homeDirectory: /home/m.moiseev
+loginShell: /bin/bash
+userPassword: {SSHA}HTjGtLF2RrJww5mSyKDqyHNyzR34l9kS
+
+dn: uid=v.sidorov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.sidorov
+cn: Вадим Сидоров
+sn: Сидоров
+givenName: Вадим
+displayName: Сидоров Вадим Иванович
+mail: v.sidorov@corp.local
+employeeNumber: 1259
+departmentNumber: D051
+title: Менеджер
+uidNumber: 10019
+gidNumber: 10000
+homeDirectory: /home/v.sidorov
+loginShell: /bin/bash
+userPassword: {SSHA}TfVh/J4IVQAAGJzcJ55gTUsjfDLl2xX+
+
+dn: uid=e.korotkova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.korotkova
+cn: Елена Короткова
+sn: Короткова
+givenName: Елена
+displayName: Короткова Елена Константиновна
+mail: e.korotkova@corp.local
+employeeNumber: 1004
+departmentNumber: D011
+title: Руководитель: Бухгалтерия
+uidNumber: 10020
+gidNumber: 10000
+homeDirectory: /home/e.korotkova
+loginShell: /bin/bash
+userPassword: {SSHA}k+YDpYL2Wg4eZzdi+R7xwQLzprbdJ91c
+
+dn: uid=n.shevchenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.shevchenko
+cn: Наталья Шевченко
+sn: Шевченко
+givenName: Наталья
+displayName: Шевченко Наталья Сергеевна
+mail: n.shevchenko@corp.local
+employeeNumber: 1125
+departmentNumber: D0321
+title: Сетевой инженер
+uidNumber: 10021
+gidNumber: 10000
+homeDirectory: /home/n.shevchenko
+loginShell: /bin/bash
+userPassword: {SSHA}H3T1PCd3NcA07wg4KoGNIPXLTFLymGH0
+
+dn: uid=t.ushakov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.ushakov
+cn: Тимур Ушаков
+sn: Ушаков
+givenName: Тимур
+displayName: Ушаков Тимур Константинович
+mail: t.ushakov@corp.local
+employeeNumber: 1365
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10022
+gidNumber: 10000
+homeDirectory: /home/t.ushakov
+loginShell: /bin/bash
+userPassword: {SSHA}EnH+aYzNroOHgbb6VhondGBWsqDpl4n1
+
+dn: uid=l.belyakova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.belyakova
+cn: Любовь Белякова
+sn: Белякова
+givenName: Любовь
+displayName: Белякова Любовь Евгеньевна
+mail: l.belyakova@corp.local
+employeeNumber: 1160
+departmentNumber: D0411
+title: Юрисконсульт
+uidNumber: 10023
+gidNumber: 10000
+homeDirectory: /home/l.belyakova
+loginShell: /bin/bash
+userPassword: {SSHA}7pMHk8YcHpF7Ra+PW1x7fLK66MHm87S1
+
+dn: uid=m.prokofeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.prokofeva
+cn: Маргарита Прокофьева
+sn: Прокофьева
+givenName: Маргарита
+displayName: Прокофьева Маргарита Петровна
+mail: m.prokofeva@corp.local
+employeeNumber: 1236
+departmentNumber: D042
+title: Ведущий специалист
+uidNumber: 10024
+gidNumber: 10000
+homeDirectory: /home/m.prokofeva
+loginShell: /bin/bash
+userPassword: {SSHA}y59tPMcFo2OaNqptX30EFewxZeaOwyY3
+
+dn: uid=m.soboleva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.soboleva
+cn: Маргарита Соболева
+sn: Соболева
+givenName: Маргарита
+displayName: Соболева Маргарита Антоновна
+mail: m.soboleva@corp.local
+employeeNumber: 1245
+departmentNumber: D042
+title: Ведущий специалист
+uidNumber: 10025
+gidNumber: 10000
+homeDirectory: /home/m.soboleva
+loginShell: /bin/bash
+userPassword: {SSHA}NXIb7jli/b+cfe4CgmMgAV/m7DtromQf
+
+dn: uid=i.prokhorov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.prokhorov
+cn: Иван Прохоров
+sn: Прохоров
+givenName: Иван
+displayName: Прохоров Иван Александрович
+mail: i.prokhorov@corp.local
+employeeNumber: 1025
+departmentNumber: D011
+title: Мастер участка
+uidNumber: 10026
+gidNumber: 10000
+homeDirectory: /home/i.prokhorov
+loginShell: /bin/bash
+userPassword: {SSHA}r+qHCX/x8Z//oxh3UREElVahNl3W4XMV
+
+dn: uid=v.sokolov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.sokolov
+cn: Василий Соколов
+sn: Соколов
+givenName: Василий
+displayName: Соколов Василий Фёдорович
+mail: v.sokolov@corp.local
+employeeNumber: 1352
+departmentNumber: D052
+title: Главный специалист
+uidNumber: 10027
+gidNumber: 10000
+homeDirectory: /home/v.sokolov
+loginShell: /bin/bash
+userPassword: {SSHA}Gr6o9rP0wkpat8gv0U/+OhcPkSfVcn4o
+
+dn: uid=y.pavlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.pavlov
+cn: Юрий Павлов
+sn: Павлов
+givenName: Юрий
+displayName: Павлов Юрий Николаевич
+mail: y.pavlov@corp.local
+employeeNumber: 1169
+departmentNumber: D0411
+title: Техник
+uidNumber: 10028
+gidNumber: 10000
+homeDirectory: /home/y.pavlov
+loginShell: /bin/bash
+userPassword: {SSHA}YwGq3IQ7a5yGZ/duwaqnxNu5R/vmSprB
+
+dn: uid=v.blinova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.blinova
+cn: Валентина Блинова
+sn: Блинова
+givenName: Валентина
+displayName: Блинова Валентина Степановна
+mail: v.blinova@corp.local
+employeeNumber: 1501
+departmentNumber: D07
+title: Мастер участка
+uidNumber: 10029
+gidNumber: 10000
+homeDirectory: /home/v.blinova
+loginShell: /bin/bash
+userPassword: {SSHA}9x0xHMBq5C+ZeyeLbIoHTB5nlcdOIBr0
+
+dn: uid=e.kozlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.kozlov
+cn: Егор Козлов
+sn: Козлов
+givenName: Егор
+displayName: Козлов Егор Петрович
+mail: e.kozlov@corp.local
+employeeNumber: 1211
+departmentNumber: D0412
+title: Мастер участка
+uidNumber: 10030
+gidNumber: 10000
+homeDirectory: /home/e.kozlov
+loginShell: /bin/bash
+userPassword: {SSHA}pdTwA+NNUn5fTADe3KqUT1N2pQdryEba
+
+dn: uid=n.nikolaev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.nikolaev
+cn: Николай Николаев
+sn: Николаев
+givenName: Николай
+displayName: Николаев Николай Павлович
+mail: n.nikolaev@corp.local
+employeeNumber: 1435
+departmentNumber: D053
+title: Экономист
+uidNumber: 10031
+gidNumber: 10000
+homeDirectory: /home/n.nikolaev
+loginShell: /bin/bash
+userPassword: {SSHA}OXl3sBDauASrsQ9STfP12U4lIsMmlo56
+
+dn: uid=s.novikov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.novikov
+cn: Степан Новиков
+sn: Новиков
+givenName: Степан
+displayName: Новиков Степан Фёдорович
+mail: s.novikov@corp.local
+employeeNumber: 1406
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10032
+gidNumber: 10000
+homeDirectory: /home/s.novikov
+loginShell: /bin/bash
+userPassword: {SSHA}C0tyPYksd/2MyPNH2DBUgp9Ty0ZQGezx
+
+dn: uid=a.bykova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.bykova
+cn: Алина Быкова
+sn: Быкова
+givenName: Алина
+displayName: Быкова Алина Дмитриевна
+mail: a.bykova@corp.local
+employeeNumber: 1313
+departmentNumber: D051
+title: Юрисконсульт
+uidNumber: 10033
+gidNumber: 10000
+homeDirectory: /home/a.bykova
+loginShell: /bin/bash
+userPassword: {SSHA}iycUkL84gm4XBNAd0dsnd3HWNs/YC91E
+
+dn: uid=k.semenov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.semenov
+cn: Кирилл Семёнов
+sn: Семёнов
+givenName: Кирилл
+displayName: Семёнов Кирилл Егорович
+mail: k.semenov@corp.local
+employeeNumber: 1484
+departmentNumber: D054
+title: Оператор
+uidNumber: 10034
+gidNumber: 10000
+homeDirectory: /home/k.semenov
+loginShell: /bin/bash
+userPassword: {SSHA}P/LmWV9CXvKKuPTAlMukgdSNmS3wiiJW
+
+dn: uid=o.chernova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.chernova
+cn: Оксана Чернова
+sn: Чернова
+givenName: Оксана
+displayName: Чернова Оксана Игоревна
+mail: o.chernova@corp.local
+employeeNumber: 1439
+departmentNumber: D053
+title: Менеджер
+uidNumber: 10035
+gidNumber: 10000
+homeDirectory: /home/o.chernova
+loginShell: /bin/bash
+userPassword: {SSHA}GN7+wcU0zTs+wQEulNg7M/Icd3Mm9k2y
+
+dn: uid=a.nikitina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.nikitina
+cn: Алина Никитина
+sn: Никитина
+givenName: Алина
+displayName: Никитина Алина Григорьевна
+mail: a.nikitina@corp.local
+employeeNumber: 1126
+departmentNumber: D0322
+title: Руководитель: Группа серверов и СХД
+uidNumber: 10036
+gidNumber: 10000
+homeDirectory: /home/a.nikitina
+loginShell: /bin/bash
+userPassword: {SSHA}+qlcQtxnzLXJcwNFBHvgRuE7TqUL8PW7
+
+dn: uid=a.kirillova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.kirillova
+cn: Анна Кириллова
+sn: Кириллова
+givenName: Анна
+displayName: Кириллова Анна Степановна
+mail: a.kirillova@corp.local
+employeeNumber: 1065
+departmentNumber: D022
+title: Мастер участка
+uidNumber: 10037
+gidNumber: 10000
+homeDirectory: /home/a.kirillova
+loginShell: /bin/bash
+userPassword: {SSHA}8SVvHK80FBtMD+vZlT5lDRb4HnrhFx4l
+
+dn: uid=p.antonova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.antonova
+cn: Полина Антонова
+sn: Антонова
+givenName: Полина
+displayName: Антонова Полина Георгиевна
+mail: p.antonova@corp.local
+employeeNumber: 1305
+departmentNumber: D051
+title: Оператор
+uidNumber: 10038
+gidNumber: 10000
+homeDirectory: /home/p.antonova
+loginShell: /bin/bash
+userPassword: {SSHA}kNSxxmrOTtua22fRTnbq38co5g3MWD8n
+
+dn: uid=t.bobrov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.bobrov
+cn: Тимур Бобров
+sn: Бобров
+givenName: Тимур
+displayName: Бобров Тимур Степанович
+mail: t.bobrov@corp.local
+employeeNumber: 1294
+departmentNumber: D051
+title: Кладовщик
+uidNumber: 10039
+gidNumber: 10000
+homeDirectory: /home/t.bobrov
+loginShell: /bin/bash
+userPassword: {SSHA}TJWA5XlcHizSgx8o3r7Pu2lxEnMyuXw5
+
+dn: uid=e.kovaleva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.kovaleva
+cn: Елена Ковалёва
+sn: Ковалёва
+givenName: Елена
+displayName: Ковалёва Елена Сергеевна
+mail: e.kovaleva@corp.local
+employeeNumber: 1129
+departmentNumber: D0322
+title: Системный администратор
+uidNumber: 10040
+gidNumber: 10000
+homeDirectory: /home/e.kovaleva
+loginShell: /bin/bash
+userPassword: {SSHA}zCoUIffV1RczFMvjPAOeogXWZh2EJn5x
+
+dn: uid=a.aksenova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.aksenova
+cn: Анна Аксёнова
+sn: Аксёнова
+givenName: Анна
+displayName: Аксёнова Анна Степановна
+mail: a.aksenova@corp.local
+employeeNumber: 1196
+departmentNumber: D0412
+title: Главный специалист
+uidNumber: 10041
+gidNumber: 10000
+homeDirectory: /home/a.aksenova
+loginShell: /bin/bash
+userPassword: {SSHA}IDmEqxRB5R9BUmQMy1i0aoEbsGRVjHZ0
+
+dn: uid=m.kalinina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.kalinina
+cn: Мария Калинина
+sn: Калинина
+givenName: Мария
+displayName: Калинина Мария Романовна
+mail: m.kalinina@corp.local
+employeeNumber: 1091
+departmentNumber: D0312
+title: Руководитель: Группа второй линии
+uidNumber: 10042
+gidNumber: 10000
+homeDirectory: /home/m.kalinina
+loginShell: /bin/bash
+userPassword: {SSHA}hzl866epqpYxwYeyb6ZvWtNlBRLas2ht
+
+dn: uid=y.prokofev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.prokofev
+cn: Юрий Прокофьев
+sn: Прокофьев
+givenName: Юрий
+displayName: Прокофьев Юрий Максимович
+mail: y.prokofev@corp.local
+employeeNumber: 1162
+departmentNumber: D0411
+title: Специалист
+uidNumber: 10043
+gidNumber: 10000
+homeDirectory: /home/y.prokofev
+loginShell: /bin/bash
+userPassword: {SSHA}3zYAiyfzEd82fgI7S5pPm227XoxiDTLF
+
+dn: uid=s.tsvetkova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.tsvetkova
+cn: Светлана Цветкова
+sn: Цветкова
+givenName: Светлана
+displayName: Цветкова Светлана Борисовна
+mail: s.tsvetkova@corp.local
+employeeNumber: 1161
+departmentNumber: D0411
+title: Техник
+uidNumber: 10044
+gidNumber: 10000
+homeDirectory: /home/s.tsvetkova
+loginShell: /bin/bash
+userPassword: {SSHA}oalLpriD3gtC9bZlZMWf+SPJ8dJr7PDJ
+
+dn: uid=s.borisov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.borisov
+cn: Станислав Борисов
+sn: Борисов
+givenName: Станислав
+displayName: Борисов Станислав Сергеевич
+mail: s.borisov@corp.local
+employeeNumber: 1166
+departmentNumber: D0411
+title: Бухгалтер
+uidNumber: 10045
+gidNumber: 10000
+homeDirectory: /home/s.borisov
+loginShell: /bin/bash
+userPassword: {SSHA}HfDZ4xrKM5GpjmNG+V3/tIbIWOoGVbU4
+
+dn: uid=i.bogdanova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.bogdanova
+cn: Инна Богданова
+sn: Богданова
+givenName: Инна
+displayName: Богданова Инна Григорьевна
+mail: i.bogdanova@corp.local
+employeeNumber: 1242
+departmentNumber: D042
+title: Инженер
+uidNumber: 10046
+gidNumber: 10000
+homeDirectory: /home/i.bogdanova
+loginShell: /bin/bash
+userPassword: {SSHA}zzFluE3KPLxnmImOsnn/Ha1kGUFf+/ra
+
+dn: uid=l.nikitina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.nikitina
+cn: Лидия Никитина
+sn: Никитина
+givenName: Лидия
+displayName: Никитина Лидия Петровна
+mail: l.nikitina@corp.local
+employeeNumber: 1187
+departmentNumber: D0412
+title: Экономист
+uidNumber: 10047
+gidNumber: 10000
+homeDirectory: /home/l.nikitina
+loginShell: /bin/bash
+userPassword: {SSHA}J8qLHkeaEum8XRN1neBlPgSBqx3F7CK2
+
+dn: uid=m.egorova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.egorova
+cn: Мария Егорова
+sn: Егорова
+givenName: Мария
+displayName: Егорова Мария Николаевна
+mail: m.egorova@corp.local
+employeeNumber: 1276
+departmentNumber: D051
+title: Кладовщик
+uidNumber: 10048
+gidNumber: 10000
+homeDirectory: /home/m.egorova
+loginShell: /bin/bash
+userPassword: {SSHA}Fbk2jp7wpiz2WGj3FL7ruY3P5PFc8giZ
+
+dn: uid=n.rumyantseva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.rumyantseva
+cn: Нина Румянцева
+sn: Румянцева
+givenName: Нина
+displayName: Румянцева Нина Вадимовна
+mail: n.rumyantseva@corp.local
+employeeNumber: 1198
+departmentNumber: D0412
+title: Экономист
+uidNumber: 10049
+gidNumber: 10000
+homeDirectory: /home/n.rumyantseva
+loginShell: /bin/bash
+userPassword: {SSHA}olgwxSsogWS2TKuGADj5R3k4/a/+OCeX
+
+dn: uid=v.grigoreva2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.grigoreva2
+cn: Вера Григорьева
+sn: Григорьева
+givenName: Вера
+displayName: Григорьева Вера Юрьевна
+mail: v.grigoreva2@corp.local
+employeeNumber: 1364
+departmentNumber: D052
+title: Менеджер
+uidNumber: 10050
+gidNumber: 10000
+homeDirectory: /home/v.grigoreva2
+loginShell: /bin/bash
+userPassword: {SSHA}R4JsYcXpnEhDTUQfx5itoHRkTVp4dl/X
+
+dn: uid=m.lavrov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.lavrov
+cn: Максим Лавров
+sn: Лавров
+givenName: Максим
+displayName: Лавров Максим Степанович
+mail: m.lavrov@corp.local
+employeeNumber: 1079
+departmentNumber: D0311
+title: Специалист службы поддержки
+uidNumber: 10051
+gidNumber: 10000
+homeDirectory: /home/m.lavrov
+loginShell: /bin/bash
+userPassword: {SSHA}6dDWN4amx0QkSBfnNX2ZB4+HbrpTrJjb
+
+dn: uid=k.mikhaylova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.mikhaylova
+cn: Карина Михайлова
+sn: Михайлова
+givenName: Карина
+displayName: Михайлова Карина Владимировна
+mail: k.mikhaylova@corp.local
+employeeNumber: 1053
+departmentNumber: D021
+title: Кладовщик
+uidNumber: 10052
+gidNumber: 10000
+homeDirectory: /home/k.mikhaylova
+loginShell: /bin/bash
+userPassword: {SSHA}X+i+cY8xDytaYSY0yJ/7gOVGVengDfn6
+
+dn: uid=n.smirnova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.smirnova
+cn: Надежда Смирнова
+sn: Смирнова
+givenName: Надежда
+displayName: Смирнова Надежда Викторовна
+mail: n.smirnova@corp.local
+employeeNumber: 1510
+departmentNumber: D07
+title: Специалист
+uidNumber: 10053
+gidNumber: 10000
+homeDirectory: /home/n.smirnova
+loginShell: /bin/bash
+userPassword: {SSHA}xWzPzblWBoSeQBVswSZ+ys1tF2Jy8Y5j
+
+dn: uid=p.maksimov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.maksimov
+cn: Пётр Максимов
+sn: Максимов
+givenName: Пётр
+displayName: Максимов Пётр Николаевич
+mail: p.maksimov@corp.local
+employeeNumber: 1443
+departmentNumber: D053
+title: Кладовщик
+uidNumber: 10054
+gidNumber: 10000
+homeDirectory: /home/p.maksimov
+loginShell: /bin/bash
+userPassword: {SSHA}rBGbTUhivZc9u/+jShAl0VqLz7eTbQbj
+
+dn: uid=v.zhdanova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.zhdanova
+cn: Виктория Жданова
+sn: Жданова
+givenName: Виктория
+displayName: Жданова Виктория Евгеньевна
+mail: v.zhdanova@corp.local
+employeeNumber: 1172
+departmentNumber: D0411
+title: Оператор
+uidNumber: 10055
+gidNumber: 10000
+homeDirectory: /home/v.zhdanova
+loginShell: /bin/bash
+userPassword: {SSHA}hHmN3yS7FhdHF1xTV25X4JXQngfPpJj4
+
+dn: uid=d.karpenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.karpenko
+cn: Дарья Карпенко
+sn: Карпенко
+givenName: Дарья
+displayName: Карпенко Дарья Дмитриевна
+mail: d.karpenko@corp.local
+employeeNumber: 1498
+departmentNumber: D07
+title: Специалист
+uidNumber: 10056
+gidNumber: 10000
+homeDirectory: /home/d.karpenko
+loginShell: /bin/bash
+userPassword: {SSHA}Y/ufw4GLv+IvCUki92Boau+7MwG+3tGP
+
+dn: uid=o.kuzina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.kuzina
+cn: Оксана Кузина
+sn: Кузина
+givenName: Оксана
+displayName: Кузина Оксана Юрьевна
+mail: o.kuzina@corp.local
+employeeNumber: 1122
+departmentNumber: D0321
+title: Сетевой инженер
+uidNumber: 10057
+gidNumber: 10000
+homeDirectory: /home/o.kuzina
+loginShell: /bin/bash
+userPassword: {SSHA}4Cw11AUviQxwbRtGCZrPAAvjttGTaZIJ
+
+dn: uid=a.ponomareva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.ponomareva
+cn: Алла Пономарёва
+sn: Пономарёва
+givenName: Алла
+displayName: Пономарёва Алла Дмитриевна
+mail: a.ponomareva@corp.local
+employeeNumber: 1496
+departmentNumber: D07
+title: Инженер
+uidNumber: 10058
+gidNumber: 10000
+homeDirectory: /home/a.ponomareva
+loginShell: /bin/bash
+userPassword: {SSHA}plzEx8zy538j308MxHFwamf8bJ3QyKuJ
+
+dn: uid=t.eliseev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.eliseev
+cn: Тимур Елисеев
+sn: Елисеев
+givenName: Тимур
+displayName: Елисеев Тимур Игоревич
+mail: t.eliseev@corp.local
+employeeNumber: 1410
+departmentNumber: D052
+title: Оператор
+uidNumber: 10059
+gidNumber: 10000
+homeDirectory: /home/t.eliseev
+loginShell: /bin/bash
+userPassword: {SSHA}N2v5a+vhNDwoNPS1wRNfermzFaXZg8ED
+
+dn: uid=b.orlov2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: b.orlov2
+cn: Борис Орлов
+sn: Орлов
+givenName: Борис
+displayName: Орлов Борис Антонович
+mail: b.orlov2@corp.local
+employeeNumber: 1545
+departmentNumber: D0412
+title: Бухгалтер
+uidNumber: 10060
+gidNumber: 10000
+homeDirectory: /home/b.orlov2
+loginShell: /bin/bash
+userPassword: {SSHA}T7eJWL4IKc4rG5xU3/nwwAwKJUuuqKIC
+
+dn: uid=l.egorova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.egorova
+cn: Лариса Егорова
+sn: Егорова
+givenName: Лариса
+displayName: Егорова Лариса Григорьевна
+mail: l.egorova@corp.local
+employeeNumber: 1306
+departmentNumber: D051
+title: Бухгалтер
+uidNumber: 10061
+gidNumber: 10000
+homeDirectory: /home/l.egorova
+loginShell: /bin/bash
+userPassword: {SSHA}+VQZHeiLQxL9HDvHSPYTrF+VOYVKlU3Z
+
+dn: uid=k.antonova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.antonova
+cn: Карина Антонова
+sn: Антонова
+givenName: Карина
+displayName: Антонова Карина Павловна
+mail: k.antonova@corp.local
+employeeNumber: 1223
+departmentNumber: D0412
+title: Техник
+uidNumber: 10062
+gidNumber: 10000
+homeDirectory: /home/k.antonova
+loginShell: /bin/bash
+userPassword: {SSHA}/gOKaYsaeMReQ7Pop9uKjMt5VkVPK+mX
+
+dn: uid=m.markova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.markova
+cn: Маргарита Маркова
+sn: Маркова
+givenName: Маргарита
+displayName: Маркова Маргарита Игоревна
+mail: m.markova@corp.local
+employeeNumber: 1180
+departmentNumber: D0412
+title: Руководитель: Сектор розницы
+uidNumber: 10063
+gidNumber: 10000
+homeDirectory: /home/m.markova
+loginShell: /bin/bash
+userPassword: {SSHA}PuwwmGiLVMjBxAWgzNl8P3Cb0way+maF
+
+dn: uid=i.ushakov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.ushakov
+cn: Игорь Ушаков
+sn: Ушаков
+givenName: Игорь
+displayName: Ушаков Игорь Викторович
+mail: i.ushakov@corp.local
+employeeNumber: 1461
+departmentNumber: D054
+title: Менеджер
+uidNumber: 10064
+gidNumber: 10000
+homeDirectory: /home/i.ushakov
+loginShell: /bin/bash
+userPassword: {SSHA}ouFUATp4YPpv2RHayOpgiAnZ6iCSYy7U
+
+dn: uid=o.panova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.panova
+cn: Ольга Панова
+sn: Панова
+givenName: Ольга
+displayName: Панова Ольга Фёдоровна
+mail: o.panova@corp.local
+employeeNumber: 1507
+departmentNumber: D07
+title: Бухгалтер
+uidNumber: 10065
+gidNumber: 10000
+homeDirectory: /home/o.panova
+loginShell: /bin/bash
+userPassword: {SSHA}wDWy96B5eUUgQU4MMtMI99Pq29A4yK5Q
+
+dn: uid=r.nazarov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: r.nazarov
+cn: Роман Назаров
+sn: Назаров
+givenName: Роман
+displayName: Назаров Роман Алексеевич
+mail: r.nazarov@corp.local
+employeeNumber: 1427
+departmentNumber: D052
+title: Специалист
+uidNumber: 10066
+gidNumber: 10000
+homeDirectory: /home/r.nazarov
+loginShell: /bin/bash
+userPassword: {SSHA}if8zWKXoZfgppjUtivj1/ndaQVllWzr7
+
+dn: uid=a.demina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.demina
+cn: Анна Демина
+sn: Демина
+givenName: Анна
+displayName: Демина Анна Георгиевна
+mail: a.demina@corp.local
+employeeNumber: 1393
+departmentNumber: D052
+title: Инженер
+uidNumber: 10067
+gidNumber: 10000
+homeDirectory: /home/a.demina
+loginShell: /bin/bash
+userPassword: {SSHA}oirSjhAlV36Zei4Y/W4hiUNocoq/DVgL
+
+dn: uid=y.kondratev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.kondratev
+cn: Юрий Кондратьев
+sn: Кондратьев
+givenName: Юрий
+displayName: Кондратьев Юрий Алексеевич
+mail: y.kondratev@corp.local
+employeeNumber: 1030
+departmentNumber: D012
+title: Бухгалтер
+uidNumber: 10068
+gidNumber: 10000
+homeDirectory: /home/y.kondratev
+loginShell: /bin/bash
+userPassword: {SSHA}T5ei3gLRNnAJuCuPhx46s0SQs1hTGS/o
+
+dn: uid=m.filippov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.filippov
+cn: Михаил Филиппов
+sn: Филиппов
+givenName: Михаил
+displayName: Филиппов Михаил Степанович
+mail: m.filippov@corp.local
+employeeNumber: 1082
+departmentNumber: D0311
+title: Инженер первой линии
+uidNumber: 10069
+gidNumber: 10000
+homeDirectory: /home/m.filippov
+loginShell: /bin/bash
+userPassword: {SSHA}s+TcVDStg8IhaXNeNuCK7ryjTLuMFSNV
+
+dn: uid=v.mikhaylova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.mikhaylova
+cn: Валентина Михайлова
+sn: Михайлова
+givenName: Валентина
+displayName: Михайлова Валентина Ивановна
+mail: v.mikhaylova@corp.local
+employeeNumber: 1396
+departmentNumber: D052
+title: Ведущий специалист
+uidNumber: 10070
+gidNumber: 10000
+homeDirectory: /home/v.mikhaylova
+loginShell: /bin/bash
+userPassword: {SSHA}bu9mC/wJum8n5derDNvlDIwoy5gt+VIv
+
+dn: uid=i.korolev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.korolev
+cn: Игорь Королёв
+sn: Королёв
+givenName: Игорь
+displayName: Королёв Игорь Дмитриевич
+mail: i.korolev@corp.local
+employeeNumber: 1278
+departmentNumber: D051
+title: Юрисконсульт
+uidNumber: 10071
+gidNumber: 10000
+homeDirectory: /home/i.korolev
+loginShell: /bin/bash
+userPassword: {SSHA}uPDIM1b1fmhpkTDD9SawtxbegJ8VYr7v
+
+dn: uid=s.lazarev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.lazarev
+cn: Степан Лазарев
+sn: Лазарев
+givenName: Степан
+displayName: Лазарев Степан Вадимович
+mail: s.lazarev@corp.local
+employeeNumber: 1471
+departmentNumber: D054
+title: Мастер участка
+uidNumber: 10072
+gidNumber: 10000
+homeDirectory: /home/s.lazarev
+loginShell: /bin/bash
+userPassword: {SSHA}BOfgTf84FDhQh7lhWMDm+/YJkNSf07J7
+
+dn: uid=m.serova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.serova
+cn: Марина Серова
+sn: Серова
+givenName: Марина
+displayName: Серова Марина Владимировна
+mail: m.serova@corp.local
+employeeNumber: 1418
+departmentNumber: D052
+title: Бухгалтер
+uidNumber: 10073
+gidNumber: 10000
+homeDirectory: /home/m.serova
+loginShell: /bin/bash
+userPassword: {SSHA}LjZEBVZV/u+3wY8px0eTDsxk63SRViDa
+
+dn: uid=d.fokin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.fokin
+cn: Дмитрий Фокин
+sn: Фокин
+givenName: Дмитрий
+displayName: Фокин Дмитрий Петрович
+mail: d.fokin@corp.local
+employeeNumber: 1324
+departmentNumber: D051
+title: Мастер участка
+uidNumber: 10074
+gidNumber: 10000
+homeDirectory: /home/d.fokin
+loginShell: /bin/bash
+userPassword: {SSHA}x7yHyiHPvwZNBc2l9v1ZTMe06OtkJY8P
+
+dn: uid=d.vasilev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.vasilev
+cn: Даниил Васильев
+sn: Васильев
+givenName: Даниил
+displayName: Васильев Даниил Максимович
+mail: d.vasilev@corp.local
+employeeNumber: 1001
+departmentNumber: D00
+title: Руководитель: Администрация
+uidNumber: 10075
+gidNumber: 10000
+homeDirectory: /home/d.vasilev
+loginShell: /bin/bash
+userPassword: {SSHA}tcuib3PlsxZC268AdF+2Gn0MVVQ+L0se
+
+dn: uid=n.timofeev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.timofeev
+cn: Николай Тимофеев
+sn: Тимофеев
+givenName: Николай
+displayName: Тимофеев Николай Кириллович
+mail: n.timofeev@corp.local
+employeeNumber: 1390
+departmentNumber: D052
+title: Специалист
+uidNumber: 10076
+gidNumber: 10000
+homeDirectory: /home/n.timofeev
+loginShell: /bin/bash
+userPassword: {SSHA}dXPj48pZeK/thZm8S6oby4+gdMp1ot3s
+
+dn: uid=a.kryukov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.kryukov
+cn: Александр Крюков
+sn: Крюков
+givenName: Александр
+displayName: Крюков Александр Денисович
+mail: a.kryukov@corp.local
+employeeNumber: 1464
+departmentNumber: D054
+title: Юрисконсульт
+uidNumber: 10077
+gidNumber: 10000
+homeDirectory: /home/a.kryukov
+loginShell: /bin/bash
+userPassword: {SSHA}KSb/5KDmqTYbRClckI7JhF1hhT0N/Wl5
+
+dn: uid=a.demidova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.demidova
+cn: Алла Демидова
+sn: Демидова
+givenName: Алла
+displayName: Демидова Алла Сергеевна
+mail: a.demidova@corp.local
+employeeNumber: 1049
+departmentNumber: D021
+title: Юрисконсульт
+uidNumber: 10078
+gidNumber: 10000
+homeDirectory: /home/a.demidova
+loginShell: /bin/bash
+userPassword: {SSHA}YrLOzsjKOEKWWpsQTQk0UoXP5P7sHmhi
+
+dn: uid=i.ustinov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.ustinov
+cn: Илья Устинов
+sn: Устинов
+givenName: Илья
+displayName: Устинов Илья Романович
+mail: i.ustinov@corp.local
+employeeNumber: 1283
+departmentNumber: D051
+title: Инженер
+uidNumber: 10079
+gidNumber: 10000
+homeDirectory: /home/i.ustinov
+loginShell: /bin/bash
+userPassword: {SSHA}3Hu4/Bng9UA3AOWEbpRBv91oNS2aB0L1
+
+dn: uid=a.eremin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.eremin
+cn: Алексей Ерёмин
+sn: Ерёмин
+givenName: Алексей
+displayName: Ерёмин Алексей Михайлович
+mail: a.eremin@corp.local
+employeeNumber: 1052
+departmentNumber: D021
+title: Специалист
+uidNumber: 10080
+gidNumber: 10000
+homeDirectory: /home/a.eremin
+loginShell: /bin/bash
+userPassword: {SSHA}bD5yjQOVO5J2kRLgGZoyXkmT+5drJavS
+
+dn: uid=d.nikitin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.nikitin
+cn: Дмитрий Никитин
+sn: Никитин
+givenName: Дмитрий
+displayName: Никитин Дмитрий Павлович
+mail: d.nikitin@corp.local
+employeeNumber: 1071
+departmentNumber: D03
+title: Руководитель: Департамент информационных технологий
+uidNumber: 10081
+gidNumber: 10000
+homeDirectory: /home/d.nikitin
+loginShell: /bin/bash
+userPassword: {SSHA}q8Z8O7AmKL3Y4V4pYhiuYM+qtG6uu8wC
+
+dn: uid=m.fadeeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.fadeeva
+cn: Марина Фадеева
+sn: Фадеева
+givenName: Марина
+displayName: Фадеева Марина Вадимовна
+mail: m.fadeeva@corp.local
+employeeNumber: 1104
+departmentNumber: D0313
+title: Руководитель: Группа выездной поддержки
+uidNumber: 10082
+gidNumber: 10000
+homeDirectory: /home/m.fadeeva
+loginShell: /bin/bash
+userPassword: {SSHA}SZxgLypFf2U6nSsU574YhNdZBbaXCItM
+
+dn: uid=o.voronova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.voronova
+cn: Оксана Воронова
+sn: Воронова
+givenName: Оксана
+displayName: Воронова Оксана Дмитриевна
+mail: o.voronova@corp.local
+employeeNumber: 1268
+departmentNumber: D051
+title: Специалист
+uidNumber: 10083
+gidNumber: 10000
+homeDirectory: /home/o.voronova
+loginShell: /bin/bash
+userPassword: {SSHA}BvH9kYk+EQ2uAoBoPUUDPlXRp1+C4ZDo
+
+dn: uid=l.potapova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.potapova
+cn: Любовь Потапова
+sn: Потапова
+givenName: Любовь
+displayName: Потапова Любовь Георгиевна
+mail: l.potapova@corp.local
+employeeNumber: 1494
+departmentNumber: D07
+title: Техник
+uidNumber: 10084
+gidNumber: 10000
+homeDirectory: /home/l.potapova
+loginShell: /bin/bash
+userPassword: {SSHA}5Ztx7McHHZkG+BXhfwZehCQrH4SUP3EP
+
+dn: uid=e.dmitrieva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.dmitrieva
+cn: Екатерина Дмитриева
+sn: Дмитриева
+givenName: Екатерина
+displayName: Дмитриева Екатерина Егоровна
+mail: e.dmitrieva@corp.local
+employeeNumber: 1041
+departmentNumber: D0121
+title: Юрисконсульт
+uidNumber: 10085
+gidNumber: 10000
+homeDirectory: /home/e.dmitrieva
+loginShell: /bin/bash
+userPassword: {SSHA}vPt9PErkoXR7PZe471o1jeqo2xMMxdzh
+
+dn: uid=m.muraveva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.muraveva
+cn: Марина Муравьёва
+sn: Муравьёва
+givenName: Марина
+displayName: Муравьёва Марина Вадимовна
+mail: m.muraveva@corp.local
+employeeNumber: 1468
+departmentNumber: D054
+title: Мастер участка
+uidNumber: 10086
+gidNumber: 10000
+homeDirectory: /home/m.muraveva
+loginShell: /bin/bash
+userPassword: {SSHA}rKu8/1wSK8D/24Ko+fpeqEqivzqE8LV8
+
+dn: uid=n.akimova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.akimova
+cn: Наталья Акимова
+sn: Акимова
+givenName: Наталья
+displayName: Акимова Наталья Павловна
+mail: n.akimova@corp.local
+employeeNumber: 1339
+departmentNumber: D051
+title: Бухгалтер
+uidNumber: 10087
+gidNumber: 10000
+homeDirectory: /home/n.akimova
+loginShell: /bin/bash
+userPassword: {SSHA}8qZHDcCJmAdPEjEEvk14Vi69QYvGOwwd
+
+dn: uid=s.alekseeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.alekseeva
+cn: Софья Алексеева
+sn: Алексеева
+givenName: Софья
+displayName: Алексеева Софья Григорьевна
+mail: s.alekseeva@corp.local
+employeeNumber: 1376
+departmentNumber: D052
+title: Ведущий специалист
+uidNumber: 10088
+gidNumber: 10000
+homeDirectory: /home/s.alekseeva
+loginShell: /bin/bash
+userPassword: {SSHA}DmD0OsrzoucFBCZEU89sSPmfU3eQBxj7
+
+dn: uid=s.kozlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.kozlov
+cn: Станислав Козлов
+sn: Козлов
+givenName: Станислав
+displayName: Козлов Станислав Степанович
+mail: s.kozlov@corp.local
+employeeNumber: 1042
+departmentNumber: D0121
+title: Юрисконсульт
+uidNumber: 10089
+gidNumber: 10000
+homeDirectory: /home/s.kozlov
+loginShell: /bin/bash
+userPassword: {SSHA}dBexVE13DOyUGIV6bePmbxnUTa/2Ri+v
+
+dn: uid=v.belyaev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.belyaev
+cn: Вячеслав Беляев
+sn: Беляев
+givenName: Вячеслав
+displayName: Беляев Вячеслав Юрьевич
+mail: v.belyaev@corp.local
+employeeNumber: 1058
+departmentNumber: D021
+title: Бухгалтер
+uidNumber: 10090
+gidNumber: 10000
+homeDirectory: /home/v.belyaev
+loginShell: /bin/bash
+userPassword: {SSHA}h9gyrdvIgTf6CTmVrdi/Pu06eli2EXN9
+
+dn: uid=s.ignatov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.ignatov
+cn: Семён Игнатов
+sn: Игнатов
+givenName: Семён
+displayName: Игнатов Семён Михайлович
+mail: s.ignatov@corp.local
+employeeNumber: 1189
+departmentNumber: D0412
+title: Специалист
+uidNumber: 10091
+gidNumber: 10000
+homeDirectory: /home/s.ignatov
+loginShell: /bin/bash
+userPassword: {SSHA}+00lLIDiOiZ6fqIvgXr+WvmxASfPmDhH
+
+dn: uid=d.loginova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.loginova
+cn: Дарья Логинова
+sn: Логинова
+givenName: Дарья
+displayName: Логинова Дарья Михайловна
+mail: d.loginova@corp.local
+employeeNumber: 1088
+departmentNumber: D0311
+title: Инженер первой линии
+uidNumber: 10092
+gidNumber: 10000
+homeDirectory: /home/d.loginova
+loginShell: /bin/bash
+userPassword: {SSHA}hyRPQOHU7NCGJSlfh8rTvznwVYo9iBu5
+
+dn: uid=v.lukyanova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.lukyanova
+cn: Вера Лукьянова
+sn: Лукьянова
+givenName: Вера
+displayName: Лукьянова Вера Борисовна
+mail: v.lukyanova@corp.local
+employeeNumber: 1284
+departmentNumber: D051
+title: Специалист
+uidNumber: 10093
+gidNumber: 10000
+homeDirectory: /home/v.lukyanova
+loginShell: /bin/bash
+userPassword: {SSHA}XjZ8+n3oDIImy3+fTr+oXaJHmq2m3MrS
+
+dn: uid=o.karpenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.karpenko
+cn: Оксана Карпенко
+sn: Карпенко
+givenName: Оксана
+displayName: Карпенко Оксана Петровна
+mail: o.karpenko@corp.local
+employeeNumber: 1181
+departmentNumber: D0412
+title: Ведущий специалист
+uidNumber: 10094
+gidNumber: 10000
+homeDirectory: /home/o.karpenko
+loginShell: /bin/bash
+userPassword: {SSHA}gJwPGC/NEv+l3w40TIpltGJm2RyY7nBl
+
+dn: uid=d.voronov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.voronov
+cn: Даниил Воронов
+sn: Воронов
+givenName: Даниил
+displayName: Воронов Даниил Николаевич
+mail: d.voronov@corp.local
+employeeNumber: 1428
+departmentNumber: D053
+title: Руководитель: Отдел главного технолога
+uidNumber: 10095
+gidNumber: 10000
+homeDirectory: /home/d.voronov
+loginShell: /bin/bash
+userPassword: {SSHA}u2Jr7O9sLCCV306WdB26j9CY4j3hIKDb
+
+dn: uid=o.nesterov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.nesterov
+cn: Олег Нестеров
+sn: Нестеров
+givenName: Олег
+displayName: Нестеров Олег Сергеевич
+mail: o.nesterov@corp.local
+employeeNumber: 1267
+departmentNumber: D051
+title: Юрисконсульт
+uidNumber: 10096
+gidNumber: 10000
+homeDirectory: /home/o.nesterov
+loginShell: /bin/bash
+userPassword: {SSHA}fLCg2UExtcfrE7FxJGdJq90dAPyXCAAO
+
+dn: uid=y.bogdanov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.bogdanov
+cn: Ярослав Богданов
+sn: Богданов
+givenName: Ярослав
+displayName: Богданов Ярослав Семёнович
+mail: y.bogdanov@corp.local
+employeeNumber: 1504
+departmentNumber: D07
+title: Техник
+uidNumber: 10097
+gidNumber: 10000
+homeDirectory: /home/y.bogdanov
+loginShell: /bin/bash
+userPassword: {SSHA}QclnlCS4NlUtMw7TlNk60p19tBdb0fRB
+
+dn: uid=z.zotova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: z.zotova
+cn: Жанна Зотова
+sn: Зотова
+givenName: Жанна
+displayName: Зотова Жанна Владимировна
+mail: z.zotova@corp.local
+employeeNumber: 1003
+departmentNumber: D01
+title: Руководитель: Финансово-экономическая служба
+uidNumber: 10098
+gidNumber: 10000
+homeDirectory: /home/z.zotova
+loginShell: /bin/bash
+userPassword: {SSHA}F2FLN17zTrBw1N2zN+ZXR6LjGgZFJaz5
+
+dn: uid=e.aksenova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.aksenova
+cn: Елизавета Аксёнова
+sn: Аксёнова
+givenName: Елизавета
+displayName: Аксёнова Елизавета Денисовна
+mail: e.aksenova@corp.local
+employeeNumber: 1085
+departmentNumber: D0311
+title: Инженер первой линии
+uidNumber: 10099
+gidNumber: 10000
+homeDirectory: /home/e.aksenova
+loginShell: /bin/bash
+userPassword: {SSHA}yWsLL4eSpQtGQJrBmrct2T2XBpEUJZBo
+
+dn: uid=b.tarasov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: b.tarasov
+cn: Борис Тарасов
+sn: Тарасов
+givenName: Борис
+displayName: Тарасов Борис Борисович
+mail: b.tarasov@corp.local
+employeeNumber: 1399
+departmentNumber: D052
+title: Техник
+uidNumber: 10100
+gidNumber: 10000
+homeDirectory: /home/b.tarasov
+loginShell: /bin/bash
+userPassword: {SSHA}DhVmyUg0JosX4FCknZmBNaiWE3ZsHcTm
+
+dn: uid=p.ustinov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.ustinov
+cn: Павел Устинов
+sn: Устинов
+givenName: Павел
+displayName: Устинов Павел Вадимович
+mail: p.ustinov@corp.local
+employeeNumber: 1068
+departmentNumber: D022
+title: Экономист
+uidNumber: 10101
+gidNumber: 10000
+homeDirectory: /home/p.ustinov
+loginShell: /bin/bash
+userPassword: {SSHA}43CadUblEcHj62Ov9yatLAOW8+QJ2KyM
+
+dn: uid=y.prokhorova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.prokhorova
+cn: Юлия Прохорова
+sn: Прохорова
+givenName: Юлия
+displayName: Прохорова Юлия Кирилловна
+mail: y.prokhorova@corp.local
+employeeNumber: 1424
+departmentNumber: D052
+title: Техник
+uidNumber: 10102
+gidNumber: 10000
+homeDirectory: /home/y.prokhorova
+loginShell: /bin/bash
+userPassword: {SSHA}SCW8PjGKeXwoCN+r0gW/r1M+PaFdx1K4
+
+dn: uid=e.dementeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.dementeva
+cn: Екатерина Дементьева
+sn: Дементьева
+givenName: Екатерина
+displayName: Дементьева Екатерина Антоновна
+mail: e.dementeva@corp.local
+employeeNumber: 1485
+departmentNumber: D06
+title: Руководитель: Юридический отдел
+uidNumber: 10103
+gidNumber: 10000
+homeDirectory: /home/e.dementeva
+loginShell: /bin/bash
+userPassword: {SSHA}9gY4Co5rkrYjqhryM07D1FeUmGqa2jWT
+
+dn: uid=a.sokolov2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.sokolov2
+cn: Андрей Соколов
+sn: Соколов
+givenName: Андрей
+displayName: Соколов Андрей Дмитриевич
+mail: a.sokolov2@corp.local
+employeeNumber: 1541
+departmentNumber: D054
+title: Экономист
+uidNumber: 10104
+gidNumber: 10000
+homeDirectory: /home/a.sokolov2
+loginShell: /bin/bash
+userPassword: {SSHA}N4BLf5L935r/VscUfLJzW44XYvltJlCk
+
+dn: uid=v.zueva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.zueva
+cn: Валерия Зуева
+sn: Зуева
+givenName: Валерия
+displayName: Зуева Валерия Дмитриевна
+mail: v.zueva@corp.local
+employeeNumber: 1472
+departmentNumber: D054
+title: Ведущий специалист
+uidNumber: 10105
+gidNumber: 10000
+homeDirectory: /home/v.zueva
+loginShell: /bin/bash
+userPassword: {SSHA}DWBpwnCgjSQRKgs/QsxVJGl3VD5zbfrF
+
+dn: uid=y.yakovleva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.yakovleva
+cn: Юлия Яковлева
+sn: Яковлева
+givenName: Юлия
+displayName: Яковлева Юлия Сергеевна
+mail: y.yakovleva@corp.local
+employeeNumber: 1442
+departmentNumber: D053
+title: Кладовщик
+uidNumber: 10106
+gidNumber: 10000
+homeDirectory: /home/y.yakovleva
+loginShell: /bin/bash
+userPassword: {SSHA}5jRo4gumONGAIwG1EKqovpK6QDKKC1qo
+
+dn: uid=r.gorbunov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: r.gorbunov
+cn: Роман Горбунов
+sn: Горбунов
+givenName: Роман
+displayName: Горбунов Роман Романович
+mail: r.gorbunov@corp.local
+employeeNumber: 1275
+departmentNumber: D051
+title: Мастер участка
+uidNumber: 10107
+gidNumber: 10000
+homeDirectory: /home/r.gorbunov
+loginShell: /bin/bash
+userPassword: {SSHA}HJOMqneMVW+PlwjAcus8syJNM7o0VP9s
+
+dn: uid=y.ponomareva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.ponomareva
+cn: Яна Пономарёва
+sn: Пономарёва
+givenName: Яна
+displayName: Пономарёва Яна Борисовна
+mail: y.ponomareva@corp.local
+employeeNumber: 1492
+departmentNumber: D07
+title: Руководитель: Административно-хозяйственный отдел
+uidNumber: 10108
+gidNumber: 10000
+homeDirectory: /home/y.ponomareva
+loginShell: /bin/bash
+userPassword: {SSHA}49RTqGFRWpplJEOozdXkwMPFE97bjJBh
+
+dn: uid=z.biryukova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: z.biryukova
+cn: Жанна Бирюкова
+sn: Бирюкова
+givenName: Жанна
+displayName: Бирюкова Жанна Вадимовна
+mail: z.biryukova@corp.local
+employeeNumber: 1118
+departmentNumber: D0321
+title: Руководитель: Группа сетей и связи
+uidNumber: 10109
+gidNumber: 10000
+homeDirectory: /home/z.biryukova
+loginShell: /bin/bash
+userPassword: {SSHA}5ZxFPoNtEle/g3nDHshhlcXO/dTfC6EE
+
+dn: uid=s.yakovlev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.yakovlev
+cn: Сергей Яковлев
+sn: Яковлев
+givenName: Сергей
+displayName: Яковлев Сергей Юрьевич
+mail: s.yakovlev@corp.local
+employeeNumber: 1309
+departmentNumber: D051
+title: Мастер участка
+uidNumber: 10110
+gidNumber: 10000
+homeDirectory: /home/s.yakovlev
+loginShell: /bin/bash
+userPassword: {SSHA}e0eFry5IIPH7DINT9hIm/3QAMjSVZkUu
+
+dn: uid=y.filippova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.filippova
+cn: Яна Филиппова
+sn: Филиппова
+givenName: Яна
+displayName: Филиппова Яна Евгеньевна
+mail: y.filippova@corp.local
+employeeNumber: 1384
+departmentNumber: D052
+title: Техник
+uidNumber: 10111
+gidNumber: 10000
+homeDirectory: /home/y.filippova
+loginShell: /bin/bash
+userPassword: {SSHA}OJIN3GrCAJLQWEbCQvZefTG7EBIpmrEI
+
+dn: uid=k.sobolev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.sobolev
+cn: Кирилл Соболев
+sn: Соболев
+givenName: Кирилл
+displayName: Соболев Кирилл Денисович
+mail: k.sobolev@corp.local
+employeeNumber: 1151
+departmentNumber: D0411
+title: Экономист
+uidNumber: 10112
+gidNumber: 10000
+homeDirectory: /home/k.sobolev
+loginShell: /bin/bash
+userPassword: {SSHA}+8iYyXhhX6LrXKyQscXySVr2UBxRjqp4
+
+dn: uid=a.kovalenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.kovalenko
+cn: Алина Коваленко
+sn: Коваленко
+givenName: Алина
+displayName: Коваленко Алина Владимировна
+mail: a.kovalenko@corp.local
+employeeNumber: 1433
+departmentNumber: D053
+title: Экономист
+uidNumber: 10113
+gidNumber: 10000
+homeDirectory: /home/a.kovalenko
+loginShell: /bin/bash
+userPassword: {SSHA}ZOpGgkZq3NWGoXpiNcJiTigGo20hiasl
+
+dn: uid=y.melnikova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.melnikova
+cn: Яна Мельникова
+sn: Мельникова
+givenName: Яна
+displayName: Мельникова Яна Павловна
+mail: y.melnikova@corp.local
+employeeNumber: 1478
+departmentNumber: D054
+title: Бухгалтер
+uidNumber: 10114
+gidNumber: 10000
+homeDirectory: /home/y.melnikova
+loginShell: /bin/bash
+userPassword: {SSHA}UK4R2ArRXNnKCBka05zf96dS1+b/0pt+
+
+dn: uid=m.mukhin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.mukhin
+cn: Максим Мухин
+sn: Мухин
+givenName: Максим
+displayName: Мухин Максим Семёнович
+mail: m.mukhin@corp.local
+employeeNumber: 1192
+departmentNumber: D0412
+title: Экономист
+uidNumber: 10115
+gidNumber: 10000
+homeDirectory: /home/m.mukhin
+loginShell: /bin/bash
+userPassword: {SSHA}/OmNWAeT0s203sp23KRVVaO9stKAQGIJ
+
+dn: uid=y.prokofeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.prokofeva
+cn: Юлия Прокофьева
+sn: Прокофьева
+givenName: Юлия
+displayName: Прокофьева Юлия Семёновна
+mail: y.prokofeva@corp.local
+employeeNumber: 1458
+departmentNumber: D054
+title: Бухгалтер
+uidNumber: 10116
+gidNumber: 10000
+homeDirectory: /home/y.prokofeva
+loginShell: /bin/bash
+userPassword: {SSHA}sP5N20HVgULT+jHYpH5z2GW2IdupP4h3
+
+dn: uid=v.litvinova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.litvinova
+cn: Виктория Литвинова
+sn: Литвинова
+givenName: Виктория
+displayName: Литвинова Виктория Фёдоровна
+mail: v.litvinova@corp.local
+employeeNumber: 1319
+departmentNumber: D051
+title: Инженер
+uidNumber: 10117
+gidNumber: 10000
+homeDirectory: /home/v.litvinova
+loginShell: /bin/bash
+userPassword: {SSHA}xXni/aykTRhwA/OkYZxCgRyBQ5Xg5VJz
+
+dn: uid=m.evdokimova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.evdokimova
+cn: Мария Евдокимова
+sn: Евдокимова
+givenName: Мария
+displayName: Евдокимова Мария Викторовна
+mail: m.evdokimova@corp.local
+employeeNumber: 1514
+departmentNumber: D08
+title: Руководитель: Архивный отдел
+uidNumber: 10118
+gidNumber: 10000
+homeDirectory: /home/m.evdokimova
+loginShell: /bin/bash
+userPassword: {SSHA}GoEpbg4N0UR3VV5TFqUXxNLhLVgHJ8Lm
+
+dn: uid=f.kuzin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.kuzin
+cn: Фёдор Кузин
+sn: Кузин
+givenName: Фёдор
+displayName: Кузин Фёдор Николаевич
+mail: f.kuzin@corp.local
+employeeNumber: 1102
+departmentNumber: D0312
+title: Инженер второй линии
+uidNumber: 10119
+gidNumber: 10000
+homeDirectory: /home/f.kuzin
+loginShell: /bin/bash
+userPassword: {SSHA}2mH/TMa+XbMBDkHeaqygskbMOwlK9Ihg
+
+dn: uid=l.ovchinnikova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.ovchinnikova
+cn: Лидия Овчинникова
+sn: Овчинникова
+givenName: Лидия
+displayName: Овчинникова Лидия Романовна
+mail: l.ovchinnikova@corp.local
+employeeNumber: 1108
+departmentNumber: D0313
+title: Инженер выездной поддержки
+uidNumber: 10120
+gidNumber: 10000
+homeDirectory: /home/l.ovchinnikova
+loginShell: /bin/bash
+userPassword: {SSHA}foM+FPALv4L5NX3LxNyb2GM//7cZ9xKf
+
+dn: uid=e.kondrateva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.kondrateva
+cn: Екатерина Кондратьева
+sn: Кондратьева
+givenName: Екатерина
+displayName: Кондратьева Екатерина Фёдоровна
+mail: e.kondrateva@corp.local
+employeeNumber: 1511
+departmentNumber: D07
+title: Главный специалист
+uidNumber: 10121
+gidNumber: 10000
+homeDirectory: /home/e.kondrateva
+loginShell: /bin/bash
+userPassword: {SSHA}oLAknVCDDFpNhyQ+RgtgIX7fnVIazC6I
+
+dn: uid=a.tkachenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.tkachenko
+cn: Анна Ткаченко
+sn: Ткаченко
+givenName: Анна
+displayName: Ткаченко Анна Александровна
+mail: a.tkachenko@corp.local
+employeeNumber: 1337
+departmentNumber: D051
+title: Экономист
+uidNumber: 10122
+gidNumber: 10000
+homeDirectory: /home/a.tkachenko
+loginShell: /bin/bash
+userPassword: {SSHA}yndHLZ4IVKsbV0Hk0KrdzekcUIUZtQpQ
+
+dn: uid=m.mikhaylov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.mikhaylov
+cn: Максим Михайлов
+sn: Михайлов
+givenName: Максим
+displayName: Михайлов Максим Олегович
+mail: m.mikhaylov@corp.local
+employeeNumber: 1205
+departmentNumber: D0412
+title: Бухгалтер
+uidNumber: 10123
+gidNumber: 10000
+homeDirectory: /home/m.mikhaylov
+loginShell: /bin/bash
+userPassword: {SSHA}0d/QTn2XPeX3SUraZDX3VNOzHbDOYZ5g
+
+dn: uid=o.afanaseva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.afanaseva
+cn: Оксана Афанасьева
+sn: Афанасьева
+givenName: Оксана
+displayName: Афанасьева Оксана Евгеньевна
+mail: o.afanaseva@corp.local
+employeeNumber: 1342
+departmentNumber: D052
+title: Бухгалтер
+uidNumber: 10124
+gidNumber: 10000
+homeDirectory: /home/o.afanaseva
+loginShell: /bin/bash
+userPassword: {SSHA}Fkqi2dysMj9Q7Xf79rYRIbnC0+J0bxpu
+
+dn: uid=m.baranova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.baranova
+cn: Мария Баранова
+sn: Баранова
+givenName: Мария
+displayName: Баранова Мария Александровна
+mail: m.baranova@corp.local
+employeeNumber: 1273
+departmentNumber: D051
+title: Оператор
+uidNumber: 10125
+gidNumber: 10000
+homeDirectory: /home/m.baranova
+loginShell: /bin/bash
+userPassword: {SSHA}R6h26lGoAlBVMfGXKXm+WKa4GOfwMqin
+
+dn: uid=b.knyazev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: b.knyazev
+cn: Борис Князев
+sn: Князев
+givenName: Борис
+displayName: Князев Борис Андреевич
+mail: b.knyazev@corp.local
+employeeNumber: 1101
+departmentNumber: D0312
+title: Инженер второй линии
+uidNumber: 10126
+gidNumber: 10000
+homeDirectory: /home/b.knyazev
+loginShell: /bin/bash
+userPassword: {SSHA}Z1zA8rYnuVXvvpuCKhudJGCIPQCH16aW
+
+dn: uid=i.kondrateva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.kondrateva
+cn: Ирина Кондратьева
+sn: Кондратьева
+givenName: Ирина
+displayName: Кондратьева Ирина Романовна
+mail: i.kondrateva@corp.local
+employeeNumber: 1136
+departmentNumber: D04
+title: Руководитель: Коммерческая дирекция
+uidNumber: 10127
+gidNumber: 10000
+homeDirectory: /home/i.kondrateva
+loginShell: /bin/bash
+userPassword: {SSHA}+FvUz//h+sFUNfjWGanu4XCjG+Q3iiov
+
+dn: uid=s.zakharova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.zakharova
+cn: Софья Захарова
+sn: Захарова
+givenName: Софья
+displayName: Захарова Софья Михайловна
+mail: s.zakharova@corp.local
+employeeNumber: 1154
+departmentNumber: D0411
+title: Специалист
+uidNumber: 10128
+gidNumber: 10000
+homeDirectory: /home/s.zakharova
+loginShell: /bin/bash
+userPassword: {SSHA}MVmZ6Pz5UTY2wmP5r7+jTkEEPiUppKFj
+
+dn: uid=i.danilov2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.danilov2
+cn: Игорь Данилов
+sn: Данилов
+givenName: Игорь
+displayName: Данилов Игорь Алексеевич
+mail: i.danilov2@corp.local
+employeeNumber: 1296
+departmentNumber: D051
+title: Специалист
+uidNumber: 10129
+gidNumber: 10000
+homeDirectory: /home/i.danilov2
+loginShell: /bin/bash
+userPassword: {SSHA}48oGZBd22UpiDSgI7Q7woKxUGoIa0wpO
+
+dn: uid=m.gusev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.gusev
+cn: Максим Гусев
+sn: Гусев
+givenName: Максим
+displayName: Гусев Максим Фёдорович
+mail: m.gusev@corp.local
+employeeNumber: 1445
+departmentNumber: D053
+title: Оператор
+uidNumber: 10130
+gidNumber: 10000
+homeDirectory: /home/m.gusev
+loginShell: /bin/bash
+userPassword: {SSHA}sfeJDxPms7uMjZ9OhoFI/P9vVQ6ArBbE
+
+dn: uid=a.popova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.popova
+cn: Алина Попова
+sn: Попова
+givenName: Алина
+displayName: Попова Алина Антоновна
+mail: a.popova@corp.local
+employeeNumber: 1289
+departmentNumber: D051
+title: Инженер
+uidNumber: 10131
+gidNumber: 10000
+homeDirectory: /home/a.popova
+loginShell: /bin/bash
+userPassword: {SSHA}hU17dY5yYzAnbZRQtAONKy/YlXPMkYjm
+
+dn: uid=m.krasnov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.krasnov
+cn: Михаил Краснов
+sn: Краснов
+givenName: Михаил
+displayName: Краснов Михаил Александрович
+mail: m.krasnov@corp.local
+employeeNumber: 1208
+departmentNumber: D0412
+title: Экономист
+uidNumber: 10132
+gidNumber: 10000
+homeDirectory: /home/m.krasnov
+loginShell: /bin/bash
+userPassword: {SSHA}v6g4aiXFDPV1IQAkeWXKFpT/EP+8MO0N
+
+dn: uid=l.aksenov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.aksenov
+cn: Лев Аксёнов
+sn: Аксёнов
+givenName: Лев
+displayName: Аксёнов Лев Олегович
+mail: l.aksenov@corp.local
+employeeNumber: 1316
+departmentNumber: D051
+title: Инженер
+uidNumber: 10133
+gidNumber: 10000
+homeDirectory: /home/l.aksenov
+loginShell: /bin/bash
+userPassword: {SSHA}pix5VCsbYooXJ/PNwYzhNDOOSPlG4koA
+
+dn: uid=y.kalinina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.kalinina
+cn: Яна Калинина
+sn: Калинина
+givenName: Яна
+displayName: Калинина Яна Павловна
+mail: y.kalinina@corp.local
+employeeNumber: 1402
+departmentNumber: D052
+title: Главный специалист
+uidNumber: 10134
+gidNumber: 10000
+homeDirectory: /home/y.kalinina
+loginShell: /bin/bash
+userPassword: {SSHA}fX9EHcVVXd6Q1Kf+axNZED/swqyofytY
+
+dn: uid=i.borisov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.borisov
+cn: Игорь Борисов
+sn: Борисов
+givenName: Игорь
+displayName: Борисов Игорь Иванович
+mail: i.borisov@corp.local
+employeeNumber: 1130
+departmentNumber: D0322
+title: Системный администратор
+uidNumber: 10135
+gidNumber: 10000
+homeDirectory: /home/i.borisov
+loginShell: /bin/bash
+userPassword: {SSHA}fPP419UURtKeEFROY8arJkvz8MscrMR6
+
+dn: uid=i.akimov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.akimov
+cn: Илья Акимов
+sn: Акимов
+givenName: Илья
+displayName: Акимов Илья Вадимович
+mail: i.akimov@corp.local
+employeeNumber: 1520
+departmentNumber: D081
+title: Руководитель: Группа хранения документов
+uidNumber: 10136
+gidNumber: 10000
+homeDirectory: /home/i.akimov
+loginShell: /bin/bash
+userPassword: {SSHA}ugEje9vtYqojiJRnpShtfl7VDoGS6Ypc
+
+dn: uid=m.ilin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.ilin
+cn: Максим Ильин
+sn: Ильин
+givenName: Максим
+displayName: Ильин Максим Петрович
+mail: m.ilin@corp.local
+employeeNumber: 1529
+departmentNumber: D09
+title: Главный специалист
+uidNumber: 10137
+gidNumber: 10000
+homeDirectory: /home/m.ilin
+loginShell: /bin/bash
+userPassword: {SSHA}SxliqrgZSMBYBp7Ewfxbn4fgg5Q3hEJx
+
+dn: uid=v.mikheev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.mikheev
+cn: Владимир Михеев
+sn: Михеев
+givenName: Владимир
+displayName: Михеев Владимир Петрович
+mail: v.mikheev@corp.local
+employeeNumber: 1174
+departmentNumber: D0411
+title: Менеджер
+uidNumber: 10138
+gidNumber: 10000
+homeDirectory: /home/v.mikheev
+loginShell: /bin/bash
+userPassword: {SSHA}oGDFCDv/lJwRJyb93Zo9dbXU8v541QSR
+
+dn: uid=a.galkina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.galkina
+cn: Алина Галкина
+sn: Галкина
+givenName: Алина
+displayName: Галкина Алина Семёновна
+mail: a.galkina@corp.local
+employeeNumber: 1231
+departmentNumber: D0412
+title: Бухгалтер
+uidNumber: 10139
+gidNumber: 10000
+homeDirectory: /home/a.galkina
+loginShell: /bin/bash
+userPassword: {SSHA}RVAgqx/E0SwhibzYBzcEnz6Cw7LZK+ok
+
+dn: uid=a.rodionov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.rodionov
+cn: Андрей Родионов
+sn: Родионов
+givenName: Андрей
+displayName: Родионов Андрей Константинович
+mail: a.rodionov@corp.local
+employeeNumber: 1415
+departmentNumber: D052
+title: Менеджер
+uidNumber: 10140
+gidNumber: 10000
+homeDirectory: /home/a.rodionov
+loginShell: /bin/bash
+userPassword: {SSHA}ygAG5cLPHOBFzLWvD+BdUm5tkNeRzQdn
+
+dn: uid=m.zhukova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.zhukova
+cn: Марина Жукова
+sn: Жукова
+givenName: Марина
+displayName: Жукова Марина Константиновна
+mail: m.zhukova@corp.local
+employeeNumber: 1379
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10141
+gidNumber: 10000
+homeDirectory: /home/m.zhukova
+loginShell: /bin/bash
+userPassword: {SSHA}iX1Zl6rwjtg59rzjDY/7gNXEb9vR6pQN
+
+dn: uid=a.borisov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.borisov
+cn: Антон Борисов
+sn: Борисов
+givenName: Антон
+displayName: Борисов Антон Павлович
+mail: a.borisov@corp.local
+employeeNumber: 1139
+departmentNumber: D041
+title: Руководитель: Отдел продаж
+uidNumber: 10142
+gidNumber: 10000
+homeDirectory: /home/a.borisov
+loginShell: /bin/bash
+userPassword: {SSHA}v2P6huYOYaFxoOgfmqBwiz1PH5RyFbZX
+
+dn: uid=s.karpov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.karpov
+cn: Сергей Карпов
+sn: Карпов
+givenName: Сергей
+displayName: Карпов Сергей Георгиевич
+mail: s.karpov@corp.local
+employeeNumber: 1243
+departmentNumber: D042
+title: Кладовщик
+uidNumber: 10143
+gidNumber: 10000
+homeDirectory: /home/s.karpov
+loginShell: /bin/bash
+userPassword: {SSHA}+vH09WfD+VzkdnvjFYh1wr2oJ/BoxS+k
+
+dn: uid=v.grishin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.grishin
+cn: Виталий Гришин
+sn: Гришин
+givenName: Виталий
+displayName: Гришин Виталий Борисович
+mail: v.grishin@corp.local
+employeeNumber: 1488
+departmentNumber: D06
+title: Кладовщик
+uidNumber: 10144
+gidNumber: 10000
+homeDirectory: /home/v.grishin
+loginShell: /bin/bash
+userPassword: Welcome1
+
+dn: uid=e.evdokimova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.evdokimova
+cn: Екатерина Евдокимова
+sn: Евдокимова
+givenName: Екатерина
+displayName: Евдокимова Екатерина Игоревна
+mail: e.evdokimova@corp.local
+employeeNumber: 1007
+departmentNumber: D011
+title: Кладовщик
+uidNumber: 10145
+gidNumber: 10000
+homeDirectory: /home/e.evdokimova
+loginShell: /bin/bash
+userPassword: {SSHA}9Ohut3anvvR1DFXDdM8PuIadhJKXBThL
+
+dn: uid=p.lazareva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.lazareva
+cn: Полина Лазарева
+sn: Лазарева
+givenName: Полина
+displayName: Лазарева Полина Сергеевна
+mail: p.lazareva@corp.local
+employeeNumber: 1249
+departmentNumber: D042
+title: Менеджер
+uidNumber: 10146
+gidNumber: 10000
+homeDirectory: /home/p.lazareva
+loginShell: /bin/bash
+userPassword: {SSHA}LYTDq01kGvNnTcD8VyTarN3qpPqzEt0r
+
+dn: uid=t.markova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.markova
+cn: Татьяна Маркова
+sn: Маркова
+givenName: Татьяна
+displayName: Маркова Татьяна Дмитриевна
+mail: t.markova@corp.local
+employeeNumber: 1159
+departmentNumber: D0411
+title: Оператор
+uidNumber: 10147
+gidNumber: 10000
+homeDirectory: /home/t.markova
+loginShell: /bin/bash
+userPassword: {SSHA}gPf8p3Adxb5OH3Ycj/27PzxIoLQ2yA68
+
+dn: uid=t.rumyantsev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.rumyantsev
+cn: Тимур Румянцев
+sn: Румянцев
+givenName: Тимур
+displayName: Румянцев Тимур Андреевич
+mail: t.rumyantsev@corp.local
+employeeNumber: 1314
+departmentNumber: D051
+title: Экономист
+uidNumber: 10148
+gidNumber: 10000
+homeDirectory: /home/t.rumyantsev
+loginShell: /bin/bash
+userPassword: {SSHA}W4sJgNO+W0p8X4ppHDbNEiB49RG6z93D
+
+dn: uid=v.grigoreva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.grigoreva
+cn: Виктория Григорьева
+sn: Григорьева
+givenName: Виктория
+displayName: Григорьева Виктория Романовна
+mail: v.grigoreva@corp.local
+employeeNumber: 1157
+departmentNumber: D0411
+title: Мастер участка
+uidNumber: 10149
+gidNumber: 10000
+homeDirectory: /home/v.grigoreva
+loginShell: /bin/bash
+userPassword: {SSHA}ONOm6Fu511RJ5Qs3WrxB1zVlOjWgVdGl
+
+dn: uid=t.mukhin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.mukhin
+cn: Тимур Мухин
+sn: Мухин
+givenName: Тимур
+displayName: Мухин Тимур Борисович
+mail: t.mukhin@corp.local
+employeeNumber: 1345
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10150
+gidNumber: 10000
+homeDirectory: /home/t.mukhin
+loginShell: /bin/bash
+userPassword: {SSHA}ZTC29SJtc7WIP82ksJws8Ub84n0vA10l
+
+dn: uid=p.matveev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.matveev
+cn: Павел Матвеев
+sn: Матвеев
+givenName: Павел
+displayName: Матвеев Павел Константинович
+mail: p.matveev@corp.local
+employeeNumber: 1270
+departmentNumber: D051
+title: Менеджер
+uidNumber: 10151
+gidNumber: 10000
+homeDirectory: /home/p.matveev
+loginShell: /bin/bash
+userPassword: {SSHA}4oFeItsvw9tNQYAI2Nnwfe6GVVb+Jssn
+
+dn: uid=p.sobolev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.sobolev
+cn: Павел Соболев
+sn: Соболев
+givenName: Павел
+displayName: Соболев Павел Дмитриевич
+mail: p.sobolev@corp.local
+employeeNumber: 1213
+departmentNumber: D0412
+title: Мастер участка
+uidNumber: 10152
+gidNumber: 10000
+homeDirectory: /home/p.sobolev
+loginShell: /bin/bash
+userPassword: {SSHA}goMkcDmu6eERaj40nC7CeB/5rEib6j3D
+
+dn: uid=s.sofronov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.sofronov
+cn: Семён Софронов
+sn: Софронов
+givenName: Семён
+displayName: Софронов Семён Дмитриевич
+mail: s.sofronov@corp.local
+employeeNumber: 1436
+departmentNumber: D053
+title: Техник
+uidNumber: 10153
+gidNumber: 10000
+homeDirectory: /home/s.sofronov
+loginShell: /bin/bash
+userPassword: {SSHA}IZe05lY45ESKZsYka9AU5h75kldVAZfj
+
+dn: uid=s.bondarenko2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.bondarenko2
+cn: Семён Бондаренко
+sn: Бондаренко
+givenName: Семён
+displayName: Бондаренко Семён Викторович
+mail: s.bondarenko2@corp.local
+employeeNumber: 1539
+departmentNumber: D052
+title: Инженер
+uidNumber: 10154
+gidNumber: 10000
+homeDirectory: /home/s.bondarenko2
+loginShell: /bin/bash
+userPassword: {SSHA}w5TM97UrSZiLv0TN9nqCN30cJdYt8Od/
+
+dn: uid=n.matveeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.matveeva
+cn: Надежда Матвеева
+sn: Матвеева
+givenName: Надежда
+displayName: Матвеева Надежда Степановна
+mail: n.matveeva@corp.local
+employeeNumber: 1421
+departmentNumber: D052
+title: Мастер участка
+uidNumber: 10155
+gidNumber: 10000
+homeDirectory: /home/n.matveeva
+loginShell: /bin/bash
+userPassword: {SSHA}8pr4McV1mSgXaG6DVgVGhg3DtNKval0K
+
+dn: uid=s.samoylov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.samoylov
+cn: Семён Самойлов
+sn: Самойлов
+givenName: Семён
+displayName: Самойлов Семён Фёдорович
+mail: s.samoylov@corp.local
+employeeNumber: 1072
+departmentNumber: D031
+title: Руководитель: Служба технической поддержки
+uidNumber: 10156
+gidNumber: 10000
+homeDirectory: /home/s.samoylov
+loginShell: /bin/bash
+userPassword: {SSHA}x3YUonWjW0M6BolknhY8JbkhUKKRz7Cx
+
+dn: uid=e.grigorev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.grigorev
+cn: Егор Григорьев
+sn: Григорьев
+givenName: Егор
+displayName: Григорьев Егор Фёдорович
+mail: e.grigorev@corp.local
+employeeNumber: 1287
+departmentNumber: D051
+title: Ведущий специалист
+uidNumber: 10157
+gidNumber: 10000
+homeDirectory: /home/e.grigorev
+loginShell: /bin/bash
+userPassword: {SSHA}HsIfuRrXbMCgAslM1Ne1pJnuFoIDPL/V
+
+dn: uid=v.biryukov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.biryukov
+cn: Вячеслав Бирюков
+sn: Бирюков
+givenName: Вячеслав
+displayName: Бирюков Вячеслав Вадимович
+mail: v.biryukov@corp.local
+employeeNumber: 1021
+departmentNumber: D011
+title: Инженер
+uidNumber: 10158
+gidNumber: 10000
+homeDirectory: /home/v.biryukov
+loginShell: /bin/bash
+userPassword: {SSHA}S80KbhFbAQBKMa3hEMDkmGg0MkhSDoK8
+
+dn: uid=a.golubeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.golubeva
+cn: Алина Голубева
+sn: Голубева
+givenName: Алина
+displayName: Голубева Алина Кирилловна
+mail: a.golubeva@corp.local
+employeeNumber: 1201
+departmentNumber: D0412
+title: Ведущий специалист
+uidNumber: 10159
+gidNumber: 10000
+homeDirectory: /home/a.golubeva
+loginShell: /bin/bash
+userPassword: {SSHA}oUTShIfm8dj4hPm/JGio4buLSFLOcQ4h
+
+dn: uid=m.vlasova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.vlasova
+cn: Маргарита Власова
+sn: Власова
+givenName: Маргарита
+displayName: Власова Маргарита Фёдоровна
+mail: m.vlasova@corp.local
+employeeNumber: 1033
+departmentNumber: D012
+title: Специалист
+uidNumber: 10160
+gidNumber: 10000
+homeDirectory: /home/m.vlasova
+loginShell: /bin/bash
+userPassword: Welcome1
+
+dn: uid=v.shevchenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.shevchenko
+cn: Вера Шевченко
+sn: Шевченко
+givenName: Вера
+displayName: Шевченко Вера Фёдоровна
+mail: v.shevchenko@corp.local
+employeeNumber: 1134
+departmentNumber: D033
+title: Специалист по ИБ
+uidNumber: 10161
+gidNumber: 10000
+homeDirectory: /home/v.shevchenko
+loginShell: /bin/bash
+userPassword: {SSHA}y+0/7yPWcDoUpI1BgIU2ef5u5m8am1Fj
+
+dn: uid=e.vinogradova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.vinogradova
+cn: Елизавета Виноградова
+sn: Виноградова
+givenName: Елизавета
+displayName: Виноградова Елизавета Георгиевна
+mail: e.vinogradova@corp.local
+employeeNumber: 1220
+departmentNumber: D0412
+title: Специалист
+uidNumber: 10162
+gidNumber: 10000
+homeDirectory: /home/e.vinogradova
+loginShell: /bin/bash
+userPassword: {SSHA}LYDhPVShmp48m8yTJ019rk35Tb3QfP3h
+
+dn: uid=l.drozdova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.drozdova
+cn: Людмила Дроздова
+sn: Дроздова
+givenName: Людмила
+displayName: Дроздова Людмила Константиновна
+mail: l.drozdova@corp.local
+employeeNumber: 1517
+departmentNumber: D08
+title: Оператор
+uidNumber: 10163
+gidNumber: 10000
+homeDirectory: /home/l.drozdova
+loginShell: /bin/bash
+userPassword: {SSHA}2NyBDnWAPANEG8rQOjAPLgMjO0fZ7ppP
+
+dn: uid=i.ignateva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.ignateva
+cn: Инна Игнатьева
+sn: Игнатьева
+givenName: Инна
+displayName: Игнатьева Инна Михайловна
+mail: i.ignateva@corp.local
+employeeNumber: 1203
+departmentNumber: D0412
+title: Оператор
+uidNumber: 10164
+gidNumber: 10000
+homeDirectory: /home/i.ignateva
+loginShell: /bin/bash
+userPassword: {SSHA}e/cm7unHCOCvqL0Yj8i82ums/bva4JyX
+
+dn: uid=e.ilina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.ilina
+cn: Елизавета Ильина
+sn: Ильина
+givenName: Елизавета
+displayName: Ильина Елизавета Николаевна
+mail: e.ilina@corp.local
+employeeNumber: 1143
+departmentNumber: D0411
+title: Бухгалтер
+uidNumber: 10165
+gidNumber: 10000
+homeDirectory: /home/e.ilina
+loginShell: /bin/bash
+userPassword: {SSHA}PpL78qI8PcsXNXB3g7Q+Pvzj3RrocT1D
+
+dn: uid=v.melnikov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.melnikov
+cn: Виктор Мельников
+sn: Мельников
+givenName: Виктор
+displayName: Мельников Виктор Егорович
+mail: v.melnikov@corp.local
+employeeNumber: 1251
+departmentNumber: D05
+title: Руководитель: Производственная дирекция
+uidNumber: 10166
+gidNumber: 10000
+homeDirectory: /home/v.melnikov
+loginShell: /bin/bash
+userPassword: {SSHA}eLDZN/T74vza0Ip2DJWDlZS9kuoUkPPT
+
+dn: uid=e.goncharov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.goncharov
+cn: Евгений Гончаров
+sn: Гончаров
+givenName: Евгений
+displayName: Гончаров Евгений Сергеевич
+mail: e.goncharov@corp.local
+employeeNumber: 1453
+departmentNumber: D054
+title: Главный специалист
+uidNumber: 10167
+gidNumber: 10000
+homeDirectory: /home/e.goncharov
+loginShell: /bin/bash
+userPassword: {SSHA}UI0xIY3hNFMtZ1b1TPeFy6p1G0GI7N5k
+
+dn: uid=s.prokofeva2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.prokofeva2
+cn: Светлана Прокофьева
+sn: Прокофьева
+givenName: Светлана
+displayName: Прокофьева Светлана Алексеевна
+mail: s.prokofeva2@corp.local
+employeeNumber: 1542
+departmentNumber: D051
+title: Мастер участка
+uidNumber: 10168
+gidNumber: 10000
+homeDirectory: /home/s.prokofeva2
+loginShell: /bin/bash
+userPassword: {SSHA}2SE6qNu/kKYCrFcHZQWiPxrAdmBLJMrB
+
+dn: uid=z.efremova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: z.efremova
+cn: Жанна Ефремова
+sn: Ефремова
+givenName: Жанна
+displayName: Ефремова Жанна Юрьевна
+mail: z.efremova@corp.local
+employeeNumber: 1121
+departmentNumber: D0321
+title: Сетевой инженер
+uidNumber: 10169
+gidNumber: 10000
+homeDirectory: /home/z.efremova
+loginShell: /bin/bash
+userPassword: {SSHA}J0ptpR8JYCYeKZPLCvvbCMbVtMWQ7sO6
+
+dn: uid=p.voronova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.voronova
+cn: Полина Воронова
+sn: Воронова
+givenName: Полина
+displayName: Воронова Полина Константиновна
+mail: p.voronova@corp.local
+employeeNumber: 1017
+departmentNumber: D011
+title: Мастер участка
+uidNumber: 10170
+gidNumber: 10000
+homeDirectory: /home/p.voronova
+loginShell: /bin/bash
+userPassword: {SSHA}ajHh+YwgHeN7kvuGi2b2klAq0lbuZ7Jh
+
+dn: uid=a.kozlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.kozlov
+cn: Андрей Козлов
+sn: Козлов
+givenName: Андрей
+displayName: Козлов Андрей Романович
+mail: a.kozlov@corp.local
+employeeNumber: 1073
+departmentNumber: D0311
+title: Руководитель: Группа первой линии
+uidNumber: 10171
+gidNumber: 10000
+homeDirectory: /home/a.kozlov
+loginShell: /bin/bash
+userPassword: {SSHA}KWnDtSElLo6pLjc0ur9FNDun9dD/buwz
+
+dn: uid=v.arkhipov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.arkhipov
+cn: Василий Архипов
+sn: Архипов
+givenName: Василий
+displayName: Архипов Василий Семёнович
+mail: v.arkhipov@corp.local
+employeeNumber: 1295
+departmentNumber: D051
+title: Главный специалист
+uidNumber: 10172
+gidNumber: 10000
+homeDirectory: /home/v.arkhipov
+loginShell: /bin/bash
+userPassword: {SSHA}znrqFqDP9oRpp6pSUjUIF3ZCEcT2XM1Q
+
+dn: uid=p.khokhlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: p.khokhlov
+cn: Пётр Хохлов
+sn: Хохлов
+givenName: Пётр
+displayName: Хохлов Пётр Андреевич
+mail: p.khokhlov@corp.local
+employeeNumber: 1327
+departmentNumber: D051
+title: Менеджер
+uidNumber: 10173
+gidNumber: 10000
+homeDirectory: /home/p.khokhlov
+loginShell: /bin/bash
+userPassword: {SSHA}6HVIj8ilFgAgfYwRIRSADW0NRSOJyTN2
+
+dn: uid=b.kazakov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: b.kazakov
+cn: Борис Казаков
+sn: Казаков
+givenName: Борис
+displayName: Казаков Борис Викторович
+mail: b.kazakov@corp.local
+employeeNumber: 1115
+departmentNumber: D032
+title: Руководитель: Отдел инфраструктуры
+uidNumber: 10174
+gidNumber: 10000
+homeDirectory: /home/b.kazakov
+loginShell: /bin/bash
+userPassword: {SSHA}HuXiTbQm/MhcLm4MlZRO+AQ3B6WaK+2Q
+
+dn: uid=l.knyazeva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.knyazeva
+cn: Лариса Князева
+sn: Князева
+givenName: Лариса
+displayName: Князева Лариса Максимовна
+mail: l.knyazeva@corp.local
+employeeNumber: 1518
+departmentNumber: D08
+title: Техник
+uidNumber: 10175
+gidNumber: 10000
+homeDirectory: /home/l.knyazeva
+loginShell: /bin/bash
+userPassword: {SSHA}NT3Qe4eHFUveulGUxBdwiSAwqoQmDZNT
+
+dn: uid=e.litvinova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.litvinova
+cn: Елизавета Литвинова
+sn: Литвинова
+givenName: Елизавета
+displayName: Литвинова Елизавета Игоревна
+mail: e.litvinova@corp.local
+employeeNumber: 1234
+departmentNumber: D0412
+title: Юрисконсульт
+uidNumber: 10176
+gidNumber: 10000
+homeDirectory: /home/e.litvinova
+loginShell: /bin/bash
+userPassword: {SSHA}lTOwgz3XAfN4RO3hRyA/Dr1pP6gekp54
+
+dn: uid=i.danilov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.danilov
+cn: Игорь Данилов
+sn: Данилов
+givenName: Игорь
+displayName: Данилов Игорь Борисович
+mail: i.danilov@corp.local
+employeeNumber: 1097
+departmentNumber: D0312
+title: Инженер второй линии
+uidNumber: 10177
+gidNumber: 10000
+homeDirectory: /home/i.danilov
+loginShell: /bin/bash
+userPassword: {SSHA}2fcAVT4R5/kV1ccuf7UJuUSt/txPtviB
+
+dn: uid=s.eremina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.eremina
+cn: Светлана Ерёмина
+sn: Ерёмина
+givenName: Светлана
+displayName: Ерёмина Светлана Фёдоровна
+mail: s.eremina@corp.local
+employeeNumber: 1272
+departmentNumber: D051
+title: Бухгалтер
+uidNumber: 10178
+gidNumber: 10000
+homeDirectory: /home/s.eremina
+loginShell: /bin/bash
+userPassword: {SSHA}jgwm7onjLZgBVdM9l/CorciCcfEcJBOk
+
+dn: uid=l.gorshkova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.gorshkova
+cn: Любовь Горшкова
+sn: Горшкова
+givenName: Любовь
+displayName: Горшкова Любовь Павловна
+mail: l.gorshkova@corp.local
+employeeNumber: 1253
+departmentNumber: D051
+title: Руководитель: Цех №1
+uidNumber: 10179
+gidNumber: 10000
+homeDirectory: /home/l.gorshkova
+loginShell: /bin/bash
+userPassword: {SSHA}QBXIZU6278EhoJcVFGyIPesAHM2ziTKM
+
+dn: uid=g.ilin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.ilin
+cn: Георгий Ильин
+sn: Ильин
+givenName: Георгий
+displayName: Ильин Георгий Вадимович
+mail: g.ilin@corp.local
+employeeNumber: 1009
+departmentNumber: D011
+title: Бухгалтер
+uidNumber: 10180
+gidNumber: 10000
+homeDirectory: /home/g.ilin
+loginShell: /bin/bash
+userPassword: {SSHA}6v4fD6bqkeTwk1qygcwgzyGlbZdY/auz
+
+dn: uid=s.gusev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.gusev
+cn: Станислав Гусев
+sn: Гусев
+givenName: Станислав
+displayName: Гусев Станислав Иванович
+mail: s.gusev@corp.local
+employeeNumber: 1038
+departmentNumber: D012
+title: Мастер участка
+uidNumber: 10181
+gidNumber: 10000
+homeDirectory: /home/s.gusev
+loginShell: /bin/bash
+userPassword: {SSHA}XbWfTafsLU1y+nReo2kOZywDupWkLdh7
+
+dn: uid=m.soloveva,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.soloveva
+cn: Маргарита Соловьёва
+sn: Соловьёва
+givenName: Маргарита
+displayName: Соловьёва Маргарита Павловна
+mail: m.soloveva@corp.local
+employeeNumber: 1148
+departmentNumber: D0411
+title: Главный специалист
+uidNumber: 10182
+gidNumber: 10000
+homeDirectory: /home/m.soloveva
+loginShell: /bin/bash
+userPassword: {SSHA}dB+vaaXd/Rmurq3xf1ybhAaT1o9LgVyB
+
+dn: uid=e.fomina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.fomina
+cn: Елизавета Фомина
+sn: Фомина
+givenName: Елизавета
+displayName: Фомина Елизавета Георгиевна
+mail: e.fomina@corp.local
+employeeNumber: 1216
+departmentNumber: D0412
+title: Главный специалист
+uidNumber: 10183
+gidNumber: 10000
+homeDirectory: /home/e.fomina
+loginShell: /bin/bash
+userPassword: {SSHA}6R0RVc29ruOqcn5Cm2D0JS5wbp8duUMS
+
+dn: uid=i.tikhomirov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.tikhomirov
+cn: Илья Тихомиров
+sn: Тихомиров
+givenName: Илья
+displayName: Тихомиров Илья Дмитриевич
+mail: i.tikhomirov@corp.local
+employeeNumber: 1132
+departmentNumber: D033
+title: Специалист по ИБ
+uidNumber: 10184
+gidNumber: 10000
+homeDirectory: /home/i.tikhomirov
+loginShell: /bin/bash
+userPassword: {SSHA}McO0yiaJpWWA5flbBbqhkh/00cOYWVza
+
+dn: uid=n.aksenova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.aksenova
+cn: Нина Аксёнова
+sn: Аксёнова
+givenName: Нина
+displayName: Аксёнова Нина Викторовна
+mail: n.aksenova@corp.local
+employeeNumber: 1235
+departmentNumber: D042
+title: Руководитель: Отдел маркетинга
+uidNumber: 10185
+gidNumber: 10000
+homeDirectory: /home/n.aksenova
+loginShell: /bin/bash
+userPassword: {SSHA}OBwsUEhH0pwPwnPLFvqjoefleEC7w3bI
+
+dn: uid=l.kalinin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: l.kalinin
+cn: Лев Калинин
+sn: Калинин
+givenName: Лев
+displayName: Калинин Лев Семёнович
+mail: l.kalinin@corp.local
+employeeNumber: 1256
+departmentNumber: D051
+title: Юрисконсульт
+uidNumber: 10186
+gidNumber: 10000
+homeDirectory: /home/l.kalinin
+loginShell: /bin/bash
+userPassword: {SSHA}6u/uiCvdbOI6vu38IwW9DMD1GuJjGrjt
+
+dn: uid=v.orlova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.orlova
+cn: Виктория Орлова
+sn: Орлова
+givenName: Виктория
+displayName: Орлова Виктория Фёдоровна
+mail: v.orlova@corp.local
+employeeNumber: 1467
+departmentNumber: D054
+title: Ведущий специалист
+uidNumber: 10187
+gidNumber: 10000
+homeDirectory: /home/v.orlova
+loginShell: /bin/bash
+userPassword: {SSHA}+XwTNH6VzbbEhjiS4/Byab+CmHNV06tJ
+
+dn: uid=e.bogdanov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.bogdanov
+cn: Евгений Богданов
+sn: Богданов
+givenName: Евгений
+displayName: Богданов Евгений Юрьевич
+mail: e.bogdanov@corp.local
+employeeNumber: 1281
+departmentNumber: D051
+title: Кладовщик
+uidNumber: 10188
+gidNumber: 10000
+homeDirectory: /home/e.bogdanov
+loginShell: /bin/bash
+userPassword: {SSHA}QZ7zSlNOuPIRY7colHF/2iL0y2Se299/
+
+dn: uid=o.demidov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.demidov
+cn: Олег Демидов
+sn: Демидов
+givenName: Олег
+displayName: Демидов Олег Борисович
+mail: o.demidov@corp.local
+employeeNumber: 1368
+departmentNumber: D052
+title: Главный специалист
+uidNumber: 10189
+gidNumber: 10000
+homeDirectory: /home/o.demidov
+loginShell: /bin/bash
+userPassword: {SSHA}wY+DM3EtZhqidmoFJcxr59MBWx7cwYIF
+
+dn: uid=t.anisimov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: t.anisimov
+cn: Тимур Анисимов
+sn: Анисимов
+givenName: Тимур
+displayName: Анисимов Тимур Михайлович
+mail: t.anisimov@corp.local
+employeeNumber: 1334
+departmentNumber: D051
+title: Менеджер
+uidNumber: 10190
+gidNumber: 10000
+homeDirectory: /home/t.anisimov
+loginShell: /bin/bash
+userPassword: {SSHA}905stCl5uNpvzfwj1JUsF44AYFrNt3Sz
+
+dn: uid=g.chernyshev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.chernyshev
+cn: Григорий Чернышёв
+sn: Чернышёв
+givenName: Григорий
+displayName: Чернышёв Григорий Сергеевич
+mail: g.chernyshev@corp.local
+employeeNumber: 1301
+departmentNumber: D051
+title: Кладовщик
+uidNumber: 10191
+gidNumber: 10000
+homeDirectory: /home/g.chernyshev
+loginShell: /bin/bash
+userPassword: {SSHA}QAvD00tRJ05LwMju2M0dhUaIt2n9kz63
+
+dn: uid=m.belyaev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.belyaev
+cn: Михаил Беляев
+sn: Беляев
+givenName: Михаил
+displayName: Беляев Михаил Степанович
+mail: m.belyaev@corp.local
+employeeNumber: 1127
+departmentNumber: D0322
+title: Системный администратор
+uidNumber: 10192
+gidNumber: 10000
+homeDirectory: /home/m.belyaev
+loginShell: /bin/bash
+userPassword: {SSHA}7LRZoheJqv0iG7dKgY+X7iHs2Nv1kU9s
+
+dn: uid=e.vinogradova2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.vinogradova2
+cn: Елизавета Виноградова
+sn: Виноградова
+givenName: Елизавета
+displayName: Виноградова Елизавета Георгиевна
+mail: e.vinogradova2@corp.local
+employeeNumber: 1536
+departmentNumber: D051
+title: Техник
+uidNumber: 10193
+gidNumber: 10000
+homeDirectory: /home/e.vinogradova2
+loginShell: /bin/bash
+userPassword: {SSHA}IFwEkkT+x68gQp/yVx4vKeD5M4T1nZ90
+
+dn: uid=m.osipova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.osipova
+cn: Мария Осипова
+sn: Осипова
+givenName: Мария
+displayName: Осипова Мария Павловна
+mail: m.osipova@corp.local
+employeeNumber: 1152
+departmentNumber: D0411
+title: Бухгалтер
+uidNumber: 10194
+gidNumber: 10000
+homeDirectory: /home/m.osipova
+loginShell: /bin/bash
+userPassword: {SSHA}xwryfWV27yw/EmnE1gxEgYSRz+NdmNNa
+
+dn: uid=o.medvedev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: o.medvedev
+cn: Олег Медведев
+sn: Медведев
+givenName: Олег
+displayName: Медведев Олег Иванович
+mail: o.medvedev@corp.local
+employeeNumber: 1531
+departmentNumber: D09
+title: Юрисконсульт
+uidNumber: 10195
+gidNumber: 10000
+homeDirectory: /home/o.medvedev
+loginShell: /bin/bash
+userPassword: {SSHA}ngjnF59/xzUiGLFvPz5JzC6L5TStZVyI
+
+dn: uid=s.goncharova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.goncharova
+cn: Светлана Гончарова
+sn: Гончарова
+givenName: Светлана
+displayName: Гончарова Светлана Степановна
+mail: s.goncharova@corp.local
+employeeNumber: 1048
+departmentNumber: D021
+title: Руководитель: Отдел кадров
+uidNumber: 10196
+gidNumber: 10000
+homeDirectory: /home/s.goncharova
+loginShell: /bin/bash
+userPassword: {SSHA}lxxQopJsfeMQlqLpu5e6QR1AO8VbiqBn
+
+dn: uid=i.ushakova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: i.ushakova
+cn: Инна Ушакова
+sn: Ушакова
+givenName: Инна
+displayName: Ушакова Инна Кирилловна
+mail: i.ushakova@corp.local
+employeeNumber: 1450
+departmentNumber: D054
+title: Руководитель: Склад
+uidNumber: 10197
+gidNumber: 10000
+homeDirectory: /home/i.ushakova
+loginShell: /bin/bash
+userPassword: {SSHA}bzntYg6fKuIhyZ6HodY6wR449BM39k+O
+
+dn: uid=v.lebedev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.lebedev
+cn: Виталий Лебедев
+sn: Лебедев
+givenName: Виталий
+displayName: Лебедев Виталий Викторович
+mail: v.lebedev@corp.local
+employeeNumber: 1039
+departmentNumber: D0121
+title: Руководитель: Группа бюджетирования
+uidNumber: 10198
+gidNumber: 10000
+homeDirectory: /home/v.lebedev
+loginShell: /bin/bash
+userPassword: {SSHA}3Tn1PW/62DB4rcuoKgaFw/G8FTf8qsoR
+
+dn: uid=e.savina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: e.savina
+cn: Екатерина Савина
+sn: Савина
+givenName: Екатерина
+displayName: Савина Екатерина Владимировна
+mail: e.savina@corp.local
+employeeNumber: 1332
+departmentNumber: D051
+title: Кладовщик
+uidNumber: 10199
+gidNumber: 10000
+homeDirectory: /home/e.savina
+loginShell: /bin/bash
+userPassword: {SSHA}YXN8pRB+e3qJwKnVaPW+kfqeNHtGYuJt
+
+dn: uid=f.prokofev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.prokofev
+cn: Фёдор Прокофьев
+sn: Прокофьев
+givenName: Фёдор
+displayName: Прокофьев Фёдор Николаевич
+mail: f.prokofev@corp.local
+employeeNumber: 1292
+departmentNumber: D051
+title: Инженер
+uidNumber: 10200
+gidNumber: 10000
+homeDirectory: /home/f.prokofev
+loginShell: /bin/bash
+userPassword: {SSHA}iWx2QyRlsbNrmMUfyweFbeCq54Y7qZb9
+
+dn: uid=a.nekrasova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.nekrasova
+cn: Алла Некрасова
+sn: Некрасова
+givenName: Алла
+displayName: Некрасова Алла Павловна
+mail: a.nekrasova@corp.local
+employeeNumber: 1409
+departmentNumber: D052
+title: Специалист
+uidNumber: 10201
+gidNumber: 10000
+homeDirectory: /home/a.nekrasova
+loginShell: /bin/bash
+userPassword: {SSHA}Od+GB0RoFtPmpZeDQjrqHQu0A/fxgw9y
+
+dn: uid=a.sergeev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.sergeev
+cn: Александр Сергеев
+sn: Сергеев
+givenName: Александр
+displayName: Сергеев Александр Евгеньевич
+mail: a.sergeev@corp.local
+employeeNumber: 1019
+departmentNumber: D011
+title: Специалист
+uidNumber: 10202
+gidNumber: 10000
+homeDirectory: /home/a.sergeev
+loginShell: /bin/bash
+userPassword: {SSHA}PqQb2SMqqF40wlTlAg5CHkmqPZlTIaXo
+
+dn: uid=m.grigorev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.grigorev
+cn: Максим Григорьев
+sn: Григорьев
+givenName: Максим
+displayName: Григорьев Максим Петрович
+mail: m.grigorev@corp.local
+employeeNumber: 1045
+departmentNumber: D02
+title: Руководитель: Служба персонала
+uidNumber: 10203
+gidNumber: 10000
+homeDirectory: /home/m.grigorev
+loginShell: /bin/bash
+userPassword: {SSHA}3SHsxJB6VwnZDvtkIHklBE4Tna/3Iknh
+
+dn: uid=a.vinogradov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.vinogradov
+cn: Артём Виноградов
+sn: Виноградов
+givenName: Артём
+displayName: Виноградов Артём Дмитриевич
+mail: a.vinogradov@corp.local
+employeeNumber: 1414
+departmentNumber: D052
+title: Специалист
+uidNumber: 10204
+gidNumber: 10000
+homeDirectory: /home/a.vinogradov
+loginShell: /bin/bash
+userPassword: {SSHA}959H2t8d42WeKt6v7c3WhvNZyy489EsA
+
+dn: uid=s.bogdanov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.bogdanov
+cn: Станислав Богданов
+sn: Богданов
+givenName: Станислав
+displayName: Богданов Станислав Георгиевич
+mail: s.bogdanov@corp.local
+employeeNumber: 1456
+departmentNumber: D054
+title: Специалист
+uidNumber: 10205
+gidNumber: 10000
+homeDirectory: /home/s.bogdanov
+loginShell: /bin/bash
+userPassword: {SSHA}cDQWnfRrmtju4VObcUBj7lswLHA7lxoS
+
+dn: uid=f.yakovlev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.yakovlev
+cn: Фёдор Яковлев
+sn: Яковлев
+givenName: Фёдор
+displayName: Яковлев Фёдор Николаевич
+mail: f.yakovlev@corp.local
+employeeNumber: 1330
+departmentNumber: D051
+title: Главный специалист
+uidNumber: 10206
+gidNumber: 10000
+homeDirectory: /home/f.yakovlev
+loginShell: /bin/bash
+userPassword: {SSHA}zxv03fdBt4JTSuT4iu+/I/p4zSpty8v5
+
+dn: uid=v.volkova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.volkova
+cn: Вера Волкова
+sn: Волкова
+givenName: Вера
+displayName: Волкова Вера Дмитриевна
+mail: v.volkova@corp.local
+employeeNumber: 1373
+departmentNumber: D052
+title: Специалист
+uidNumber: 10207
+gidNumber: 10000
+homeDirectory: /home/v.volkova
+loginShell: /bin/bash
+userPassword: {SSHA}1z9Npc4WiNTYKB5f8IBai6fkzR2K5N8c
+
+dn: uid=v.gromov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.gromov
+cn: Виктор Громов
+sn: Громов
+givenName: Виктор
+displayName: Громов Виктор Олегович
+mail: v.gromov@corp.local
+employeeNumber: 1524
+departmentNumber: D09
+title: Руководитель: Проектный офис
+uidNumber: 10208
+gidNumber: 10000
+homeDirectory: /home/v.gromov
+loginShell: /bin/bash
+userPassword: {SSHA}juCyZBDTA+Oqh033hyrGrT9aaPAhnP8e
+
+dn: uid=s.bondarenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.bondarenko
+cn: Семён Бондаренко
+sn: Бондаренко
+givenName: Семён
+displayName: Бондаренко Семён Викторович
+mail: s.bondarenko@corp.local
+employeeNumber: 1014
+departmentNumber: D011
+title: Оператор
+uidNumber: 10209
+gidNumber: 10000
+homeDirectory: /home/s.bondarenko
+loginShell: /bin/bash
+userPassword: {SSHA}kmY0WCpRlbAmhsMNMSnezq9cDurn1Edr
+
+dn: uid=v.potapova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: v.potapova
+cn: Вера Потапова
+sn: Потапова
+givenName: Вера
+displayName: Потапова Вера Ивановна
+mail: v.potapova@corp.local
+employeeNumber: 1310
+departmentNumber: D051
+title: Инженер
+uidNumber: 10210
+gidNumber: 10000
+homeDirectory: /home/v.potapova
+loginShell: /bin/bash
+userPassword: {SSHA}jJCtodn3ocPUhCu8r1ZE2VwV804INRNU
+
+dn: uid=a.dmitriev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: a.dmitriev
+cn: Алексей Дмитриев
+sn: Дмитриев
+givenName: Алексей
+displayName: Дмитриев Алексей Георгиевич
+mail: a.dmitriev@corp.local
+employeeNumber: 1163
+departmentNumber: D0411
+title: Экономист
+uidNumber: 10211
+gidNumber: 10000
+homeDirectory: /home/a.dmitriev
+loginShell: /bin/bash
+userPassword: {SSHA}ar6MMxahcIWEWSsTglZ4lvMe23kTgT7u
+
+dn: uid=g.mikhaylov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.mikhaylov
+cn: Григорий Михайлов
+sn: Михайлов
+givenName: Григорий
+displayName: Михайлов Григорий Евгеньевич
+mail: g.mikhaylov@corp.local
+employeeNumber: 1177
+departmentNumber: D0411
+title: Юрисконсульт
+uidNumber: 10212
+gidNumber: 10000
+homeDirectory: /home/g.mikhaylov
+loginShell: /bin/bash
+userPassword: {SSHA}1G9wiWSryMp5JGmAKqmYopumi/o6xmoQ
+
+dn: uid=d.kalinin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: d.kalinin
+cn: Денис Калинин
+sn: Калинин
+givenName: Денис
+displayName: Калинин Денис Александрович
+mail: d.kalinin@corp.local
+employeeNumber: 1027
+departmentNumber: D012
+title: Руководитель: Планово-экономический отдел
+uidNumber: 10213
+gidNumber: 10000
+homeDirectory: /home/d.kalinin
+loginShell: /bin/bash
+userPassword: {SSHA}0nyamTdcELjsETgFJd2WhLFJxsUg+FAV
+
+dn: uid=y.frolova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.frolova
+cn: Юлия Фролова
+sn: Фролова
+givenName: Юлия
+displayName: Фролова Юлия Максимовна
+mail: y.frolova@corp.local
+employeeNumber: 1076
+departmentNumber: D0311
+title: Инженер первой линии
+uidNumber: 10214
+gidNumber: 10000
+homeDirectory: /home/y.frolova
+loginShell: /bin/bash
+userPassword: {SSHA}dJjvW2msBk5NouxMWgD9QFQxxg7yVGib
+
+dn: uid=s.khokhlov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.khokhlov
+cn: Сергей Хохлов
+sn: Хохлов
+givenName: Сергей
+displayName: Хохлов Сергей Владимирович
+mail: s.khokhlov@corp.local
+employeeNumber: 1361
+departmentNumber: D052
+title: Техник
+uidNumber: 10215
+gidNumber: 10000
+homeDirectory: /home/s.khokhlov
+loginShell: /bin/bash
+userPassword: {SSHA}kCXE73ri3HeAIqneVntSrWvKknh9QURe
+
+dn: uid=z.zhdanova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: z.zhdanova
+cn: Жанна Жданова
+sn: Жданова
+givenName: Жанна
+displayName: Жданова Жанна Владимировна
+mail: z.zhdanova@corp.local
+employeeNumber: 1486
+departmentNumber: D06
+title: Кладовщик
+uidNumber: 10216
+gidNumber: 10000
+homeDirectory: /home/z.zhdanova
+loginShell: /bin/bash
+userPassword: {SSHA}mhRvCH+srXVTkp1YWhC8PM7vt2KWhoGt
+
+dn: uid=r.kiselev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: r.kiselev
+cn: Роман Киселёв
+sn: Киселёв
+givenName: Роман
+displayName: Киселёв Роман Андреевич
+mail: r.kiselev@corp.local
+employeeNumber: 1062
+departmentNumber: D022
+title: Мастер участка
+uidNumber: 10217
+gidNumber: 10000
+homeDirectory: /home/r.kiselev
+loginShell: /bin/bash
+userPassword: {SSHA}Cjco83sp3q5YF1HjT9HebmzpFhi5IP2i
+
+dn: uid=m.demina,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: m.demina
+cn: Мария Демина
+sn: Демина
+givenName: Мария
+displayName: Демина Мария Павловна
+mail: m.demina@corp.local
+employeeNumber: 1405
+departmentNumber: D052
+title: Инженер
+uidNumber: 10218
+gidNumber: 10000
+homeDirectory: /home/m.demina
+loginShell: /bin/bash
+userPassword: {SSHA}KDFrfPtyTBUsrXc/XvwEGeLRUn1dAE1P
+
+dn: uid=y.nikitin,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: y.nikitin
+cn: Юрий Никитин
+sn: Никитин
+givenName: Юрий
+displayName: Никитин Юрий Николаевич
+mail: y.nikitin@corp.local
+employeeNumber: 1131
+departmentNumber: D033
+title: Руководитель: Отдел информационной безопасности
+uidNumber: 10219
+gidNumber: 10000
+homeDirectory: /home/y.nikitin
+loginShell: /bin/bash
+userPassword: {SSHA}j/OJqjq8/zxLYL/fSeE6Orb66jX4z1xh
+
+dn: uid=g.romanov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.romanov
+cn: Георгий Романов
+sn: Романов
+givenName: Георгий
+displayName: Романов Георгий Павлович
+mail: g.romanov@corp.local
+employeeNumber: 1466
+departmentNumber: D054
+title: Главный специалист
+uidNumber: 10220
+gidNumber: 10000
+homeDirectory: /home/g.romanov
+loginShell: /bin/bash
+userPassword: {SSHA}t2MuJ5oQWhl1wnnfqD/2PrfsbhVufgKX
+
+dn: uid=n.rodionov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: n.rodionov
+cn: Никита Родионов
+sn: Родионов
+givenName: Никита
+displayName: Родионов Никита Борисович
+mail: n.rodionov@corp.local
+employeeNumber: 1015
+departmentNumber: D011
+title: Инженер
+uidNumber: 10221
+gidNumber: 10000
+homeDirectory: /home/n.rodionov
+loginShell: /bin/bash
+userPassword: {SSHA}ooszVnke/k9KJ7U50AcZDBHG5/oxUEGE
+
+dn: uid=g.lazarev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: g.lazarev
+cn: Григорий Лазарев
+sn: Лазарев
+givenName: Григорий
+displayName: Лазарев Григорий Николаевич
+mail: g.lazarev@corp.local
+employeeNumber: 1239
+departmentNumber: D042
+title: Менеджер
+uidNumber: 10222
+gidNumber: 10000
+homeDirectory: /home/g.lazarev
+loginShell: /bin/bash
+userPassword: {SSHA}RxQBW2gTrXGbOuOVA1K0uPyAOGZ3ztkF
+
+dn: uid=k.panova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.panova
+cn: Ксения Панова
+sn: Панова
+givenName: Ксения
+displayName: Панова Ксения Алексеевна
+mail: k.panova@corp.local
+employeeNumber: 1341
+departmentNumber: D052
+title: Руководитель: Цех №2
+uidNumber: 10223
+gidNumber: 10000
+homeDirectory: /home/k.panova
+loginShell: /bin/bash
+userPassword: {SSHA}BD4YpuEjawTJb8zGs/B5m+C5VrL1tAB4
+
+dn: uid=z.gorshkova,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: z.gorshkova
+cn: Зоя Горшкова
+sn: Горшкова
+givenName: Зоя
+displayName: Горшкова Зоя Григорьевна
+mail: z.gorshkova@corp.local
+employeeNumber: 1358
+departmentNumber: D052
+title: Инженер
+uidNumber: 10224
+gidNumber: 10000
+homeDirectory: /home/z.gorshkova
+loginShell: /bin/bash
+userPassword: {SSHA}y19ZmY6e5X2F0AIxwtdiJspX2ZNSUu2e
+
+dn: uid=f.skvortsov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.skvortsov
+cn: Фёдор Скворцов
+sn: Скворцов
+givenName: Фёдор
+displayName: Скворцов Фёдор Павлович
+mail: f.skvortsov@corp.local
+employeeNumber: 1110
+departmentNumber: D0313
+title: Инженер выездной поддержки
+uidNumber: 10225
+gidNumber: 10000
+homeDirectory: /home/f.skvortsov
+loginShell: /bin/bash
+userPassword: {SSHA}jGXp/PKhM/KOgJM8nb/T2S7zJMgv7ziP
+
+dn: uid=f.golubev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: f.golubev
+cn: Фёдор Голубев
+sn: Голубев
+givenName: Фёдор
+displayName: Голубев Фёдор Степанович
+mail: f.golubev@corp.local
+employeeNumber: 1417
+departmentNumber: D052
+title: Инженер
+uidNumber: 10226
+gidNumber: 10000
+homeDirectory: /home/f.golubev
+loginShell: /bin/bash
+userPassword: {SSHA}1tL45ghAQ5g/UKZQpG1LObHDevlLXyh+
+
+dn: uid=s.karpenko,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: s.karpenko
+cn: Семён Карпенко
+sn: Карпенко
+givenName: Семён
+displayName: Карпенко Семён Антонович
+mail: s.karpenko@corp.local
+employeeNumber: 1005
+departmentNumber: D011
+title: Бухгалтер
+uidNumber: 10227
+gidNumber: 10000
+homeDirectory: /home/s.karpenko
+loginShell: /bin/bash
+userPassword: {SSHA}o4NFLmne1z5hRhdv6LXL/vRSXz9CGHnr
+
+dn: uid=k.sidorova2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.sidorova2
+cn: Ксения Сидорова
+sn: Сидорова
+givenName: Ксения
+displayName: Сидорова Ксения Георгиевна
+mail: k.sidorova2@corp.local
+employeeNumber: 1546
+departmentNumber: D011
+title: Главный специалист
+uidNumber: 10228
+gidNumber: 10000
+homeDirectory: /home/k.sidorova2
+loginShell: /bin/bash
+userPassword: {SSHA}KufzOrfQknOJy5X+8CDAa4K98bSj+G9+
+
+dn: uid=k.sergeev,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: k.sergeev
+cn: Кирилл Сергеев
+sn: Сергеев
+givenName: Кирилл
+displayName: Сергеев Кирилл Юрьевич
+mail: k.sergeev@corp.local
+employeeNumber: 1013
+departmentNumber: D011
+title: Ведущий специалист
+uidNumber: 10229
+gidNumber: 10000
+homeDirectory: /home/k.sergeev
+loginShell: /bin/bash
+userPassword: {SSHA}p4hpTxtgI0bA1Q/LV4jCotoShSQJagS6
+
+dn: uid=contractor.petrov,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: contractor.petrov
+cn: contractor.petrov
+sn: contractor.petrov
+mail: contractor.petrov@corp.local
+uidNumber: 10230
+gidNumber: 10000
+homeDirectory: /home/contractor.petrov
+userPassword: {SSHA}90JTFNuJ93+RCEUSq0bkscuapSVRw8Ze
+
+dn: uid=test,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: test
+cn: test
+sn: test
+mail: test@corp.local
+uidNumber: 10231
+gidNumber: 10000
+homeDirectory: /home/test
+userPassword: {SSHA}TBgTWotEeJq16rCSaWV46TZMykrViwnP
+
+dn: uid=admin2,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: admin2
+cn: admin2
+sn: admin2
+mail: admin2@corp.local
+uidNumber: 10232
+gidNumber: 10000
+homeDirectory: /home/admin2
+userPassword: {SSHA}IYdOTkqfHR1+k6ipgx8XDRKE9nhGS8B3
+
+dn: uid=temp.buh,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: temp.buh
+cn: temp.buh
+sn: temp.buh
+mail: temp.buh@corp.local
+uidNumber: 10233
+gidNumber: 10000
+homeDirectory: /home/temp.buh
+userPassword: {SSHA}c4dAJG8B0VFBgZS3sPqem/6phPL6dzhQ
+
+dn: uid=scanner,ou=people,dc=corp,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+uid: scanner
+cn: scanner
+sn: scanner
+mail: scanner@corp.local
+uidNumber: 10234
+gidNumber: 10000
+homeDirectory: /home/scanner
+userPassword: {SSHA}FR/YAPUye+1WJ9gtkDskPjlxyPZCEiTb
+
+dn: uid=svc-notifier,ou=service,dc=corp,dc=local
+objectClass: account
+objectClass: simpleSecurityObject
+uid: svc-notifier
+userPassword: CHANGE_ME
+
+dn: uid=svc-mailintake,ou=service,dc=corp,dc=local
+objectClass: account
+objectClass: simpleSecurityObject
+uid: svc-mailintake
+userPassword: CHANGE_ME
+
+dn: uid=svc-dirsync,ou=service,dc=corp,dc=local
+objectClass: account
+objectClass: simpleSecurityObject
+uid: svc-dirsync
+userPassword: CHANGE_ME
+
+dn: cn=it-support-l1,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: it-support-l1
+member: uid=a.kozlov,ou=people,dc=corp,dc=local
+member: uid=y.frolova,ou=people,dc=corp,dc=local
+member: uid=m.lavrov,ou=people,dc=corp,dc=local
+member: uid=m.filippov,ou=people,dc=corp,dc=local
+member: uid=e.aksenova,ou=people,dc=corp,dc=local
+member: uid=d.loginova,ou=people,dc=corp,dc=local
+
+dn: cn=it-support-l2,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: it-support-l2
+member: uid=m.kalinina,ou=people,dc=corp,dc=local
+member: uid=i.polyakov,ou=people,dc=corp,dc=local
+member: uid=i.danilov,ou=people,dc=corp,dc=local
+member: uid=b.knyazev,ou=people,dc=corp,dc=local
+member: uid=f.kuzin,ou=people,dc=corp,dc=local
+member: uid=o.voronova,ou=people,dc=corp,dc=local
+
+dn: cn=it-field,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: it-field
+member: uid=m.fadeeva,ou=people,dc=corp,dc=local
+member: uid=l.ovchinnikova,ou=people,dc=corp,dc=local
+member: uid=f.skvortsov,ou=people,dc=corp,dc=local
+
+dn: cn=it-infra,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: it-infra
+member: uid=z.biryukova,ou=people,dc=corp,dc=local
+member: uid=z.efremova,ou=people,dc=corp,dc=local
+member: uid=o.kuzina,ou=people,dc=corp,dc=local
+member: uid=n.shevchenko,ou=people,dc=corp,dc=local
+member: uid=a.nikitina,ou=people,dc=corp,dc=local
+member: uid=m.belyaev,ou=people,dc=corp,dc=local
+member: uid=e.kovaleva,ou=people,dc=corp,dc=local
+member: uid=i.borisov,ou=people,dc=corp,dc=local
+
+dn: cn=it-security,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: it-security
+member: uid=y.nikitin,ou=people,dc=corp,dc=local
+member: uid=i.tikhomirov,ou=people,dc=corp,dc=local
+
+dn: cn=dispatchers,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: dispatchers
+member: uid=e.aksenova,ou=people,dc=corp,dc=local
+member: uid=y.frolova,ou=people,dc=corp,dc=local
+member: uid=ghost.user,ou=people,dc=corp,dc=local
+
+dn: cn=dept-heads,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: dept-heads
+member: uid=m.gorbunov,ou=people,dc=corp,dc=local
+member: uid=m.leonteva,ou=people,dc=corp,dc=local
+member: uid=e.korotkova,ou=people,dc=corp,dc=local
+member: uid=a.nikitina,ou=people,dc=corp,dc=local
+member: uid=m.kalinina,ou=people,dc=corp,dc=local
+member: uid=m.markova,ou=people,dc=corp,dc=local
+member: uid=d.vasilev,ou=people,dc=corp,dc=local
+member: uid=d.nikitin,ou=people,dc=corp,dc=local
+member: uid=m.fadeeva,ou=people,dc=corp,dc=local
+member: uid=d.voronov,ou=people,dc=corp,dc=local
+member: uid=z.zotova,ou=people,dc=corp,dc=local
+member: uid=e.dementeva,ou=people,dc=corp,dc=local
+member: uid=y.ponomareva,ou=people,dc=corp,dc=local
+member: uid=z.biryukova,ou=people,dc=corp,dc=local
+member: uid=m.evdokimova,ou=people,dc=corp,dc=local
+member: uid=i.kondrateva,ou=people,dc=corp,dc=local
+member: uid=i.akimov,ou=people,dc=corp,dc=local
+member: uid=a.borisov,ou=people,dc=corp,dc=local
+member: uid=s.samoylov,ou=people,dc=corp,dc=local
+member: uid=v.melnikov,ou=people,dc=corp,dc=local
+member: uid=a.kozlov,ou=people,dc=corp,dc=local
+member: uid=b.kazakov,ou=people,dc=corp,dc=local
+member: uid=l.gorshkova,ou=people,dc=corp,dc=local
+member: uid=n.aksenova,ou=people,dc=corp,dc=local
+member: uid=s.goncharova,ou=people,dc=corp,dc=local
+member: uid=i.ushakova,ou=people,dc=corp,dc=local
+member: uid=v.lebedev,ou=people,dc=corp,dc=local
+member: uid=m.grigorev,ou=people,dc=corp,dc=local
+member: uid=v.gromov,ou=people,dc=corp,dc=local
+member: uid=d.kalinin,ou=people,dc=corp,dc=local
+member: uid=y.nikitin,ou=people,dc=corp,dc=local
+member: uid=k.panova,ou=people,dc=corp,dc=local
+
+dn: cn=auditors,ou=groups,dc=corp,dc=local
+objectClass: groupOfNames
+cn: auditors
+member: uid=g.ilin,ou=people,dc=corp,dc=local
+member: uid=e.evdokimova,ou=people,dc=corp,dc=local

@@ -1,0 +1,54 @@
+dn: uid=i.prokhorov,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: dismissed (locked by dirsync)
+
+dn: uid=v.shevchenko,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: dismissed (locked by dirsync)
+
+dn: uid=o.voronova,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: dismissed (locked by dirsync)
+
+dn: uid=g.chernyshev,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: dismissed (locked by dirsync)
+
+dn: uid=e.goncharov,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: dismissed (locked by dirsync)
+
+dn: uid=test,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: service/test account (locked)
+
+dn: uid=temp.buh,ou=people,dc=corp,dc=local
+changetype: modify
+delete: userPassword
+-
+replace: description
+description: BLOCKED: service/test account (locked)
+
+dn: uid=contractor.petrov,ou=people,dc=corp,dc=local
+changetype: modify
+replace: description
+description: contractor account - review access and expiry
+

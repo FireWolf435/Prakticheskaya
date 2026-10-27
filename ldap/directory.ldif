@@ -1,0 +1,78 @@
+# Only new entries (base dc=corp,dc=local already exists)
+
+# Organizational Units
+dn: ou=people,dc=corp,dc=local
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=service,dc=corp,dc=local
+objectClass: top
+objectClass: organizationalUnit
+ou: service
+
+# Groups (roles)
+dn: cn=employees,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: employees
+member: cn=admin,dc=corp,dc=local
+
+dn: cn=engineers,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: engineers
+member: cn=admin,dc=corp,dc=local
+
+# Service accounts
+dn: cn=notifier,ou=service,dc=corp,dc=local
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: notifier
+sn: notifier
+uid: notifier
+mail: notifier@corp.local
+
+dn: cn=mailintake,ou=service,dc=corp,dc=local
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+cn: mailintake
+sn: mailintake
+uid: mailintake
+mail: mailintake@corp.local
+
+# Employees (using standard object classes only)
+dn: uid=n.skvortsova,ou=people,dc=corp,dc=local
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+uid: n.skvortsova
+cn: Скворцова Надежда
+sn: Скворцова
+givenName: Надежда
+mail: n.skvortsova@corp.local
+employeeNumber: 1386
+title: Сотрудник
+
+dn: uid=m.gorbunov,ou=people,dc=corp,dc=local
+objectClass: top
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: organizationalPerson
+uid: m.gorbunov
+cn: Горбунов Максим
+sn: Горбунов
+givenName: Максим
+mail: m.gorbunov@corp.local
+employeeNumber: 1059
+title: Инженер
