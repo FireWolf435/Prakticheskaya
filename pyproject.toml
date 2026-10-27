@@ -1,0 +1,46 @@
+[project]
+name = "service-desk"
+version = "1.0.0"
+description = "Service Desk system for ООО «Вектор-Пром»"
+requires-python = ">=3.12"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.isort]
+known-first-party = ["core", "importer", "mailintake", "dirsync", "analysis"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.sqlfluff]
+dialect = "postgres"
+templater = "jinja"
+max_line_length = 120
+
+[tool.sqlfluff.rules]
+capitalisation.keywords = "upper"
+capitalisation.identifiers = "lower"
+capitalisation.functions = "lower"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["tests"]
+omit = ["tests/__pycache__/*", "tests/conftest.py"]
+branch = true
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
