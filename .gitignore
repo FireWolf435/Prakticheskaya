@@ -61,3 +61,8 @@ docs/_*.txt
 # Mail intake runtime artifacts (derived from source .eml, not committed)
 mailintake/attachments/
 mailintake/quarantine/
+  
+# Coverage and test cache  
+.coverage  
+.pytest_cache/  
+htmlcov/ 
