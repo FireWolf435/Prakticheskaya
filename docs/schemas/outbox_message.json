@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://service-desk.corp.local/schemas/outbox_message.json",
+  "title": "Outbox Message Schema",
+  "description": "JSON Schema для сообщений в таблице core.outbox (NOTIFY/outbox)",
+  "type": "object",
+  "required": ["aggregate_type", "aggregate_id", "event_type", "payload", "created_at"],
+  "properties": {
+    "aggregate_type": {
+      "type": "string",
+      "description": "Тип агрегата (ticket, employee, asset)",
+      "enum": ["ticket", "employee", "asset", "user"]
+    },
+    "aggregate_id": {
+      "type": "integer",
+      "description": "ID агрегата"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Тип события",
+      "enum": ["created", "updated", "status_changed", "assigned", "closed", "reopened", "deleted"]
+    },
+    "payload": {
+      "type": "object",
+      "description": "Полезная нагрузка события",
+      "properties": {
+        "ticket_id": { "type": "integer" },
+        "ticket_number": { "type": "string" },
+        "old_status": { "type": "string" },
+        "new_status": { "type": "string" },
+        "executor_id": { "type": "integer" },
+        "author_id": { "type": "integer" },
+        "subject": { "type": "string" },
+        "priority": { "type": "integer" },
+        "sla_deadline": { "type": "string", "format": "date-time" },
+        "comment": { "type": "string" }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Время создания события"
+    },
+    "processed_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Время обработки события (NULL = не обработано)"
+    },
+    "attempts": {
+      "type": "integer",
+      "default": 0,
+      "description": "Количество попыток обработки"
+    },
+    "last_error": {
+      "type": ["string", "null"],
+      "description": "Последняя ошибка обработки"
+    }
+  }
+}

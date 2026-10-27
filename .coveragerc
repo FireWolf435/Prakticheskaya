@@ -1,0 +1,23 @@
+[run]
+source = tests
+omit =
+    tests/__pycache__/*
+    tests/conftest.py
+branch = true
+
+[report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+
+[html]
+directory = htmlcov

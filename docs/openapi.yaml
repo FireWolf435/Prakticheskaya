@@ -1,0 +1,628 @@
+openapi: 3.0.3
+info:
+  title: Service Desk API
+  description: REST API для информационной системы учёта и обработки заявок технической поддержки
+  version: 1.0.0
+  contact:
+    name: ООО «Вектор-Пром»
+    email: support@corp.local
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Локальный сервер разработки
+
+paths:
+  /tickets:
+    get:
+      summary: Список заявок
+      description: Возвращает список заявок с фильтрацией и пагинацией
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [Новая, Назначена, В работе, Ожидание пользователя, Решена, Закрыта, Переоткрыта, Отклонена]
+        - name: priority
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 4
+        - name: category_id
+          in: query
+          schema:
+            type: integer
+        - name: executor_id
+          in: query
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: Список заявок
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tickets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Ticket'
+                  total:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+        '401':
+          description: Не авторизован
+        '403':
+          description: Нет доступа
+
+    post:
+      summary: Создать заявку
+      description: Создаёт новую заявку
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreate'
+      responses:
+        '201':
+          description: Заявка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Неверные данные
+        '401':
+          description: Не авторизован
+
+  /tickets/{ticket_id}:
+    get:
+      summary: Получить заявку
+      description: Возвращает заявку по ID
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Заявка найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '404':
+          description: Заявка не найдена
+
+    put:
+      summary: Обновить заявку
+      description: Обновляет заявку (только разрешённые поля)
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketUpdate'
+      responses:
+        '200':
+          description: Заявка обновлена
+        '400':
+          description: Неверные данные
+        '403':
+          description: Нет доступа
+        '404':
+          description: Заявка не найдена
+        '409':
+          description: Конфликт версий (оптимистичная блокировка)
+
+    delete:
+      summary: Удалить заявку (мягкое удаление)
+      description: Помечает заявку как удалённую
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Заявка удалена
+        '403':
+          description: Нет доступа
+        '404':
+          description: Заявка не найдена
+
+  /tickets/{ticket_id}/status:
+    post:
+      summary: Сменить статус заявки
+      description: Переводит заявку в новый статус по таблице допустимых переходов
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - new_status
+              properties:
+                new_status:
+                  type: string
+                  enum: [Назначена, В работе, Ожидание пользователя, Решена, Закрыта, Переоткрыта, Отклонена]
+                comment:
+                  type: string
+      responses:
+        '200':
+          description: Статус изменён
+        '400':
+          description: Недопустимый переход
+        '403':
+          description: Нет доступа
+        '404':
+          description: Заявка не найдена
+
+  /tickets/{ticket_id}/assign:
+    post:
+      summary: Назначить заявку
+      description: Назначает заявку инженеру (ручное или автоназначение)
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                executor_id:
+                  type: integer
+                auto:
+                  type: boolean
+                  default: false
+      responses:
+        '200':
+          description: Заявка назначена
+        '400':
+          description: Нет подходящего инженера
+        '403':
+          description: Нет доступа
+        '404':
+          description: Заявка не найдена
+
+  /tickets/{ticket_id}/comments:
+    get:
+      summary: Комментарии заявки
+      description: Возвращает список комментариев к заявке
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketComment'
+
+    post:
+      summary: Добавить комментарий
+      description: Добавляет комментарий к заявке
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - body
+              properties:
+                body:
+                  type: string
+                is_internal:
+                  type: boolean
+                  default: false
+      responses:
+        '201':
+          description: Комментарий добавлен
+
+  /tickets/{ticket_id}/attachments:
+    get:
+      summary: Вложения заявки
+      description: Возвращает список вложений к заявке
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Список вложений
+
+    post:
+      summary: Прикрепить файл
+      description: Прикрепляет файл к заявке
+      parameters:
+        - name: ticket_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Файл прикреплён
+
+  /assets:
+    get:
+      summary: Список оборудования
+      description: Возвращает список оборудования с фильтрацией
+      parameters:
+        - name: location_id
+          in: query
+          schema:
+            type: integer
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Список оборудования
+
+    post:
+      summary: Добавить оборудование
+      description: Добавляет новое оборудование
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssetCreate'
+      responses:
+        '201':
+          description: Оборудование добавлено
+
+  /assets/{inv_no}/move:
+    post:
+      summary: Переместить оборудование
+      description: Перемещает оборудование в новое местонахождение
+      parameters:
+        - name: inv_no
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - to_location
+              properties:
+                to_location:
+                  type: integer
+      responses:
+        '200':
+          description: Оборудование перемещено
+
+  /reports/sla:
+    get:
+      summary: Отчёт по SLA
+      description: Возвращает отчёт по просрочкам SLA
+      parameters:
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Отчёт по SLA
+
+  /reports/engineer-load:
+    get:
+      summary: Загрузка инженеров
+      description: Возвращает отчёт по загрузке инженеров за период
+      parameters:
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Отчёт по загрузке
+
+  /users:
+    post:
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя (sec.register_user)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegister'
+      responses:
+        '201':
+          description: Пользователь зарегистрирован
+        '400':
+          description: Неверные данные
+        '403':
+          description: Нет прав на регистрацию
+
+  /users/{user_id}/terminate:
+    post:
+      summary: Уволить пользователя
+      description: Отзывает права, переназначает заявки
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Пользователь уволен
+        '403':
+          description: Нет прав
+        '404':
+          description: Пользователь не найден
+
+components:
+  schemas:
+    Ticket:
+      type: object
+      properties:
+        ticket_id:
+          type: integer
+        ticket_number:
+          type: string
+        author_id:
+          type: integer
+        executor_id:
+          type: integer
+          nullable: true
+        category_id:
+          type: integer
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 4
+        status:
+          type: string
+          enum: [Новая, Назначена, В работе, Ожидание пользователя, Решена, Закрыта, Переоткрыта, Отклонена]
+        subject:
+          type: string
+          maxLength: 500
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        version:
+          type: integer
+        sla_deadline:
+          type: string
+          format: date-time
+          nullable: true
+        sla_spent_min:
+          type: integer
+        sla_paused_at:
+          type: string
+          format: date-time
+          nullable: true
+        sla_paused_total:
+          type: integer
+        closed_at:
+          type: string
+          format: date-time
+          nullable: true
+        is_deleted:
+          type: boolean
+
+    TicketCreate:
+      type: object
+      required:
+        - author_id
+        - category_id
+        - priority
+        - subject
+      properties:
+        author_id:
+          type: integer
+        category_id:
+          type: integer
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 4
+        subject:
+          type: string
+          maxLength: 500
+        description:
+          type: string
+        asset_ids:
+          type: array
+          items:
+            type: integer
+
+    TicketUpdate:
+      type: object
+      properties:
+        subject:
+          type: string
+          maxLength: 500
+        description:
+          type: string
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 4
+        category_id:
+          type: integer
+
+    TicketComment:
+      type: object
+      properties:
+        comment_id:
+          type: integer
+        ticket_id:
+          type: integer
+        author_id:
+          type: integer
+          nullable: true
+        author_email:
+          type: string
+          nullable: true
+        body:
+          type: string
+        is_internal:
+          type: boolean
+        source:
+          type: string
+          enum: [web, mailintake, system]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Asset:
+      type: object
+      properties:
+        asset_id:
+          type: integer
+        inv_no:
+          type: string
+        serial_no:
+          type: string
+          nullable: true
+        name:
+          type: string
+        category_id:
+          type: integer
+        location_id:
+          type: integer
+        is_active:
+          type: boolean
+
+    AssetCreate:
+      type: object
+      required:
+        - inv_no
+        - name
+        - category_id
+        - location_id
+      properties:
+        inv_no:
+          type: string
+        serial_no:
+          type: string
+        name:
+          type: string
+        category_id:
+          type: integer
+        location_id:
+          type: integer
+
+    UserRegister:
+      type: object
+      required:
+        - employee_id
+        - login_name
+        - password
+        - roles
+      properties:
+        employee_id:
+          type: integer
+        login_name:
+          type: string
+        password:
+          type: string
+          minLength: 8
+        roles:
+          type: array
+          items:
+            type: string
+            enum: [employee, engineer, dispatcher, dept_head, auditor, reporting, app_service, migrator, dba]
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    BasicAuth:
+      type: http
+      scheme: basic
+
+security:
+  - BearerAuth: []
