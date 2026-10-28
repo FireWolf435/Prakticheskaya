@@ -1,0 +1,43 @@
+dn: cn=employees,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: employees
+member: cn=admin,dc=corp,dc=local
+
+dn: cn=engineers,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: engineers
+member: cn=admin,dc=corp,dc=local
+
+dn: cn=dispatchers,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: dispatchers
+member: cn=admin,dc=corp,dc=local
+
+dn: cn=reporting,ou=groups,dc=corp,dc=local
+objectClass: top
+objectClass: groupOfNames
+cn: reporting
+member: cn=admin,dc=corp,dc=local
+
+dn: cn=notifier,ou=service,dc=corp,dc=local
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: notifier
+sn: notifier
+uid: notifier
+mail: notifier@corp.local
+
+dn: cn=mailintake,ou=service,dc=corp,dc=local
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: mailintake
+sn: mailintake
+uid: mailintake
+mail: mailintake@corp.local
