@@ -7,7 +7,7 @@ from typing import Any, Callable
 try:
     from PySide6.QtCore import QObject, QThread, Signal, Slot
     from PySide6.QtWidgets import (
-        QApplication, QDialog, QFormLayout, QInputDialog, QLabel, QLineEdit,
+        QApplication, QDialog, QFormLayout, QHeaderView, QInputDialog, QLabel, QLineEdit,
         QMainWindow, QMessageBox, QPushButton, QTabWidget, QTableWidget,
         QTableWidgetItem, QTextEdit, QVBoxLayout, QWidget,
     )
@@ -21,9 +21,10 @@ class ApiWorker(QObject):
     finished = Signal(object)
     failed = Signal(str)
 
-    def __init__(self, operation: Callable[[], Any]) -> None:
+    def __init__(self, operation: Callable[[], Any], on_success: Callable[[Any], None] | None = None) -> None:
         super().__init__()
         self.operation = operation
+        self.on_success = on_success
 
     @Slot()
     def run(self) -> None:
@@ -70,15 +71,15 @@ class MainWindow(QMainWindow):
     def _table(self, headers: list[str]) -> QTableWidget:
         table = QTableWidget(0, len(headers))
         table.setHorizontalHeaderLabels(headers)
-        table.setSortingEnabled(True)
+        table.setSortingEnabled(False)
         return table
 
     def _run(self, operation: Callable[[], Any], on_success: Callable[[Any], None]) -> None:
         thread = QThread(self)
-        worker = ApiWorker(operation)
+        worker = ApiWorker(operation, on_success)
         worker.moveToThread(thread)
         thread.started.connect(worker.run)
-        worker.finished.connect(on_success)
+        worker.finished.connect(self._on_result)
         worker.failed.connect(self.show_error)
         worker.finished.connect(thread.quit)
         worker.failed.connect(thread.quit)
@@ -97,9 +98,20 @@ class MainWindow(QMainWindow):
     def show_error(self, message: str) -> None:
         QMessageBox.warning(self, "Ошибка", message)
 
+    @Slot(object)
+    def _on_result(self, result: Any) -> None:
+        worker = self.sender()
+        callback = getattr(worker, "on_success", None)
+        if callback is not None:
+            callback(result)
+
     def _build_queue(self) -> None:
         page = QWidget(); layout = QVBoxLayout(page)
         self.queue = self._table(["ID", "Номер", "Статус", "Приоритет", "Тема", "Создана", "SLA"])
+        header = self.queue.horizontalHeader()
+        header.setSectionResizeMode(4, QHeaderView.Stretch)  # тема занимает свободное место
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeToContents)
         refresh = QPushButton("Обновить очередь"); refresh.clicked.connect(self.load_queue)
         self.queue.cellClicked.connect(lambda row, _: self.select_ticket(row))
         layout.addWidget(refresh); layout.addWidget(self.queue)
@@ -144,7 +156,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.sla_label); self.tabs.addTab(page, "SLA")
 
     def _build_engineers(self) -> None:
-        page = QWidget(); layout = QVBoxLayout(page); self.engineer_table = self._table(["ID", "Инженер", "Назначено", "Открыто", "Решено"])
+        page = QWidget(); layout = QVBoxLayout(page); self.engineer_table = self._table(["ID", "Инженер", "Назначено", "Закрыто", "Среднее (ч)"])
         button = QPushButton("Обновить загрузку"); button.clicked.connect(lambda: self._run(self.client.engineer_load, self.fill_engineers))
         layout.addWidget(button); layout.addWidget(self.engineer_table); self.tabs.addTab(page, "Загрузка инженеров")
 
