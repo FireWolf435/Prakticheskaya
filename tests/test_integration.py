@@ -61,8 +61,8 @@ class TestIntegrationTicketLifecycle:
         """Создание оборудования."""
         with db_session.cursor() as cur:
             cur.execute(
-                "INSERT INTO core.assets (inv_no, name, category_id, location_id, is_active) "
-                "VALUES ('TEST-INV-INT-1', 'Тестовое оборудование', 1, 1, true) "
+                "INSERT INTO core.assets (inv_no, asset_type, location_id, is_active) "
+                "VALUES ('TEST-INV-INT-1', 'Тестовое оборудование', 1, true) "
                 "ON CONFLICT (inv_no) DO NOTHING RETURNING asset_id")
             result = cur.fetchone()
             if result:
@@ -72,8 +72,8 @@ class TestIntegrationTicketLifecycle:
         """Создание сотрудника."""
         with db_session.cursor() as cur:
             cur.execute(
-                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active) "
-                "VALUES (8888, 'Тестов', 'Тест', '8888', 1, true) "
+                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active, hire_date) "
+                "VALUES (8888, 'Тестов', 'Тест', '8888', 1, true, '2026-01-01') "
                 "ON CONFLICT (employee_id) DO NOTHING RETURNING employee_id")
             result = cur.fetchone()
             if result:

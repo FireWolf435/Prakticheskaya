@@ -51,6 +51,11 @@ class TestNegativeTransitions:
                 "INSERT INTO core.tickets (ticket_number, author_id, category_id, priority, status, subject, created_at, closed_at) "
                 "VALUES ('TEST-NEG-TR-4', 1, 1, 3, 'Решена', 'тест', now() - interval '4 days', now() - interval '3 days') RETURNING ticket_id")
             ticket_id = cur.fetchone()[0]
+            cur.execute(
+                "INSERT INTO core.ticket_status_history (ticket_id, to_status, changed_at) "
+                "VALUES (%s, 'Решена', now() - interval '3 days')",
+                (ticket_id,),
+            )
             try:
                 cur.execute("SELECT core.reopen_ticket(%s)", (ticket_id,))
                 assert False, "Should have raised exception"

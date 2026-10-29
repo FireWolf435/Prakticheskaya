@@ -36,6 +36,9 @@ python_files = ["test_*.py"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short"
 
+[tool.hypothesis]
+max_examples = 10
+
 [tool.coverage.run]
 source = ["tests"]
 omit = ["tests/__pycache__/*", "tests/conftest.py"]

@@ -20,8 +20,8 @@ class TestIntegrationBatch8:
         """Создание оборудования."""
         with db_session.cursor() as cur:
             cur.execute(
-                "INSERT INTO core.assets (inv_no, name, category_id, location_id, is_active) "
-                "VALUES ('TEST-ASSET-8', 'Тестовое оборудование', 1, 1, true) "
+                "INSERT INTO core.assets (inv_no, asset_type, location_id, is_active) "
+                "VALUES ('TEST-ASSET-8', 'Тестовое оборудование', 1, true) "
                 "ON CONFLICT (inv_no) DO NOTHING RETURNING asset_id")
             result = cur.fetchone()
             if result:

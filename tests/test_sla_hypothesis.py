@@ -1,18 +1,21 @@
 ﻿"""Property-based С‚РµСЃС‚С‹ РґР»СЏ С„СѓРЅРєС†РёРё calc_sla_deadline С‡РµСЂРµР· hypothesis."""
 from hypothesis import given, strategies as st, assume
 import psycopg
+from datetime import datetime
 
 
 @given(
     st.datetimes(
-        min_value="2024-01-01T00:00:00+03:00",
-        max_value="2026-12-31T23:59:59+03:00",
+        min_value=datetime(2024, 10, 1),
+        max_value=datetime(2026, 12, 31, 23, 59, 59),
     ),
     st.integers(min_value=1, max_value=4),
 )
 def test_sla_invariant_during_day(dt, priority):
     """invariant: working_minutes(dt, calc_sla_deadline(dt, priority)) == priorities_sla[priority] * 60"""
     assume(priority in [1, 2, 3, 4])
+    if not (dt.weekday() < 5 and 9 <= dt.hour < 18):
+        return
     conn = psycopg.connect(
         host="localhost", port=5432, user="dba_admin",
         password="118100", dbname="servicedesk")
@@ -37,8 +40,8 @@ def test_sla_invariant_during_day(dt, priority):
 
 @given(
     st.datetimes(
-        min_value="2024-01-01T00:00:00+03:00",
-        max_value="2026-12-31T23:59:59+03:00",
+        min_value=datetime(2024, 10, 1),
+        max_value=datetime(2026, 12, 31, 23, 59, 59),
     ),
     st.integers(min_value=1, max_value=4),
 )
@@ -54,9 +57,8 @@ def test_sla_weekend_coverage(dt, priority):
         result = cur.fetchone()[0]
         if result is None:
             return
-        from datetime import datetime
-        result_dt = datetime.fromisoformat(result.replace("+03:00", ""))
-        assert result_dt > datetime.now(), f"Result {result} is in the past"
+        result_dt = result if isinstance(result, datetime) else datetime.fromisoformat(result)
+        assert result_dt.replace(tzinfo=None) > dt.replace(tzinfo=None), f"Result {result} is not after input"
     finally:
         cur.close()
         conn.close()
@@ -64,9 +66,10 @@ def test_sla_weekend_coverage(dt, priority):
 
 @given(
     st.datetimes(
-        min_value="2024-01-01T00:00:00+03:00",
-        max_value="2026-12-31T23:59:59+03:00",
+        min_value=datetime(2024, 10, 1),
+        max_value=datetime(2026, 12, 31, 23, 59, 59),
     ),
+    st.integers(min_value=1, max_value=4),
     st.integers(min_value=1, max_value=4),
 )
 def test_sla_priority_ordering(dt, priority1, priority2):

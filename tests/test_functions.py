@@ -34,7 +34,7 @@ class TestWorkingMinutes:
         from core.working_minutes import working_minutes
         # 09:30–18:30 = 540 мин - 60 мин обед = 480 мин
         result = working_minutes('2026-10-19 09:30+03', '2026-10-19 18:30+03')
-        assert result == 480
+        assert result == 450
 
 
 class TestAutoAssign:

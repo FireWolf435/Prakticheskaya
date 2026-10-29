@@ -9,8 +9,8 @@ class TestIntegrationBatch5:
         """Регистрация пользователя."""
         with db_session.cursor() as cur:
             cur.execute(
-                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active) "
-                "VALUES (7777, 'Тестов', 'Тест', '7777', 1, true) "
+                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active, hire_date) "
+                "VALUES (7777, 'Тестов', 'Тест', '7777', 1, true, '2026-01-01') "
                 "ON CONFLICT (employee_id) DO NOTHING RETURNING employee_id")
             result = cur.fetchone()
             if result:

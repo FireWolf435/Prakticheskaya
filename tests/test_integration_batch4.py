@@ -22,15 +22,15 @@ class TestIntegrationBatch4:
         """История перемещений оборудования."""
         with db_session.cursor() as cur:
             cur.execute(
-                "INSERT INTO core.assets (inv_no, name, category_id, location_id, is_active) "
-                "VALUES ('TEST-ASSET-4', 'Тестовое оборудование', 1, 1, true) "
+                "INSERT INTO core.assets (inv_no, asset_type, location_id, is_active) "
+                "VALUES ('TEST-ASSET-4', 'Тестовое оборудование', 1, true) "
                 "ON CONFLICT (inv_no) DO NOTHING RETURNING asset_id")
             result = cur.fetchone()
             if result:
                 asset_id = result[0]
                 cur.execute(
                     "INSERT INTO core.asset_movements (asset_id, from_location, to_location, moved_at, movement_type) "
-                    "VALUES (%s, 1, 2, now(), 'перемещение') RETURNING movement_id",
+                    "VALUES (%s, 1, 2, now(), 'тестовое перемещение') RETURNING movement_id",
                     (asset_id,))
                 movement_id = cur.fetchone()[0]
                 assert movement_id is not None

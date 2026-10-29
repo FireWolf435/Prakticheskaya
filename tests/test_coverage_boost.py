@@ -74,14 +74,14 @@ class TestMoveAsset:
         with db_session.cursor() as cur:
             # Создаем тестовое оборудование
             cur.execute(
-                "INSERT INTO core.assets (inv_no, name, category_id, location_id, is_active) "
-                "VALUES ('TEST-INV-1', 'Тестовое оборудование', 1, 1, true) "
+                "INSERT INTO core.assets (inv_no, asset_type, location_id, is_active) "
+                "VALUES ('TEST-INV-1', 'Тестовое оборудование', 1, true) "
                 "ON CONFLICT (inv_no) DO NOTHING"
             )
             cur.execute("SELECT asset_id FROM core.assets WHERE inv_no = 'TEST-INV-1'")
             asset_id = cur.fetchone()[0]
             # Перемещаем
-            cur.execute("SELECT core.move_asset('TEST-INV-1', 2)")
+            cur.execute("SELECT core.move_asset('TEST-INV-1', 2::smallint)")
             cur.execute(
                 "SELECT location_id FROM core.assets WHERE asset_id = %s", (asset_id,)
             )
@@ -96,19 +96,19 @@ class TestRegisterUser:
         with db_session.cursor() as cur:
             # Создаем тестового сотрудника
             cur.execute(
-                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active) "
-                "VALUES (9999, 'Тестов', 'Тест', '9999', 1, true) "
+                "INSERT INTO core.employees (employee_id, last_name, first_name, tab_number, department_id, is_active, hire_date) "
+                "VALUES (9999, 'Тестов', 'Тест', '9999', 1, true, '2026-01-01') "
                 "ON CONFLICT (employee_id) DO NOTHING"
             )
             # Регистрируем пользователя
             cur.execute(
-                "SELECT sec.register_user(9999, 'testuser9999', 'TestPass123!', ARRAY['employee'])"
+                    "SELECT sec.register_user(9999, 'testuser9999_' || extract(epoch from now())::bigint, 'TestPass123!', ARRAY['employee'])"
             )
             user_id = cur.fetchone()[0]
             assert user_id is not None
             # Проверяем, что пользователь создан
             cur.execute("SELECT login_name FROM sec.users WHERE user_id = %s", (user_id,))
-            assert cur.fetchone()[0] == 'testuser9999'
+            assert cur.fetchone()[0].startswith('testuser9999')
 
 
 class TestTouchRow:

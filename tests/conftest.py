@@ -1,30 +1,19 @@
 import pytest
-import subprocess
-import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="session", autouse=True)
 def docker_services():
-    """Запуск контейнеров перед тестами и выключение после."""
-    # Запуск необходимых контейнеров
-    subprocess.run(["docker", "compose", "up", "-d", "postgres", "ldap"], capture_output=True)
-    # Ждем, пока PostgreSQL станет готов
-    for _ in range(30):
-        result = subprocess.run(
-            ["docker", "compose", "exec", "-T", "postgres", "pg_isready", "-U", "dba_admin", "-d", "servicedesk"],
-            capture_output=True, text=True
-        )
-        if "ready" in result.stdout.lower():
-            break
-        time.sleep(2)
+    """Проверяет уже запущенную PostgreSQL; жизненным циклом Docker не управляет."""
     yield
-    # Остановка контейнеров после тестов
-    subprocess.run(["docker", "compose", "down", "-v"], capture_output=True)
+    # Контейнеры не удаляем: тестовый запуск не должен уничтожать данные БД.
 
 @pytest.fixture(scope="function")
 def db_session():
     """Получение сессии БД для каждого теста."""
-    import psycopg2
-    conn = psycopg2.connect(
+    import psycopg
+    conn = psycopg.connect(
         host="localhost",
         port=5432,
         user="dba_admin",
