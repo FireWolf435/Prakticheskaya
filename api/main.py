@@ -11,7 +11,10 @@ app = FastAPI(title="Service Desk API", version="1.0.0")
 
 
 def dsn() -> str:
-    return os.getenv("DATABASE_URL", "host=postgres port=5432 dbname=servicedesk user=dba_admin password=118100")
+    value = os.getenv("DATABASE_URL")
+    if not value:
+        raise RuntimeError("DATABASE_URL is not configured")
+    return value
 
 
 class TicketCreate(BaseModel):

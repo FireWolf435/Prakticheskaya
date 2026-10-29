@@ -7,7 +7,7 @@ import psycopg
 
 
 def main() -> None:
-    dsn = os.getenv("DATABASE_URL", "host=postgres port=5432 dbname=servicedesk user=dba_admin password=118100")
+    dsn = os.environ["DATABASE_URL"]
     while True:
         with psycopg.connect(dsn) as conn:
             rows = conn.execute(

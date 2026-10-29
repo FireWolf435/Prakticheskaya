@@ -7,7 +7,7 @@ services:
       dockerfile: api/Dockerfile
     container_name: sd-api
     environment:
-      DATABASE_URL: postgresql://dba_admin:118100@postgres:5432/servicedesk
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     ports:
       - "8000:8000"
     networks:
@@ -22,7 +22,7 @@ services:
       dockerfile: notifier/Dockerfile
     container_name: sd-notifier
     environment:
-      DATABASE_URL: postgresql://dba_admin:118100@postgres:5432/servicedesk
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
     networks:
       - servers
     depends_on:
