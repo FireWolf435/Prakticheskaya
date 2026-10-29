@@ -53,6 +53,7 @@ class MainWindow(QMainWindow):
         self.client = client
         self.employee_id = employee_id
         self._threads: list[QThread] = []
+        self._workers: list[ApiWorker] = []
         self.setWindowTitle("Service Desk")
         self.resize(1100, 700)
         self.tabs = QTabWidget()
@@ -84,7 +85,13 @@ class MainWindow(QMainWindow):
         thread.finished.connect(worker.deleteLater)
         thread.finished.connect(thread.deleteLater)
         self._threads.append(thread)
-        thread.finished.connect(lambda: self._threads.remove(thread) if thread in self._threads else None)
+        self._workers.append(worker)
+        def _cleanup():
+            if worker in self._workers:
+                self._workers.remove(worker)
+            if thread in self._threads:
+                self._threads.remove(thread)
+        thread.finished.connect(_cleanup)
         thread.start()
 
     def show_error(self, message: str) -> None:

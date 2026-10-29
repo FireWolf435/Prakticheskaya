@@ -53,7 +53,7 @@ def create_ticket(ticket: TicketCreate) -> dict[str, Any]:
     with psycopg.connect(dsn(), row_factory=psycopg.rows.dict_row) as conn:
         return conn.execute(
             "INSERT INTO core.tickets (ticket_number, author_id, category_id, priority, status, subject, description) "
-            "VALUES ('API-' || to_char(clock_timestamp(), 'YYYYMMDDHH24MISSMS'), %s, %s, %s, 'Новая', %s, %s) "
+            "VALUES ('A' || to_char(clock_timestamp(), 'YYYYMMDDHH24MISSMS'), %s, %s, %s, 'Новая', %s, %s) "
             "RETURNING ticket_id, ticket_number, status, priority, subject, sla_deadline",
             (ticket.author_id, ticket.category_id, ticket.priority, ticket.subject, ticket.description),
         ).fetchone()
