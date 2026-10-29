@@ -31,22 +31,23 @@ AS $$
         SELECT (p_from AT TIME ZONE 'Europe/Moscow') AS f,
                (p_to   AT TIME ZONE 'Europe/Moscow') AS t
     ), d AS (
-        SELECT c.is_workday,
-               c.cal_date + c.work_start AS ws,
-               c.cal_date + CASE WHEN c.is_short_day
-                                 THEN time '17:00' ELSE c.work_end END AS we,
-               c.cal_date + c.break_start AS bs,
-               c.cal_date + c.break_end   AS be,
+        SELECT COALESCE(c.is_workday, EXTRACT(ISODOW FROM days.cal_date) < 6) AS is_workday,
+               days.cal_date + COALESCE(c.work_start, time '09:00') AS ws,
+               days.cal_date + CASE WHEN COALESCE(c.is_short_day, false)
+                                    THEN time '17:00' ELSE COALESCE(c.work_end, time '18:00') END AS we,
+               days.cal_date + COALESCE(c.break_start, time '13:00') AS bs,
+               days.cal_date + COALESCE(c.break_end, time '14:00') AS be,
                b.f, b.t
-        FROM ref.production_calendar c, b
-        WHERE c.cal_date BETWEEN b.f::date AND b.t::date
+        FROM b
+        CROSS JOIN LATERAL generate_series(b.f::date, b.t::date, interval '1 day') AS days(cal_date)
+        LEFT JOIN ref.production_calendar c ON c.cal_date = days.cal_date
     )
     SELECT coalesce(round(sum(
                EXTRACT(EPOCH FROM (least(we, t) - greatest(ws, f)))
                - greatest(0, EXTRACT(EPOCH FROM (least(be, t) - greatest(bs, f))))
            ) / 60.0), 0)::integer
     FROM d
-    WHERE is_workday AND t > ws AND f < we;
+    WHERE is_workday AND EXTRACT(ISODOW FROM ws::date) < 6 AND t > ws AND f < we;
 $$;
 
 COMMENT ON FUNCTION core.working_minutes(timestamptz, timestamptz) IS
@@ -103,6 +104,10 @@ BEGIN
             v_bs := time '13:00'; v_be := time '14:00';
             v_short := false;
         END IF;
+
+        -- SLA runs only on Monday-Friday; a calendar row cannot turn a
+        -- weekend into a working day by mistake.
+        v_is_work := v_is_work AND EXTRACT(ISODOW FROM v_day) < 6;
 
         IF v_is_work THEN
             v_from := greatest(v_cur, v_day + v_ws);
@@ -535,3 +540,32 @@ $$;
 
 COMMENT ON FUNCTION core.report_engineer_load(timestamptz, timestamptz) IS
 'Отчёт: назначено и закрыто заявок, среднее время решения по инженерам за период';
+
+CREATE OR REPLACE FUNCTION core.report_weekly_dynamics(
+    p_from timestamptz,
+    p_to timestamptz
+)
+RETURNS TABLE (week_start date, total bigint, closed bigint, sla_violations bigint)
+LANGUAGE sql STABLE AS $$
+    SELECT date_trunc('week', t.created_at)::date,
+           count(*)::bigint,
+           count(*) FILTER (WHERE t.status = 'Закрыта')::bigint,
+           count(*) FILTER (WHERE t.closed_at IS NOT NULL AND t.sla_deadline IS NOT NULL
+                                  AND t.closed_at > t.sla_deadline)::bigint
+      FROM core.tickets t
+     WHERE t.created_at >= p_from AND t.created_at < p_to
+     GROUP BY 1 ORDER BY 1;
+$$;
+
+CREATE OR REPLACE FUNCTION core.report_ticket_hours(
+    p_from timestamptz,
+    p_to timestamptz
+)
+RETURNS TABLE (hour_of_day integer, total bigint)
+LANGUAGE sql STABLE AS $$
+    SELECT extract(hour FROM t.created_at AT TIME ZONE 'Europe/Moscow')::integer,
+           count(*)::bigint
+      FROM core.tickets t
+     WHERE t.created_at >= p_from AND t.created_at < p_to
+     GROUP BY 1 ORDER BY 1;
+$$;

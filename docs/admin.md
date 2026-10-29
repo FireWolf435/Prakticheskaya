@@ -21,7 +21,7 @@ docker compose exec -T postgres pg_dump -U dba_admin -d servicedesk > /tmp/sd_ba
 
 **или из хоста:**
 ```bash
-PGPASSWORD=118100 pg_dump -U dba_admin -h localhost -p 5432 -d servicedesk > backup_$(date +%Y%m%d).sql
+pg_dump -U "${POSTGRES_USER}" -h localhost -p "${POSTGRES_PORT:-5432}" -d "${POSTGRES_DB}" > backup_$(date +%Y%m%d).sql
 ```
 
 **Особенности:**
@@ -50,7 +50,7 @@ docker compose exec -T postgres pg_basebackup -U dba_admin -d servicedesk -Fp -X
 
 Пример crontab для ежедневного копирования в 02:00 ночи:
 ```bash
-0 2 * * * PGPASSWORD=118100 pg_dump -U dba_admin -h localhost -p 5432 -d servicedesk | gzip > /var/backups/sd_db_$(date +\%Y\%m\%d).sql.gz
+0 2 * * * pg_dump -U "${POSTGRES_USER}" -h localhost -p "${POSTGRES_PORT:-5432}" -d "${POSTGRES_DB}" | gzip > /var/backups/sd_db_$(date +\%Y\%m\%d).sql.gz
 ```
 Файлы резервных копий должны храниться на отдельном диске/томе, отличном от данных БД.
 
@@ -66,7 +66,7 @@ docker compose stop postgres
 docker compose exec -T postgres bash -c "rm -rf /var/lib/postgresql/data/*
 
 # 3. Восстановление из дампа
-PGPASSWORD=118100 psql -U dba_admin -d servicedesk < backup_20261020.sql
+psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" < backup_YYYYMMDD.sql
 
 # 4. Запуск контейнера
 docker compose start postgres
@@ -212,7 +212,7 @@ SELECT pg_reload_conf();
 host    servicedesk     all   ldap    ldapserver=ldap.service.desk \
     ldapbasedn=dc=service,dc=desk \
     ldapbinddn=cn=admin,dc=service,dc=desk \
-    ldapbindpassword=118100 \
+    ldapbindpassword=<LDAP_ADMIN_PASSWORD> \
     ldapsearchattribute=uid \
     ldapremotefilter=(objectClass=inetOrgPerson) \
     ldapauthmethod=simple

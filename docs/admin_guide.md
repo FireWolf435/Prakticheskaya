@@ -46,7 +46,7 @@ python analysis/gen_load.py 100000
 ### 2.1 Полное резервное копирование (pg_dump)
 ```bash
 # С хоста
-PGPASSWORD=118100 pg_dump -U dba_admin -h localhost -p 5432 -d servicedesk > backup_$(date +%Y%m%d).sql
+pg_dump -U "${POSTGRES_USER}" -h localhost -p "${POSTGRES_PORT:-5432}" -d "${POSTGRES_DB}" > backup_$(date +%Y%m%d).sql
 
 # Через docker
 docker compose exec -T postgres pg_dump -U dba_admin -d servicedesk > backup_$(date +%Y%m%d).sql
@@ -58,7 +58,7 @@ docker compose exec -T postgres pg_dump -U dba_admin -d servicedesk | gzip > bac
 ### 2.2 Автоматическое резервное копирование (cron)
 ```bash
 # Ежедневно в 02:00
-0 2 * * * PGPASSWORD=118100 pg_dump -U dba_admin -h localhost -p 5432 -d servicedesk | gzip > /var/backups/sd_db_$(date +\%Y\%m\%d).sql.gz
+0 2 * * * pg_dump -U "${POSTGRES_USER}" -h localhost -p "${POSTGRES_PORT:-5432}" -d "${POSTGRES_DB}" | gzip > /var/backups/sd_db_$(date +\%Y\%m\%d).sql.gz
 ```
 
 ### 2.3 Физическое копирование (pg_basebackup)
@@ -77,7 +77,7 @@ docker compose stop postgres
 docker compose exec -T postgres bash -c "rm -rf /var/lib/postgresql/data/*"
 
 # 3. Восстановить из дампа
-PGPASSWORD=118100 psql -U dba_admin -d servicedesk < backup_20261027.sql
+psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" < backup_YYYYMMDD.sql
 
 # 4. Запустить контейнер
 docker compose start postgres

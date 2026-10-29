@@ -34,7 +34,7 @@
 | `mail` | docker-mailserver, аутентификация через LDAP |
 | `core` | доменная логика (Python-пакет) |
 | `api` | REST API на FastAPI, контракт в OpenAPI |
-| `notifier` | воркер: читает outbox через `LISTEN/NOTIFY`, шлёт письма по SMTP |
+| `notifier` | воркер: безопасно читает outbox с блокировкой и шлёт письма по SMTP |
 | `mailintake` | забирает письма по IMAP, создаёт заявки/комментарии |
 | `dirsync` | синхронизирует LDAP с БД и ролями PostgreSQL |
 | `importer` | загрузка исходных данных: staging → очистка → целевые таблицы |
@@ -55,16 +55,32 @@ cp .env.example .env
 docker compose up -d
 ```
 
-После запуска поднимаются три контейнера:
+После запуска поднимаются контейнеры PostgreSQL, LDAP, почтового сервера, API и notifier:
 
 | Контейнер | Сервис | Порт |
 |---|---|---|
 | `sd-postgres` | PostgreSQL | 5432 |
 | `sd-ldap` | OpenLDAP | 389, 636 |
 | `sd-mail` | docker-mailserver | 25, 143, 587, 993 |
+| `sd-api` | FastAPI | 8000 |
+| `sd-notifier` | SMTP-уведомления из outbox | — |
 
 Схема БД (`ref`, `core`, `audit`, `sec`, `stage`) создаётся автоматически при
 первом старте `postgres` из скриптов `db/init/*.sql`.
+
+### Запуск desktop-клиента
+
+В отдельном окружении Python установите клиентские зависимости и запустите его
+после старта API:
+
+```bash
+python -m pip install -r desk-client/requirements.txt
+cd desk-client
+python main.py
+```
+
+В окне входа укажите адрес API (по умолчанию `http://localhost:8000`) и ID
+сотрудника. Сетевые запросы выполняются в `QThread`, поэтому окно не блокируется.
 
 ## Структура репозитория
 

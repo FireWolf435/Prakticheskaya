@@ -11,6 +11,12 @@
 --   docker compose cp db/queries/41_queries.sql postgres:/tmp/41_queries.sql
 --   docker compose exec -T postgres psql -U dba_admin -d servicedesk -f /tmp/41_queries.sql
 -- ============================================================================
+
+-- ЗАПРОС 16. Динамика заявок по неделям.
+SELECT * FROM core.report_weekly_dynamics(now() - interval '12 weeks', now());
+
+-- ЗАПРОС 17. Распределение заявок по часам суток (московское время).
+SELECT * FROM core.report_ticket_hours(now() - interval '30 days', now());
 -- (содержимое запросов 1–15 ниже — без изменений, см. исходный файл)
 
 -- ----------------------------------------------------------------------------

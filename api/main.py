@@ -67,3 +67,54 @@ def change_status(ticket_id: int, change: StatusChange) -> dict[str, str]:
         except psycopg.Error as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
     return {"status": change.new_status}
+
+
+@app.get("/api/v1/tickets/{ticket_id}")
+def get_ticket(ticket_id: int) -> dict[str, Any]:
+    with psycopg.connect(dsn(), row_factory=psycopg.rows.dict_row) as conn:
+        ticket = conn.execute(
+            "SELECT ticket_id, ticket_number, status, priority, subject, description, created_at, "
+            "updated_at, sla_deadline, sla_spent_min, author_id, executor_id, department_id "
+            "FROM core.tickets WHERE ticket_id = %s AND is_deleted = false",
+            (ticket_id,),
+        ).fetchone()
+        if ticket is None:
+            raise HTTPException(status_code=404, detail="Заявка не найдена")
+        ticket["history"] = conn.execute(
+            "SELECT from_status, to_status, changed_at, changed_by, comment "
+            "FROM core.ticket_status_history WHERE ticket_id = %s ORDER BY changed_at",
+            (ticket_id,),
+        ).fetchall()
+        return ticket
+
+
+@app.get("/api/v1/reports/engineer-load")
+def engineer_load() -> list[dict[str, Any]]:
+    with psycopg.connect(dsn(), row_factory=psycopg.rows.dict_row) as conn:
+        return conn.execute(
+            "SELECT * FROM core.report_engineer_load(now() - interval '30 days', now())"
+        ).fetchall()
+
+
+@app.get("/api/v1/assets/{asset_id}")
+def get_asset(asset_id: int) -> dict[str, Any]:
+    with psycopg.connect(dsn(), row_factory=psycopg.rows.dict_row) as conn:
+        asset = conn.execute(
+            "SELECT asset_id, inv_no, serial_no, asset_type, model, manufacturer, state, "
+            "responsible_id, location_id, is_active FROM core.assets WHERE asset_id = %s",
+            (asset_id,),
+        ).fetchone()
+        if asset is None:
+            raise HTTPException(status_code=404, detail="Оборудование не найдено")
+        return asset
+
+
+@app.get("/api/v1/admin/users")
+def list_users(limit: int = 100) -> list[dict[str, Any]]:
+    limit = max(1, min(limit, 500))
+    with psycopg.connect(dsn(), row_factory=psycopg.rows.dict_row) as conn:
+        return conn.execute(
+            "SELECT employee_id, tab_number, first_name, last_name, email, department_id, "
+            "is_active FROM core.employees ORDER BY last_name, first_name LIMIT %s",
+            (limit,),
+        ).fetchall()

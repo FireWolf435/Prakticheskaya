@@ -23,6 +23,13 @@ services:
     container_name: sd-notifier
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      SMTP_HOST: ${SMTP_HOST:-mail}
+      SMTP_PORT: ${SMTP_PORT:-25}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM: ${SMTP_FROM:-support@corp.local}
+      SMTP_STARTTLS: ${SMTP_STARTTLS:-0}
+      NOTIFIER_POLL_SECONDS: ${NOTIFIER_POLL_SECONDS:-5}
     networks:
       - servers
     depends_on:
@@ -72,7 +79,6 @@ services:
       LDAP_ORGANISATION: ${LDAP_ORGANIZATION}
       LDAP_DOMAIN: ${LDAP_DOMAIN}
       LDAP_ADMIN_PASSWORD: ${LDAP_ADMIN_PASSWORD}
-      LDAP_SEED_INTERNAL_LDIF_PATH: /container/service/slapd/assets/config/bootstrap/ldif/seed
     ports:
       - "389:389"
       - "636:636"
@@ -103,8 +109,8 @@ services:
     entrypoint: ["/bin/sh", "-c"]
     command:
       - >-
-        ldapsearch -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD:-118100}" -b "uid=n.skvortsova,ou=people,dc=corp,dc=local" -s base >/dev/null 2>&1
-        || (ldapadd -c -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD:-118100}" -f /seed/directory_load.ldif; ldapadd -c -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD:-118100}" -f /seed/bootstrap_extra.ldif; exit 0)
+        ldapsearch -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD}" -b "uid=n.skvortsova,ou=people,dc=corp,dc=local" -s base >/dev/null 2>&1
+        || (ldapadd -c -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD}" -f /seed/directory_load.ldif; ldapadd -c -x -H ldap://ldap -D "cn=admin,dc=corp,dc=local" -w "$${LDAP_ADMIN_PASSWORD}" -f /seed/bootstrap_extra.ldif; exit 0)
 
   # ===========================================================================
   # docker-mailserver — почтовый сервер (Postfix + Dovecot + LDAP auth)

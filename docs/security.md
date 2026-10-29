@@ -71,7 +71,7 @@ host    servicedesk     all             127.0.0.1/32  md5  ssl
 
 ### 2.3 Политика паролей
 ```sql
-ALTER USER dba_admin PASSWORD '118100' RESPASSWORD '118100';
+ALTER USER dba_admin PASSWORD '<new-password>';
 ```
 *Рекомендация: не менее 8 символов,混合大小写, цифр и спецсимволов.*
 

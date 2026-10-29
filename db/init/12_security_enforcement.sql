@@ -41,7 +41,20 @@ CREATE POLICY tickets_dispatcher_all ON core.tickets
 DROP POLICY IF EXISTS tickets_dept_head_select ON core.tickets;
 CREATE POLICY tickets_dept_head_select ON core.tickets
     FOR SELECT TO dept_head
-    USING (department_id = NULLIF(current_setting('app.department_id', true), '')::smallint);
+    USING (
+        department_id IN (
+            WITH RECURSIVE departments AS (
+                SELECT department_id
+                FROM ref.departments
+                WHERE department_id = NULLIF(current_setting('app.department_id', true), '')::smallint
+                UNION ALL
+                SELECT child.department_id
+                FROM ref.departments child
+                JOIN departments parent ON child.parent_id = parent.department_id
+            )
+            SELECT department_id FROM departments
+        )
+    );
 
 DROP POLICY IF EXISTS tickets_reporting_select ON core.tickets;
 CREATE POLICY tickets_reporting_select ON core.tickets

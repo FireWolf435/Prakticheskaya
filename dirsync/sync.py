@@ -37,7 +37,7 @@ def ldap_connect(e):
     conn = Connection(
         server,
         user=e.get("LDAP_BIND_DN", "cn=admin,dc=corp,dc=local"),
-        password=e.get("LDAP_ADMIN_PASSWORD", "118100"),
+        password=e["LDAP_ADMIN_PASSWORD"],
         auto_bind=True,
     )
     return conn
